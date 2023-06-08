@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class dashboard extends React.Component{
     constructor(){
@@ -8,9 +8,9 @@ class dashboard extends React.Component{
                         
                     ],
         };
-        function name(params) {
-          ''
-        }
+        // function name(params) {
+        //   ''
+        // }
       }
       render(){
         return (
