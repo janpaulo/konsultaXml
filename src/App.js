@@ -1,10 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { useState } from 'react';
 import NavItems from './shared/NavItem';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { styled, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Dashboard from './../src/pages/home/dashboard'
@@ -14,14 +11,14 @@ import {
   Route,
 } from "react-router-dom";
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
+// const DrawerHeader = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'flex-end',
+//   padding: theme.spacing(0, 1),
+//   // necessary for content to be below app bar
+//   ...theme.mixins.toolbar,
+// }));
 
 function App() {
   return (
