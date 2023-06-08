@@ -8,6 +8,9 @@ class dashboard extends React.Component{
                         
                     ],
         };
+        function name(params) {
+          ''
+        }
       }
       render(){
         return (
