@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from "react-router-dom";
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 //icons
 
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
@@ -112,6 +113,19 @@ function  NavItem() {
     setOpen(false);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.clear();
+        // Retrieve the object from storage
+        var get_user = localStorage.getItem('item');
+        if(get_user == null ){
+            window.location.reload()
+        }else{
+            return false;
+        }
+        
+  };
+
   return (
     <Box>
       <CssBaseline />
@@ -193,6 +207,33 @@ function  NavItem() {
               </ListItemButton>
             </ListItem>
           ))}
+        </List>
+        <List>
+        <ListItem  disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+              
+              onClick={(event) => {
+                handleSubmit(event);
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+             <LogoutRoundedIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        
         </List>
       </Drawer>
 
