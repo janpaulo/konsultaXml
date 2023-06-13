@@ -90,11 +90,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const items = [{name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
-{name: "Home ", icon: <HomeTwoToneIcon/>, 
-path: 'test',
-// element: <Dashboard/>
-},
+const items = [
+  {name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
+  {name: "Home ", icon: <HomeTwoToneIcon/>, path: 'test',},
   // {name: "Konsulta", icon: <SaveAsTwoToneIcon/>, path: 'konsulta',element: <Konsulta/>},
   // {name: "Employees", icon: <GroupsTwoToneIcon/>, path: 'employees', element: <Employee/>},
   // {name: "File", icon: <AttachFileTwoToneIcon/>, path: 'files',element:<Files/>},
