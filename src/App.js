@@ -17,8 +17,6 @@ import {
 function App() {
     // Retrieve the object from storage
     var get_user = localStorage.getItem('item');
-
-    console.log('item: ', JSON.parse(get_user));
   return (
     <>
     {get_user != null ? 

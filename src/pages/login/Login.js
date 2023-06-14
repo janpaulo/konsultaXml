@@ -12,9 +12,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios'
 
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
@@ -22,20 +21,25 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const userData = {
-        email: data.get('email'),
+      const userData = {
+        username: data.get('email'),
         password: data.get('password'),
       }
-        localStorage.setItem('item', JSON.stringify(userData));
 
-        // Retrieve the object from storage
-        var get_user = localStorage.getItem('item');
-        if(get_user != null ){
-            window.location.reload()
-        }else{
-            return false;
-        }
-        
+      // username: 'kminchelle',
+      // password: '0lelplR',
+
+    axios({
+      method: "POST",
+      url: "https://dummyjson.com/auth/login",
+      data: (userData),
+      headers: { 'Content-Type': 'application/json' }
+      // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
+    }).then(resp => {
+      localStorage.setItem('item', JSON.stringify(resp.data));
+      window.location.reload()
+    })
+
   };
 
   return (
