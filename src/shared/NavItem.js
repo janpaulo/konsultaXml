@@ -23,6 +23,7 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 //icons
 
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import VaccinesIcon from '@mui/icons-material/Vaccines';
 
 const drawerWidth = 240;
 
@@ -94,6 +95,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const items = [
   {name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
   {name: "Home ", icon: <HomeTwoToneIcon/>, path: 'test',},
+  {name: "claims", icon: <VaccinesIcon/>, path: 'claims_registration',},
   // {name: "Konsulta", icon: <SaveAsTwoToneIcon/>, path: 'konsulta',element: <Konsulta/>},
   // {name: "Employees", icon: <GroupsTwoToneIcon/>, path: 'employees', element: <Employee/>},
   // {name: "File", icon: <AttachFileTwoToneIcon/>, path: 'files',element:<Files/>},

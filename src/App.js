@@ -6,6 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Dashboard from './../src/pages/home/dashboard';
 
+import MainRegistration from '../src/pages/eclaims/mainForms'
+
 import Login from '../src/pages/login/Login';
 import {
   BrowserRouter,
@@ -29,6 +31,7 @@ function App() {
             <Container maxWidth="lg" style={{marginTop: '70px'}}>
                 <Routes>
                   <Route exact path="/"  element={ <Dashboard/> } />
+                  <Route exact path="/claims_registration"  element={ <MainRegistration/> } />
                   {/* <Route exact path="/employees"  element={ <Employees/> } />
                   <Route exact path="/files" element={ <Files/> }  />
                   <Route exact path="/leaves" element={ <Leaves/> }  />
