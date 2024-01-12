@@ -19,54 +19,20 @@ import Select from "@mui/material/Select";
 
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import Switch from "@mui/material/Switch";
 
 import Divider from "@mui/material/Divider";
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: "center",
-//   color: theme.palette.text.secondary,
-// }));
 
-// const BootstrapInput = styled(InputBase)(({ theme }) => ({
-//   "label + &": {
-//     marginTop: theme.spacing(3),
-//   },
-//   "& .MuiInputBase-input": {
-//     borderRadius: 4,
-//     position: "relative",
-//     backgroundColor: theme.palette.mode === "light" ? "#F3F6F9" : "#1A2027",
-//     border: "1px solid",
-//     borderColor: theme.palette.mode === "light" ? "#E0E3E7" : "#2D3843",
-//     fontSize: 16,
-//     width: "auto",
-//     padding: "10px 12px",
-//     transition: theme.transitions.create([
-//       "border-color",
-//       "background-color",
-//       "box-shadow",
-//     ]),
-//     // Use the system font instead of the default Roboto font.
-//     fontFamily: [
-//       "-apple-system",
-//       "BlinkMacSystemFont",
-//       '"Segoe UI"',
-//       "Roboto",
-//       '"Helvetica Neue"',
-//       "Arial",
-//       "sans-serif",
-//       '"Apple Color Emoji"',
-//       '"Segoe UI Emoji"',
-//       '"Segoe UI Symbol"',
-//     ].join(","),
-//     "&:focus": {
-//       boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-//       borderColor: theme.palette.primary.main,
-//     },
-//   },
-// }));
+// import Paper from "@mui/material/Paper";
+
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+
+// import { styled } from "@mui/material/styles";
+// import Stack from "@mui/material/Stack";
+
 class forms extends React.Component {
   constructor() {
     super();
@@ -276,7 +242,7 @@ class forms extends React.Component {
             </Grid>
           </Grid>
 
-          <Divider>
+          {/* <Divider>
             {" "}
             <Typography variant="h5" component="h5">
               {" "}
@@ -288,8 +254,8 @@ class forms extends React.Component {
             <InputLabel>
               .....................................................................
             </InputLabel>{" "}
-          </Grid>
-
+          </Grid> */}
+          <br />
           <Divider>
             {" "}
             <Typography variant="h6" component="h6">
@@ -298,6 +264,7 @@ class forms extends React.Component {
             </Typography>
           </Divider>
 
+          <br />
           {/* Member Certification Form */}
           <Grid container spacing={2}>
             <Grid item xs={3}>
@@ -307,7 +274,7 @@ class forms extends React.Component {
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
                 <FormControlLabel
-                  control={<Switch defaultChecked />}
+                  control={<Switch/>}
                   label="YES ?"
                 />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
@@ -337,7 +304,7 @@ class forms extends React.Component {
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
                 <FormControlLabel
-                  control={<Switch defaultChecked />}
+                  control={<Switch/>}
                   label="YES ?"
                 />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
@@ -368,7 +335,7 @@ class forms extends React.Component {
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
                 <FormControlLabel
-                  control={<Switch defaultChecked />}
+                  control={<Switch/>}
                   label="YES ?"
                 />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
@@ -392,13 +359,13 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={3}>
-            - Reason for Signing on Behalf of the member{" "}
+              - Reason for Signing on Behalf of the member{" "}
             </Grid>
             <Grid item xs={3}>
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
                 <FormControlLabel
-                  control={<Switch defaultChecked />}
+                  control={<Switch/>}
                   label="Member is Incapacitated"
                 />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
@@ -406,7 +373,7 @@ class forms extends React.Component {
             </Grid>
 
             <Grid item xs={3}>
-            Other Reason
+              Other Reason
             </Grid>
             <Grid item xs={3}>
               <TextField
@@ -421,20 +388,20 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={3}>
-             - With thumbmark of the Member/representative?{" "}
+              - With thumbmark of the Member/representative?{" "}
             </Grid>
             <Grid item xs={6}>
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
                 <FormControlLabel
-                  control={<Switch defaultChecked />}
+                  control={<Switch/>}
                   label="YES ?"
                 />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
               </FormGroup>
             </Grid>
           </Grid>
-          
+
           <Divider>
             {" "}
             <Typography variant="h6" component="h6">
@@ -463,9 +430,7 @@ class forms extends React.Component {
               {" "}
             </Grid>
             <Grid item xs={8}>
-              <InputLabel>
-                FullName :
-              </InputLabel>
+              <InputLabel>FullName :</InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
                 // label="Multiline"
@@ -480,11 +445,9 @@ class forms extends React.Component {
             <Grid item xs={4}>
               {" "}
             </Grid>
-            
+
             <Grid item xs={12}>
-            <InputLabel>
-                Address :
-              </InputLabel>
+              <InputLabel>Address :</InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
                 // label="Multiline"
@@ -497,9 +460,7 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={4}>
-            <InputLabel>
-                Category :
-              </InputLabel>
+              <InputLabel>Category :</InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
                 // label="Multiline"
@@ -512,9 +473,7 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={4}>
-            <InputLabel>
-                Classification :
-              </InputLabel>
+              <InputLabel>Classification :</InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
                 // label="Multiline"
@@ -527,9 +486,7 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={4}>
-            <InputLabel>
-                Accreditation Period :
-              </InputLabel>
+              <InputLabel>Accreditation Period :</InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
                 // label="Multiline"
@@ -542,11 +499,141 @@ class forms extends React.Component {
                 onChange={this.props.onchange}
               />
             </Grid>
+          </Grid>
+          <br />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Card sx={{ minWidth: 275 }}>
+                <CardContent>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <InputLabel>Admission Date :</InputLabel>
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        // label="Multiline"
+                        // multiline
+                        // maxRows={4}
+                        fullWidth
+                        name="pMemberPIN"
+                        type="date"
+                        size="small"
+                        onChange={this.props.onchange}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <InputLabel>Discharge Date :</InputLabel>
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        // label="Multiline"
+                        // multiline
+                        // maxRows={4}
+                        fullWidth
+                        name="pMemberPIN"
+                        type="date"
+                        size="small"
+                        onChange={this.props.onchange}
+                      />
+                    </Grid>
 
-
-
+                    <Grid item xs={6}>
+                      <InputLabel>Recieve Date :</InputLabel>
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        // label="Multiline"
+                        // multiline
+                        // maxRows={4}
+                        fullWidth
+                        name="pMemberPIN"
+                        type="date"
+                        size="small"
+                        onChange={this.props.onchange}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                          <Typography>
+                            Refiled?
+                            <Switch
+                              name=""
+                              // checked={value === 1}
+                              // onChange={handleChecked}
+                              inputProps={{ "aria-label": "switch" }}
+                            />
+                            Yes
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            id="outlined-multiline-flexible"
+                            // label="Multiline"
+                            // multiline
+                            // maxRows={4}
+                            fullWidth
+                            name="pMemberPIN"
+                            size="small"
+                            onChange={this.props.onchange}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <br />
+                  <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                          <Typography>Remarks </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <FormControlLabel
+                            control={<Checkbox/>}
+                            label="Direct Filed"
+                          />
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <FormGroup>
+                        <FormControlLabel
+                          control={<Checkbox/>}
+                          label="Refer to Membership"
+                        />
+                        <FormControlLabel
+                          control={<Checkbox/>}
+                          label="Refer to legal"
+                        />
+                        <FormControlLabel
+                          control={<Checkbox/>}
+                          label="Refer Accreditation"
+                        />
+                      </FormGroup>
+                    </Grid>
+                    <Grid item xs={4}>
+                    <FormGroup>
+                        <FormControlLabel
+                          control={<Checkbox/>}
+                          label="Pending Due to Policy Issues "
+                        />
+                        <FormControlLabel
+                          control={<Checkbox/>}
+                          label="Pending Due to System issues"
+                        />
+                        <FormControlLabel
+                          control={<Checkbox/>}
+                          label="Refer to collection"
+                        />
+                      </FormGroup>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+                <CardActions>
+                  {/* <Button size="small">Learn More</Button> */}
+                </CardActions>
+              </Card>
             </Grid>
-            
+          </Grid>
+            <br />
           <Grid
             container
             direction="column"

@@ -6,7 +6,7 @@ class mainForms extends React.Component {
   constructor() {
     super();
     this.state = {
-      title: "Konsulta Register Form",
+      title: "Claims",
       item: {},
       items: [],
     }

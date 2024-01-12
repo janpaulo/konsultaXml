@@ -16,10 +16,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+// import InboxIcon from '@mui/icons-material/MoveToInbox';
+// import MailIcon from '@mui/icons-material/Mail';
 import { Link } from "react-router-dom";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import AddToQueueOutlinedIcon from '@mui/icons-material/AddToQueueOutlined';
 //icons
 
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
@@ -94,7 +95,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const items = [
   {name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
-  {name: "Home ", icon: <HomeTwoToneIcon/>, path: 'test',},
+  {name: "eSOA", icon: <AddToQueueOutlinedIcon/>, path: 'test',},
   {name: "claims", icon: <VaccinesIcon/>, path: 'claims_registration',},
   // {name: "Konsulta", icon: <SaveAsTwoToneIcon/>, path: 'konsulta',element: <Konsulta/>},
   // {name: "Employees", icon: <GroupsTwoToneIcon/>, path: 'employees', element: <Employee/>},
@@ -186,7 +187,7 @@ function  NavItem() {
                 ))}
         </List>
         <Divider />
-        <List>
+        {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -209,7 +210,7 @@ function  NavItem() {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
         <List>
         <ListItem  disablePadding sx={{ display: 'block' }}>
             <ListItemButton
