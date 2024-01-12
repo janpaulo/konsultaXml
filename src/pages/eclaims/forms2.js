@@ -31,10 +31,9 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 
+import Forms2Table from "./forms2Table";
+import ProfessionalTables from "./professionalTables";
 
-
-import Forms2Table from "./forms2Table"
- 
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
 
@@ -1398,8 +1397,18 @@ class forms2 extends React.Component {
             </Typography>
           </Divider>
 
-            {/* This line of code is inside in table */}
+          {/* This line of code is inside in table */}
           <Forms2Table />
+
+          <br />
+          <Divider>
+            {" "}
+            <Typography variant="h5" component="h5">
+              {" "}
+              Professional Fees / Charges{" "}
+            </Typography>
+          </Divider>
+          <ProfessionalTables />
 
           <Grid
             container

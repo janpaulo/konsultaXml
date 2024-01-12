@@ -161,7 +161,7 @@ class forms2Table extends React.Component {
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
-                <TableCell>Total Case Rate Amount</TableCell>
+                <TableCell><b>Total Case Rate Amount</b></TableCell>
                 <TableCell></TableCell>
                 <TableCell>
                   {" "}
