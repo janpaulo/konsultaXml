@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 
 // import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+// import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 // import InputBase from "@mui/material/InputBase";
 // import MenuItem from "@mui/material/MenuItem";
 // import Select from "@mui/material/Select";
@@ -195,7 +196,9 @@ class forms2 extends React.Component {
 
             <Grid item xs={12}>
               <Typography>
-                Was patien referred by another Health Care Institution (HCI)
+                <b>
+                  Was patien referred by another Health Care Institution (HCI)
+                </b>
               </Typography>
               <Typography>
                 No?
@@ -209,7 +212,9 @@ class forms2 extends React.Component {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography>Confinement Period :</Typography>
+              <Typography>
+                <b>Confinement Period :</b>
+              </Typography>
               <br />
               <Grid container spacing={2}>
                 <Grid item xs={4}>
@@ -294,7 +299,9 @@ class forms2 extends React.Component {
             </Grid>
 
             <Grid item xs={12}>
-              <Typography>Patient Disposition :</Typography>
+              <Typography>
+                <b>Patient Disposition :</b>
+              </Typography>
               <br />
               <Grid container spacing={2}>
                 <Grid item xs={3}>
@@ -310,7 +317,7 @@ class forms2 extends React.Component {
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                <Typography>
+                  <Typography>
                     <Switch
                       name=""
                       // checked={value === 1}
@@ -405,7 +412,7 @@ class forms2 extends React.Component {
                   </Typography>
                 </Grid>
                 <Grid item xs={5}>
-                {" "}
+                  {" "}
                   <Typography>
                     <Switch
                       name=""
@@ -413,7 +420,40 @@ class forms2 extends React.Component {
                       // onChange={handleChecked}
                       inputProps={{ "aria-label": "switch" }}
                     />
-                    Transferred/Refrred
+                    Transferred/Referred
+                  </Typography>
+                </Grid>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={12}>
+                  {" "}
+                  <Typography>
+                    <b>Type of Accommodation :</b>
+                  </Typography>
+                  <br />
+                </Grid>
+
+                <Grid item xs={3}>
+                  {" "}
+                  <Typography>
+                    <Switch
+                      name=""
+                      // checked={value === 1}
+                      // onChange={handleChecked}
+                      inputProps={{ "aria-label": "switch" }}
+                    />
+                    Private
+                  </Typography>
+                </Grid>
+                <Grid item xs={5}>
+                  {" "}
+                  <Typography>
+                    <Switch
+                      name=""
+                      // checked={value === 1}
+                      // onChange={handleChecked}
+                      inputProps={{ "aria-label": "switch" }}
+                    />
+                    Non-Private(Charity/Service)
                   </Typography>
                 </Grid>
                 <Grid item xs={4}></Grid>
@@ -422,8 +462,157 @@ class forms2 extends React.Component {
           </Grid>
 
           <br />
+          <Divider>
+            {" "}
+            <Typography variant="h5" component="h5">
+              {" "}
+              Diagnosis{" "}
+            </Typography>
+          </Divider>
+          <br />
+          <Grid container spacing={2}>
+            <Typography>
+              <b>Admission Diagnosis/es :</b>
+            </Typography>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-multiline-static"
+                label=""
+                multiline
+                fullWidth
+                rows={5}
+              />
+            </Grid>
+          </Grid>
 
           <br />
+          <Divider>
+            {" "}
+            <Typography variant="h5" component="h5">
+              {" "}
+              Special Considarations{" "}
+            </Typography>
+          </Divider>
+          <br />
+          <Grid container spacing={2}>
+            <Typography>
+              <b>
+                a. For the following repetitive procedures, check box that
+                applies and emunerate the procedure/session dates{" "}
+              </b>
+            </Typography>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Hemodialysis
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Blood Transfusion
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Peritoneal
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Brachytherapy
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Radiotherapy (LINAC)
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Chemotherapy
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Radiotherapy (COBALT)
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Simple Debridement
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                Radiotherapy (IMRT)
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2}>
+            <Typography>
+              <b>
+                b. For Z-Benefits Package {" "}
+              </b>
+            </Typography>
+
+
+
+          </Grid>
+          
           <Grid
             container
             direction="column"
