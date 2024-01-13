@@ -120,7 +120,7 @@ class mainForms extends React.Component {
           </Tabs>
 
           <CustomTabPanel value={this.state.value} index={0}>
-            <Forms2
+            <Forms
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
             />
