@@ -33,6 +33,7 @@ import CardContent from "@mui/material/CardContent";
 
 import Forms2Table from "./forms2Table";
 import ProfessionalTables from "./professionalTables";
+import Certification from "./certification";
 
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
@@ -1408,7 +1409,37 @@ class forms2 extends React.Component {
               Professional Fees / Charges{" "}
             </Typography>
           </Divider>
+
+          {/* This line of code is inside in table ProfessionalTables*/}
           <ProfessionalTables />
+
+          <br />
+          <Divider>
+            {" "}
+            <Typography variant="h5" component="h5">
+              {" "}
+              Certification of Consumption of Benifits and Consent to Access
+              Patient Record{" "}
+            </Typography>
+          </Divider>
+          <br />
+
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Typography>
+                With Attached Statement of Account (SOA)
+                <Switch
+                  name=""
+                  // checked={value === 1}
+                  // onChange={handleChecked}
+                  inputProps={{ "aria-label": "switch" }}
+                />
+                YES?
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Certification />
 
           <Grid
             container
