@@ -5,8 +5,7 @@ import Forms2 from "./forms2";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Box from '@mui/material/Box';
-
+import Box from "@mui/material/Box";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,10 +46,34 @@ class mainForms extends React.Component {
     this.state = {
       title: "Claims",
       item: {},
+      itemcf1: {
+        pMemberPIN: "",
+        pMemberLastName: "",
+        pMemberFirstName: "",
+        pMemberSuffix: "",
+        pMemberMiddleName: "",
+        pMemberBirthDate: "",
+        pMemberShipType: "",
+        pMailingAddress: "",
+        pZipCode: "",
+        pMemberSex: "",
+        pLandlineNo: "",
+        pMobileNo: "",
+        pEmailAddress: "",
+        pPatientIs: "",
+        pPatientPIN: "",
+        pPatientLastName: "",
+        pPatientFirstName: "",
+        pPatientSuffix: "",
+        pPatientMiddleName: "",
+        pPatientBirthDate: "",
+        pPatientSex: "",
+        pPEN: "",
+        pEmployerName: "",
+      },
       items: [],
       value: 0,
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -73,15 +96,15 @@ class mainForms extends React.Component {
   handleInputChange(e) {
     console.log(e.target.value);
     this.setState({
-      item: {
-        ...this.state.item,
+      itemcf1: {
+        ...this.state.itemcf1,
         [e.target.name]: e.target.value,
       },
     });
   }
 
   render() {
-    console.log(this.state.item);
+    // console.log(this.state.item);
     return (
       <>
         <Typography variant="h5" component="h5">
@@ -123,16 +146,15 @@ class mainForms extends React.Component {
             <Forms
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
+              itemCf={this.state.itemcf1}
             />
           </CustomTabPanel>
           <CustomTabPanel value={this.state.value} index={1}>
-          <Forms2
+            <Forms2
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
             />
           </CustomTabPanel>
-
-         
         </div>
       </>
     );

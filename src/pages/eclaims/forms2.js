@@ -108,6 +108,7 @@ class forms2 extends React.Component {
             </Grid>
           </Grid>
           <br />
+
           <Divider>
             {" "}
             <Typography variant="h5" component="h5">
@@ -117,104 +118,6 @@ class forms2 extends React.Component {
           </Divider>
           <br />
           <Grid container spacing={2}>
-            <Grid item xs={8}>
-              {/* <FormControl variant="standard">
-                <InputLabel shrink htmlFor="bootstrap-input">
-                  Bootstrap
-                </InputLabel>
-                <BootstrapInput 
-                  fullWidth
-                  defaultValue="react-bootstrap"
-                  id="bootstrap-input"
-                  onChange={this.props.onchange}
-                />
-              </FormControl> */}
-              <InputLabel>
-                Philhealth Identification No. (PIN) Member :
-              </InputLabel>
-              <TextField
-                id="outlined-multiline-flexible"
-                // label="Multiline"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                name="pMemberPIN"
-                size="small"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              {" "}
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel>Name of Member</InputLabel>{" "}
-            </Grid>
-            <Grid item xs={3}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Last Name"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                name="pMemberLastName"
-                size="small"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="First Name"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                name="pMemberFirstName"
-                size="small"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Extension Name"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                size="small"
-                name="pMemberSuffix"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Middle Name"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                name="pMemberMiddleName"
-                size="small"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography>
-                <b>
-                  Was patien referred by another Health Care Institution (HCI)
-                </b>
-              </Typography>
-              <Typography>
-                No?
-                <Switch
-                  name=""
-                  // checked={value === 1}
-                  // onChange={handleChecked}
-                  inputProps={{ "aria-label": "switch" }}
-                />
-                Yes
-              </Typography>
-            </Grid>
             <Grid item xs={12}>
               <Typography>
                 <b>Confinement Period :</b>

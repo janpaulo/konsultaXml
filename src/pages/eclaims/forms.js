@@ -42,6 +42,7 @@ class forms extends React.Component {
   }
 
   render() {
+    console.log(this.props.itemCf)
     return (
       <>
         <Divider>
@@ -54,17 +55,6 @@ class forms extends React.Component {
         <Box id="fullWidth">
           <Grid container spacing={2}>
             <Grid item xs={8}>
-              {/* <FormControl variant="standard">
-                <InputLabel shrink htmlFor="bootstrap-input">
-                  Bootstrap
-                </InputLabel>
-                <BootstrapInput 
-                  fullWidth
-                  defaultValue="react-bootstrap"
-                  id="bootstrap-input"
-                  onChange={this.props.onchange}
-                />
-              </FormControl> */}
               <InputLabel>
                 Philhealth Identification No. (PIN) Member :
               </InputLabel>
@@ -73,6 +63,7 @@ class forms extends React.Component {
                 // label="Multiline"
                 // multiline
                 // maxRows={4}
+                value={this.props.itemCf.pMemberPIN}
                 fullWidth
                 name="pMemberPIN"
                 size="small"
@@ -92,6 +83,7 @@ class forms extends React.Component {
                 // multiline
                 // maxRows={4}
                 fullWidth
+                value={this.props.itemCf.pMemberLastName}
                 name="pMemberLastName"
                 size="small"
                 onChange={this.props.onchange}
@@ -105,6 +97,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMemberFirstName"
+                value={this.props.itemCf.pMemberFirstName}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -118,6 +111,7 @@ class forms extends React.Component {
                 fullWidth
                 size="small"
                 name="pMemberSuffix"
+                value={this.props.itemCf.pMemberSuffix}
                 onChange={this.props.onchange}
               />
             </Grid>
@@ -129,6 +123,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMemberMiddleName"
+                value={this.props.itemCf.pMemberMiddleName}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -142,6 +137,7 @@ class forms extends React.Component {
                 type="date"
                 InputLabelProps={{ shrink: true, required: true }}
                 fullWidth
+                value={this.props.itemCf.pMemberBirthDate}
                 name="pMemberBirthDate"
                 size="small"
                 onChange={this.props.onchange}
@@ -156,6 +152,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMemberShipType"
+                value={this.props.itemCf.pMemberShipType}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -168,6 +165,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMailingAddress"
+                value={this.props.itemCf.pMailingAddress}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -180,6 +178,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pZipCode"
+                value={this.props.itemCf.pZipCode}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -193,7 +192,9 @@ class forms extends React.Component {
                   // value={age}
                   label="Gender"
                   size="small"
+                  value={this.props.itemCf.pMemberSex}
                   name="pMemberSex"
+                  onChange={this.props.onchange}
                   // onChange={handleChange}
                 >
                   <MenuItem value={1}>Male</MenuItem>
@@ -212,6 +213,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pLandlineNo"
+                value={this.props.itemCf.pLandlineNo}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -224,6 +226,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMobileNo"
+                value={this.props.itemCf.pMobileNo}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -236,6 +239,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pEmailAddress"
+                value={this.props.itemCf.pEmailAddress}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -292,6 +296,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 type="date"
                 fullWidth
+                value={this.props.itemCf.pEmailAddress}
                 name="pEmailAddress"
                 size="small"
                 onChange={this.props.onchange}
@@ -323,6 +328,7 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 type="date"
+                value={this.props.itemCf.pEmailAddress}
                 name="pEmailAddress"
                 size="small"
                 onChange={this.props.onchange}
