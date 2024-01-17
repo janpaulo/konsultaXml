@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import JsonToXml from "json2xml";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -105,6 +106,7 @@ class mainForms extends React.Component {
 
   render() {
     // console.log(this.state.item);
+    console.log(JsonToXml({ CF1: 1, attr: this.state.itemcf1 }, { attributes_key: 'attr' }));
     return (
       <>
         <Typography variant="h5" component="h5">
