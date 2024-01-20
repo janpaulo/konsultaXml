@@ -42,7 +42,7 @@ class forms extends React.Component {
   }
 
   render() {
-    console.log(this.props.itemCf)
+    console.log(this.props.itemCf);
     return (
       <>
         <Divider>
@@ -246,19 +246,138 @@ class forms extends React.Component {
             </Grid>
           </Grid>
 
-          {/* <Divider>
+          <br />
+          <Divider>
             {" "}
-            <Typography variant="h5" component="h5">
+            <Typography variant="h6" component="h6">
               {" "}
               Patient Information{" "}
             </Typography>
           </Divider>
 
-          <Grid item xs={12}>
-            <InputLabel>
-              .....................................................................
-            </InputLabel>{" "}
-          </Grid> */}
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <InputLabel>
+                Philhealth Identification No. (PIN) of Dependent :
+              </InputLabel>
+              <TextField
+                id="outlined-multiline-flexible"
+                // label="Multiline"
+                // multiline
+                // maxRows={4}
+                value={this.props.itemCf.pMemberPIN}
+                fullWidth
+                name="pMemberPIN"
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              {" "}
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel>Name of the Patient</InputLabel>{" "}
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Last Name"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                value={this.props.itemCf.pMemberLastName}
+                name="pMemberLastName"
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="First Name"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                name="pMemberFirstName"
+                value={this.props.itemCf.pMemberFirstName}
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Extension Name"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                size="small"
+                name="pMemberSuffix"
+                value={this.props.itemCf.pMemberSuffix}
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Middle Name"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                name="pMemberMiddleName"
+                value={this.props.itemCf.pMemberMiddleName}
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Date of Birth"
+                // multiline
+                // maxRows={4}
+                type="date"
+                InputLabelProps={{ shrink: true, required: true }}
+                fullWidth
+                value={this.props.itemCf.pMemberBirthDate}
+                name="pMemberBirthDate"
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Zip Code"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                name="pZipCode"
+                value={this.props.itemCf.pZipCode}
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>{" "}
+            <Grid item xs={3}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  // value={age}
+                  label="Gender"
+                  size="small"
+                  value={this.props.itemCf.pMemberSex}
+                  name="pMemberSex"
+                  onChange={this.props.onchange}
+                  // onChange={handleChange}
+                >
+                  <MenuItem value={1}>Male</MenuItem>
+                  <MenuItem value={2}>Female</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
           <br />
           <Divider>
             {" "}
@@ -269,7 +388,6 @@ class forms extends React.Component {
           </Divider>
 
           <br />
-          {/* Member Certification Form */}
           <Grid container spacing={2}>
             <Grid item xs={3}>
               - With signature of member?{" "}
@@ -277,10 +395,7 @@ class forms extends React.Component {
             <Grid item xs={3}>
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
-                <FormControlLabel
-                  control={<Switch/>}
-                  label="YES ?"
-                />
+                <FormControlLabel control={<Switch />} label="YES ?" />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
               </FormGroup>
             </Grid>
@@ -308,10 +423,7 @@ class forms extends React.Component {
             <Grid item xs={3}>
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
-                <FormControlLabel
-                  control={<Switch/>}
-                  label="YES ?"
-                />
+                <FormControlLabel control={<Switch />} label="YES ?" />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
               </FormGroup>
             </Grid>
@@ -340,10 +452,7 @@ class forms extends React.Component {
             <Grid item xs={3}>
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
-                <FormControlLabel
-                  control={<Switch/>}
-                  label="YES ?"
-                />
+                <FormControlLabel control={<Switch />} label="YES ?" />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
               </FormGroup>
             </Grid>
@@ -371,7 +480,7 @@ class forms extends React.Component {
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
                 <FormControlLabel
-                  control={<Switch/>}
+                  control={<Switch />}
                   label="Member is Incapacitated"
                 />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
@@ -399,15 +508,74 @@ class forms extends React.Component {
             <Grid item xs={6}>
               <FormGroup>
                 {/* <FormControlLabel label="YES" labelPlacement="start"/> */}
-                <FormControlLabel
-                  control={<Switch/>}
-                  label="YES ?"
-                />
+                <FormControlLabel control={<Switch />} label="YES ?" />
                 {/* <FormControlLabel label="NO" labelPlacement="end"/> */}
               </FormGroup>
             </Grid>
           </Grid>
+          <br />
+          <Divider>
+            {" "}
+            <Typography variant="h6" component="h6">
+              {" "}
+              Employer's Certification
+            </Typography>
+          </Divider>
 
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <InputLabel>
+               PhilHealth Employer No.(PEN)
+              </InputLabel>
+              <TextField
+                id="outlined-multiline-flexible"
+                // label="Multiline"
+                // multiline
+                // maxRows={4}
+                value={this.props.itemCf.pMemberPIN}
+                fullWidth
+                name="pMemberPIN"
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={4}>
+              {" "}
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel>Name of Employer</InputLabel>{" "}
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Name"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                value={this.props.itemCf.pMemberLastName}
+                name="pEmployerName"
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Address"
+                // multiline
+                // maxRows={4}
+                fullWidth
+                name="pEmpAddress"
+                value={this.props.itemCf.pMemberFirstName}
+                size="small"
+                onChange={this.props.onchange}
+              />
+            </Grid>
+          </Grid>
+
+
+
+          <br />
           <Divider>
             {" "}
             <Typography variant="h6" component="h6">
@@ -416,6 +584,7 @@ class forms extends React.Component {
             </Typography>
           </Divider>
 
+          <br />
           <Grid container spacing={2}>
             <Grid item xs={7}>
               <InputLabel>
@@ -593,7 +762,7 @@ class forms extends React.Component {
                         </Grid>
                         <Grid item xs={6}>
                           <FormControlLabel
-                            control={<Checkbox/>}
+                            control={<Checkbox />}
                             label="Direct Filed"
                           />
                         </Grid>
@@ -602,31 +771,31 @@ class forms extends React.Component {
                     <Grid item xs={4}>
                       <FormGroup>
                         <FormControlLabel
-                          control={<Checkbox/>}
+                          control={<Checkbox />}
                           label="Refer to Membership"
                         />
                         <FormControlLabel
-                          control={<Checkbox/>}
+                          control={<Checkbox />}
                           label="Refer to legal"
                         />
                         <FormControlLabel
-                          control={<Checkbox/>}
+                          control={<Checkbox />}
                           label="Refer Accreditation"
                         />
                       </FormGroup>
                     </Grid>
                     <Grid item xs={4}>
-                    <FormGroup>
+                      <FormGroup>
                         <FormControlLabel
-                          control={<Checkbox/>}
+                          control={<Checkbox />}
                           label="Pending Due to Policy Issues "
                         />
                         <FormControlLabel
-                          control={<Checkbox/>}
+                          control={<Checkbox />}
                           label="Pending Due to System issues"
                         />
                         <FormControlLabel
-                          control={<Checkbox/>}
+                          control={<Checkbox />}
                           label="Refer to collection"
                         />
                       </FormGroup>
@@ -639,7 +808,7 @@ class forms extends React.Component {
               </Card>
             </Grid>
           </Grid>
-            <br />
+          <br />
           <Grid
             container
             direction="column"

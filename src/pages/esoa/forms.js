@@ -10,6 +10,7 @@ import Divider from "@mui/material/Divider";
 
 import Professional from "./professional";
 import ItemizzedBill from "./itemizzedBill";
+import Itembills from "./Itembills";
 
 class forms extends React.Component {
   constructor() {
@@ -574,6 +575,7 @@ class forms extends React.Component {
 
           <Professional />
           <ItemizzedBill />
+          <Itembills itembills={this.props.itembills} />
 
           <br />
           <Grid

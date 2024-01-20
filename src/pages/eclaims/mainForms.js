@@ -47,6 +47,9 @@ class mainForms extends React.Component {
     this.state = {
       title: "Claims",
       item: {},
+      isTransfered: false,
+      specialCon: false,
+      
       itemcf1: {
         pMemberPIN: "",
         pMemberLastName: "",
@@ -78,6 +81,8 @@ class mainForms extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleToggleIsTrasfered = this.handleToggleIsTrasfered.bind(this);
+    this.handleClickCheckBox = this.handleClickCheckBox.bind(this);
   }
 
   handleSubmit(params) {
@@ -104,9 +109,18 @@ class mainForms extends React.Component {
     });
   }
 
+  handleToggleIsTrasfered () {
+      this.setState({ isTransfered: !this.state.isTransfered });
+  };
+
+  handleClickCheckBox (e) {
+    console.log(this.state.specialCon )
+      this.setState({ specialCon: !this.state.specialCon });
+  };
+
   render() {
     // console.log(this.state.item);
-    console.log(JsonToXml({ CF1: 1, attr: this.state.itemcf1 }, { attributes_key: 'attr' }));
+    console.log(JsonToXml({ CF1: 1, CF2: 2, attr: this.state.itemcf1 }, { attributes_key: 'attr' }));
     return (
       <>
         <Typography variant="h5" component="h5">
@@ -150,10 +164,16 @@ class mainForms extends React.Component {
               onchange={this.handleInputChange}
               itemCf={this.state.itemcf1}
             />
+
           </CustomTabPanel>
           <CustomTabPanel value={this.state.value} index={1}>
             <Forms2
+            
+              isTransferedChecked={this.state.isTransfered}
+              isSpecialCon={this.state.specialCon}
               handleClick={this.handleSubmit}
+              handleToggle ={this.handleToggleIsTrasfered}
+              handleClickCheckBox ={this.handleClickCheckBox}
               onchange={this.handleInputChange}
             />
           </CustomTabPanel>

@@ -97,6 +97,7 @@ const items = [
   {name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
   {name: "eSOA", icon: <AddToQueueOutlinedIcon/>, path: 'esoa_registration',},
   {name: "claims", icon: <VaccinesIcon/>, path: 'claims_registration',},
+  // {name: "test", icon: <VaccinesIcon/>, path: 'test',},
   // {name: "Konsulta", icon: <SaveAsTwoToneIcon/>, path: 'konsulta',element: <Konsulta/>},
   // {name: "Employees", icon: <GroupsTwoToneIcon/>, path: 'employees', element: <Employee/>},
   // {name: "File", icon: <AttachFileTwoToneIcon/>, path: 'files',element:<Files/>},

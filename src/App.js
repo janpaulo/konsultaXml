@@ -8,6 +8,7 @@ import Dashboard from './../src/pages/home/dashboard';
 
 import MainRegistration from '../src/pages/eclaims/mainForms'
 import EsoaRegistration from '../src/pages/esoa/mainForms'
+// import Itembills from '../src/pages/esoa/Itembills'
 
 import Login from '../src/pages/login/Login';
 import {
@@ -34,6 +35,7 @@ function App() {
                   <Route exact path="/"  element={ <Dashboard/> } />
                   <Route exact path="/claims_registration"  element={ <MainRegistration/> } />
                   <Route exact path="/esoa_registration"  element={ <EsoaRegistration/> } />
+                  {/* <Route exact path="/test"  element={ <Itembills/> } /> */}
                   {/* <Route exact path="/employees"  element={ <Employees/> } />
                   <Route exact path="/files" element={ <Files/> }  />
                   <Route exact path="/leaves" element={ <Leaves/> }  />

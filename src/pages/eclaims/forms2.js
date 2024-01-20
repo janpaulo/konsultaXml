@@ -34,6 +34,7 @@ import CardContent from "@mui/material/CardContent";
 import Forms2Table from "./forms2Table";
 import ProfessionalTables from "./professionalTables";
 import Certification from "./certification";
+import DiagnosCode from "./DiagnosCode";
 
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
@@ -49,14 +50,79 @@ class forms2 extends React.Component {
   render() {
     return (
       <>
-        <Divider>
-          {" "}
-          <Typography variant="h5" component="h5">
-            {" "}
-            Health Care Institution(HCI) Information{" "}
-          </Typography>
-        </Divider>
         <Box id="fullWidth">
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <b>Claims Type</b>
+                  <Grid item xs={12}>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label="All Case Rate"
+                        name=""
+                      />
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        label="Z-Benefits"
+                        name=""
+                      />
+                    </FormGroup>
+                  </Grid>
+                </Grid>
+                <Grid item xs={4}>
+                  <b>Claims Cases</b>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="Confinement Abroad"
+                      name=""
+                    />
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="Emergency Case"
+                      name=""
+                    />
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="OPD Case"
+                      name=""
+                    />
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="Others"
+                      name=""
+                    />
+                  </FormGroup>
+                </Grid>
+                <Grid item xs={4}>
+                  <b>Tag if applicable</b>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      label="For Post Audit"
+                      name=""
+                    />
+                  </FormGroup>
+                </Grid>
+              </Grid>
+            </CardContent>
+            <CardActions>
+              {/* <Button size="small">Learn More</Button> */}
+            </CardActions>
+          </Card>
+          <br />
+
+          <Divider>
+            {" "}
+            <Typography variant="h5" component="h5">
+              {" "}
+              Health Care Institution(HCI) Information{" "}
+            </Typography>
+          </Divider>
+          <br />
+
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <InputLabel>
@@ -117,6 +183,7 @@ class forms2 extends React.Component {
             </Typography>
           </Divider>
           <br />
+
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography>
@@ -323,14 +390,104 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
+                      checked={this.props.isTransferedChecked}
+                      onClick={this.props.handleToggle}
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Transferred/Referred
                   </Typography>
                 </Grid>
                 <Grid item xs={4}></Grid>
+
+                {/* if  Transferred/Referred is True Display */}
+                {this.props.isTransferedChecked ? (
+                  <Grid item xs={12}>
+                    <Card sx={{ minWidth: 275 }}>
+                      <CardContent>
+                        <Grid container spacing={2}>
+                          
+                        <Grid item xs={12}>
+                            <InputLabel>
+                              <b>Refererral Health Care Institution</b>
+                            </InputLabel>{" "}
+                          </Grid>
+                          <Grid item xs={6}>
+                            <InputLabel>
+                              Accreditation Code:
+                            </InputLabel>
+                            <TextField
+                              id="outlined-multiline-flexible"
+                              // label="Multiline"
+                              // multiline
+                              // maxRows={4}
+                              fullWidth
+                              name="pMemberPIN"
+                              size="small"
+                              onChange={this.props.onchange}
+                            />
+                          </Grid>
+                          <Grid item xs={6}>
+                            {" "}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <InputLabel>
+                              Name of health Care Institution
+                            </InputLabel>{" "}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              id="outlined-multiline-flexible"
+                              // label="Last Name"
+                              // multiline
+                              // maxRows={4}
+                              fullWidth
+                              name="pMemberLastName"
+                              size="small"
+                              onChange={this.props.onchange}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <InputLabel>Address</InputLabel>{" "}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              id="outlined-multiline-flexible"
+                              // label="First Name"
+                              // multiline
+                              // maxRows={4}
+                              fullWidth
+                              name="pMemberFirstName"
+                              size="small"
+                              onChange={this.props.onchange}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <InputLabel>Reason/s for referral/transfer</InputLabel>{" "}
+                          </Grid>
+                          <Grid item xs={12}>
+                            <TextField
+                              id="outlined-multiline-flexible"
+                              // label="First Name"
+                              // multiline
+                              // maxRows={4}
+                              fullWidth
+                              name="pMemberFirstName"
+                              size="small"
+                              onChange={this.props.onchange}
+                            />
+                          </Grid>
+                        </Grid>
+                        <br />
+                      </CardContent>
+                      <CardActions>
+                        {/* <Button size="small">Learn More</Button> */}
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ) : (
+                  ""
+                )}
+
                 <Grid item xs={12}>
                   {" "}
                   <Typography>
@@ -391,6 +548,19 @@ class forms2 extends React.Component {
               />
             </Grid>
           </Grid>
+          
+          <br />
+          <Divider>
+            {" "}
+            <Typography variant="h5" component="h5">
+              {" "}
+              Discharge Diagnosis{" "}
+            </Typography>
+          </Divider>
+          <br />
+          <DiagnosCode itemCodes={""}/>
+
+          
 
           <br />
           <Divider>
@@ -406,13 +576,24 @@ class forms2 extends React.Component {
               <b>
                 a. For the following repetitive procedures, check box that
                 applies and emunerate the procedure/session dates{" "}
+                
               </b>
+              <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="specialCon"
+                        checked={this.props.isSpecialCon}
+                        onClick={(e) => this.props.handleClickCheckBox(e)}
+                      />
+                    }
+                    label="Check all if applicable"
+                  />
             </Typography>
             <Grid item xs={6}>
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -423,7 +604,7 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -434,7 +615,7 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -445,7 +626,8 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -456,7 +638,7 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -467,7 +649,7 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -478,7 +660,7 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -488,8 +670,8 @@ class forms2 extends React.Component {
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={value === 1}
+                  name="simpleDeb"
+                  // checked={this.props.isSpecialCon? true : false}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
@@ -500,7 +682,7 @@ class forms2 extends React.Component {
               <Typography>
                 <Switch
                   name=""
-                  // checked={value === 1}
+                  // checked={this.props.isSpecialCon}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />

@@ -39,7 +39,23 @@ class mainForms extends React.Component {
     this.state = {
       title: "ESOA",
       item: {},
+      roomAndBoard: {},
+      itemSummaryFee: {
+        pActualCharges: "",
+        pSeniorCitizenDiscount: "",
+        pPWDDiscount: "",
+        pPCSO: "",
+        pDSWD: "",
+        pDOHMAP: "",
+        pHMO: ""
+
+      },
+      itemOtherFundSource: {
+        pDescription: "",
+        pAmount: ""
+      },
       items: [],
+      itembills: [],
       value: 0,
     };
 
@@ -86,6 +102,7 @@ class mainForms extends React.Component {
           <Forms
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
+              itembills={this.state.itembills}
             />
           
 
