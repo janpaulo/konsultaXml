@@ -48,6 +48,12 @@ class forms2 extends React.Component {
   }
 
   render() {
+    const totaldDayAdmited = this.props.dateAdmitedCount;
+    const startDayAdmit = this.props.startDayAdmited;
+    const startMonthAdmit = this.props.startMonthAdmited;
+    const startYearAdmit = this.props.startYearAdmited;
+    // console.log(;
+    // console.log(this.props.startDayAdmited);
     return (
       <>
         <Box id="fullWidth">
@@ -200,9 +206,9 @@ class forms2 extends React.Component {
                     fullWidth
                     type="date"
                     InputLabelProps={{ shrink: true }}
-                    name="pMemberMiddleName"
+                    name="pDateAdmited"
                     size="small"
-                    onChange={this.props.onchange}
+                    onChange={this.props.handleDate}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -239,9 +245,9 @@ class forms2 extends React.Component {
                     InputLabelProps={{ shrink: true }}
                     fullWidth
                     type="date"
-                    name="pMemberMiddleName"
+                    name="pDateDisCharge"
                     size="small"
-                    onChange={this.props.onchange}
+                    onChange={this.props.handleDate}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -390,7 +396,7 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      checked={this.props.isTransferedChecked}
+                      checked={this.props.isTransfered}
                       onClick={this.props.handleToggle}
                       inputProps={{ "aria-label": "switch" }}
                     />
@@ -400,21 +406,18 @@ class forms2 extends React.Component {
                 <Grid item xs={4}></Grid>
 
                 {/* if  Transferred/Referred is True Display */}
-                {this.props.isTransferedChecked ? (
+                {this.props.isTransfered ? (
                   <Grid item xs={12}>
                     <Card sx={{ minWidth: 275 }}>
                       <CardContent>
                         <Grid container spacing={2}>
-                          
-                        <Grid item xs={12}>
+                          <Grid item xs={12}>
                             <InputLabel>
                               <b>Refererral Health Care Institution</b>
                             </InputLabel>{" "}
                           </Grid>
                           <Grid item xs={6}>
-                            <InputLabel>
-                              Accreditation Code:
-                            </InputLabel>
+                            <InputLabel>Accreditation Code:</InputLabel>
                             <TextField
                               id="outlined-multiline-flexible"
                               // label="Multiline"
@@ -462,7 +465,9 @@ class forms2 extends React.Component {
                             />
                           </Grid>
                           <Grid item xs={12}>
-                            <InputLabel>Reason/s for referral/transfer</InputLabel>{" "}
+                            <InputLabel>
+                              Reason/s for referral/transfer
+                            </InputLabel>{" "}
                           </Grid>
                           <Grid item xs={12}>
                             <TextField
@@ -548,7 +553,7 @@ class forms2 extends React.Component {
               />
             </Grid>
           </Grid>
-          
+
           <br />
           <Divider>
             {" "}
@@ -558,9 +563,7 @@ class forms2 extends React.Component {
             </Typography>
           </Divider>
           <br />
-          <DiagnosCode itemCodes={""}/>
-
-          
+          <DiagnosCode itemCodes={""} />
 
           <br />
           <Divider>
@@ -576,118 +579,360 @@ class forms2 extends React.Component {
               <b>
                 a. For the following repetitive procedures, check box that
                 applies and emunerate the procedure/session dates{" "}
-                
               </b>
               <FormControlLabel
-                    control={
-                      <Checkbox
-                        name="specialCon"
-                        checked={this.props.isSpecialCon}
-                        onClick={(e) => this.props.handleClickCheckBox(e)}
-                      />
-                    }
-                    label="Check all if applicable"
+                control={
+                  <Checkbox
+                    name="specialCon"
+                    checked={this.props.isSpecialCon}
+                    onClick={(e) => this.props.handleClickCheckBox(e)}
                   />
+                }
+                label="Check all if applicable"
+              />
             </Typography>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isHemodialysis"
+                  checked={this.props.specialConsideration.isHemodialysis}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Hemodialysis
               </Typography>
+
+              {this.props.specialConsideration.isHemodialysis ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isBloodTrans"
+                  checked={this.props.specialConsideration.isBloodTrans}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Blood Transfusion
               </Typography>
+              {this.props.specialConsideration.isBloodTrans ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isPentoneal"
+                  checked={this.props.specialConsideration.isPentoneal}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Peritoneal
               </Typography>
+              {this.props.specialConsideration.isPentoneal ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isBracy"
+                  checked={this.props.specialConsideration.isBracy}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Brachytherapy
               </Typography>
+              {this.props.specialConsideration.isBracy ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isRadioLinac"
+                  checked={this.props.specialConsideration.isRadioLinac}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Radiotherapy (LINAC)
               </Typography>
+              {this.props.specialConsideration.isRadioLinac ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isChemotherapy"
+                  checked={this.props.specialConsideration.isChemotherapy}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Chemotherapy
               </Typography>
+              {this.props.specialConsideration.isChemotherapy ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isRadioCobalt"
+                  checked={this.props.specialConsideration.isRadioCobalt}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Radiotherapy (COBALT)
               </Typography>
+              {this.props.specialConsideration.isRadioCobalt ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name="simpleDeb"
-                  // checked={this.props.isSpecialCon? true : false}
-                  // onChange={handleChecked}
+                  name="isSimpleDeb"
+                  checked={this.props.specialConsideration.isSimpleDeb}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Simple Debridement
               </Typography>
+              {this.props.specialConsideration.isSimpleDeb ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
                 <Switch
-                  name=""
-                  // checked={this.props.isSpecialCon}
-                  // onChange={handleChecked}
+                  name="isRadioIMRT"
+                  checked={this.props.specialConsideration.isRadioIMRT}
+                  onClick={(e) =>
+                    this.props.handleClickCheckBoxSpeConsideration(e)
+                  }
                   inputProps={{ "aria-label": "switch" }}
                 />
                 Radiotherapy (IMRT)
               </Typography>
+              {this.props.specialConsideration.isRadioIMRT ? (
+                <>
+                  <b>Please Check if Session Date is Applicable :</b> <br />
+                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name=""
+                          // checked={this.props.isSpecialCon}
+                          // onClick={(e) => this.props.handleClickCheckBox(e)}
+                        />
+                      }
+                      label={
+                        startMonthAdmit +
+                        "/" +
+                        (key + startDayAdmit) +
+                        "/" +
+                        startYearAdmit
+                      }
+                    />
+                  ))}
+                </>
+              ) : (
+                ""
+              )}
             </Grid>
           </Grid>
           <br />
