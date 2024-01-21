@@ -236,7 +236,7 @@ class certification extends React.Component {
                                 onChange={this.props.onchange}
                               />
 
-                              {"Paid by (Check akk that applies)"}
+                              {"Paid by (Check all that applies)"}
                               <Grid container spacing={2}>
                                 <Grid item xs={6}>
                                   {" "}
@@ -320,7 +320,7 @@ class certification extends React.Component {
                                 size="small"
                                 onChange={this.props.onchange}
                               />
-                              {"Paid by (Check akk that applies)"}
+                              {"Paid by (Check all that applies)"}
                               <Grid container spacing={2}>
                                 <Grid item xs={6}>
                                   {" "}

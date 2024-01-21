@@ -175,7 +175,7 @@ class mainForms extends React.Component {
     startDayAdmits = satrtDay;
 
 
-    console.log(this.state.specialConsideration )
+
     // console.log(start);
     console.log(JsonToXml({ CF1: 1, CF2: 2, attr: this.state.itemcf1 }, { attributes_key: 'attr' }));
     return (
@@ -221,7 +221,6 @@ class mainForms extends React.Component {
               onchange={this.handleInputChange}
               itemCf={this.state.itemcf1}
             />
-
 
 
 

@@ -30,7 +30,7 @@ function App() {
 
             <CssBaseline />
 
-            <Container maxWidth="lg" style={{marginTop: '70px'}}>
+            <Container maxWidth="xl" style={{marginTop: '70px'}}>
                 <Routes>
                   <Route exact path="/"  element={ <Dashboard/> } />
                   <Route exact path="/claims_registration"  element={ <MainRegistration/> } />

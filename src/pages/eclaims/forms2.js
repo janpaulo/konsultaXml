@@ -32,7 +32,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 
 import Forms2Table from "./forms2Table";
-import ProfessionalTables from "./professionalTables";
+import ProfessionalTables from "./ProfessionalTables";
 import Certification from "./certification";
 import DiagnosCode from "./DiagnosCode";
 
@@ -52,7 +52,7 @@ class forms2 extends React.Component {
     const startDayAdmit = this.props.startDayAdmited;
     const startMonthAdmit = this.props.startMonthAdmited;
     const startYearAdmit = this.props.startYearAdmited;
-    // console.log(;
+    console.log(this.state.totaldDayAdmited);
     // console.log(this.props.startDayAdmited);
     return (
       <>
@@ -606,25 +606,34 @@ class forms2 extends React.Component {
 
               {this.props.specialConsideration.isHemodialysis ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -644,25 +653,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isBloodTrans ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -682,25 +700,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isPentoneal ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -720,25 +747,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isBracy ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -758,25 +794,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isRadioLinac ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -796,25 +841,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isChemotherapy ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -834,25 +888,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isRadioCobalt ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -872,25 +935,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isSimpleDeb ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -910,25 +982,34 @@ class forms2 extends React.Component {
               </Typography>
               {this.props.specialConsideration.isRadioIMRT ? (
                 <>
-                  <b>Please Check if Session Date is Applicable :</b> <br />
-                  {Array.from({ length: totaldDayAdmited }, (value, key) => (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          name=""
-                          // checked={this.props.isSpecialCon}
-                          // onClick={(e) => this.props.handleClickCheckBox(e)}
-                        />
-                      }
-                      label={
-                        startMonthAdmit +
-                        "/" +
-                        (key + startDayAdmit) +
-                        "/" +
-                        startYearAdmit
-                      }
-                    />
-                  ))}
+                  {totaldDayAdmited !== undefined ? (
+                    <>
+                      <b>Please Check if Session Date is Applicable :</b> <br />
+                      {Array.from(
+                        { length: totaldDayAdmited },
+                        (value, key) => (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                name=""
+                                // checked={this.props.isSpecialCon}
+                                // onClick={(e) => this.props.handleClickCheckBox(e)}
+                              />
+                            }
+                            label={
+                              startMonthAdmit +
+                              "/" +
+                              (key + startDayAdmit) +
+                              "/" +
+                              startYearAdmit
+                            }
+                          />
+                        )
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </>
               ) : (
                 ""
@@ -938,6 +1019,16 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>b. For Z-Benefits Package </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -970,7 +1061,19 @@ class forms2 extends React.Component {
               />
             </Grid>
             <Grid item xs={3}>
-              <Typography>Pre-Authorization Type:</Typography>
+              <Typography>
+                Pre-Authorization Type:
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="specialCon"
+                      // checked={this.props.isSpecialCon}
+                      // onClick={(e) => this.props.handleClickCheckBox(e)}
+                    />
+                  }
+                  label="Check all if applicable"
+                />
+              </Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography>
@@ -1042,6 +1145,16 @@ class forms2 extends React.Component {
             <b>
               c. For MCP Package, emunerate four dates of pre-natal check-ups{" "}
             </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  checked={this.props.isSpecialCon}
+                  onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -1146,6 +1259,16 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>d. For TB DOTS PAckage :</b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -1183,6 +1306,16 @@ class forms2 extends React.Component {
               <br />
               Remiders: Anti Rabies Vaccine (ARV), Rabies Immunoglobulin (RIG){" "}
             </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -1274,6 +1407,16 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>f. Newborn Care Package </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
 
@@ -1431,6 +1574,16 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>g.Outpatient HIV/AIDS Treatment Package </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
 
@@ -1467,6 +1620,16 @@ class forms2 extends React.Component {
               Other Cases :<br /> h.For NSD Package emunerate four dates of
               pre-natal check-ups{" "}
             </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
 
@@ -1573,6 +1736,16 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>i. For Contact Package </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  checked={this.props.isSpecialCon}
+                  onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
 
@@ -1685,6 +1858,16 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>j. For Medical Detoxification Package </b>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="specialCon"
+                  // checked={this.props.isSpecialCon}
+                  // onClick={(e) => this.props.handleClickCheckBox(e)}
+                />
+              }
+              label="Check all if applicable"
+            />
           </Typography>
           <br />
 
