@@ -289,8 +289,8 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
+                      checked={this.props.patienCon.improved}
+                      onChange={() => this.props.handleClickCheckBoxPatientCon('improved')} 
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Improved
@@ -300,8 +300,8 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
+                      checked={this.props.patienCon.expired}
+                      onChange={() => this.props.handleClickCheckBoxPatientCon('expired')} 
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Expired
@@ -342,8 +342,9 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       size="small"
+                      // checked={checkboxState.improved}
+                      // onChange={this.props.handleClickCheckBoxPatientCon}
                       // checked={value === 1}
-                      // onChange={handleChecked}
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Expired time is not indicated
@@ -354,8 +355,9 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
+                      checked={this.props.patienCon.recovered}
+                      onChange={() => this.props.handleClickCheckBoxPatientCon('recovered')} 
                       // checked={value === 1}
-                      // onChange={handleChecked}
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Recovered
@@ -370,8 +372,8 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
+                      checked={this.props.patienCon.homeDischarged}
+                      onChange={() => this.props.handleClickCheckBoxPatientCon('homeDischarged')} 
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Home/Discharged Againts Medical Advise
@@ -384,8 +386,8 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
+                      checked={this.props.patienCon.abscorded}
+                      onChange={() => this.props.handleClickCheckBoxPatientCon('abscorded')} 
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Abscorded

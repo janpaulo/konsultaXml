@@ -59,6 +59,14 @@ class mainForms extends React.Component {
         isSimpleDeb: false,
         isChemotherapy: false},
         
+        patienCon: {
+          improved: false,
+          recovered: false,
+          homeDischarged: false,
+          abscorded: false,
+          expired: false,
+        },
+
         isTransfered: false,
         specialCon: false,
       dateAdmitedCount:"",
@@ -104,6 +112,7 @@ class mainForms extends React.Component {
     this.handleClickCheckBox = this.handleClickCheckBox.bind(this);
     this.handleDate = this.handleDate.bind(this);
     this.handleClickCheckBoxSpeConsideration = this.handleClickCheckBoxSpeConsideration.bind(this);
+    this.handleClickCheckBoxPatientCon = this.handleClickCheckBoxPatientCon.bind(this);
   }
 
   handleSubmit(params) {
@@ -143,6 +152,17 @@ class mainForms extends React.Component {
       this.setState({ specialCon: !this.state.specialCon });
   };
 
+  
+  handleClickCheckBoxPatientCon (option) {
+    this.setState((prevState) => ({
+      patienCon: {
+        ...Object.fromEntries(Object.entries(prevState.patienCon).map(([key]) => [key, false])),
+        [option]: !prevState.patienCon[option],
+      },
+    }));
+  };
+
+
   handleClickCheckBoxSpeConsideration (e) {
 
     // console.log(e.target.checked);
@@ -173,7 +193,6 @@ class mainForms extends React.Component {
     
     dateAdmitedCounts = countAdmidatedDate;
     startDayAdmits = satrtDay;
-
 
 
     // console.log(start);
@@ -234,6 +253,7 @@ class mainForms extends React.Component {
               startDayAdmited={startDayAdmits}
               startMonthAdmited={month}
               startYearAdmited={year}
+              patienCon={this.state.patienCon}
 
               handleClick={this.handleSubmit}
               handleToggle ={this.handleToggleIsTrasfered}
@@ -241,6 +261,7 @@ class mainForms extends React.Component {
               handleDate={this.handleDate}
               onchange={this.handleInputChange}
               handleClickCheckBoxSpeConsideration={this.handleClickCheckBoxSpeConsideration}
+              handleClickCheckBoxPatientCon={this.handleClickCheckBoxPatientCon}
             />
           </CustomTabPanel>
         </div>

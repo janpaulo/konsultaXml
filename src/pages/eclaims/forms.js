@@ -29,6 +29,9 @@ import Divider from "@mui/material/Divider";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormLabel from '@mui/material/FormLabel';
 
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
@@ -253,6 +256,7 @@ class forms extends React.Component {
               {" "}
               Patient Information{" "}
             </Typography>
+            (To be filled-out only if the patient is a dependent)
           </Divider>
 
           <Grid container spacing={2}>
@@ -291,7 +295,7 @@ class forms extends React.Component {
                 onChange={this.props.onchange}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="First Name"
@@ -317,7 +321,7 @@ class forms extends React.Component {
                 onChange={this.props.onchange}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="Middle Name"
@@ -330,7 +334,7 @@ class forms extends React.Component {
                 onChange={this.props.onchange}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={4}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="Date of Birth"
@@ -345,20 +349,24 @@ class forms extends React.Component {
                 onChange={this.props.onchange}
               />
             </Grid>
-            <Grid item xs={2}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Zip Code"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                name="pZipCode"
-                value={this.props.itemCf.pZipCode}
-                size="small"
-                onChange={this.props.onchange}
-              />
+            <Grid item xs={4}>
+               {" "}
+              <FormControl>
+                  <FormLabel id="demo-row-radio-buttons-group-label"> Relationship to Member</FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                  >
+                    <FormControlLabel value="child" control={<Radio />} label="Child" />
+                    <FormControlLabel value="parent" control={<Radio />} label="Parent" />
+                    <FormControlLabel value="spouse" control={<Radio />} label="Spouse" />
+                  </RadioGroup>
+                </FormControl>
             </Grid>{" "}
-            <Grid item xs={3}>
+            <Grid item xs={4
+            
+            }>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                 <Select
@@ -524,9 +532,7 @@ class forms extends React.Component {
 
           <Grid container spacing={2}>
             <Grid item xs={8}>
-              <InputLabel>
-               PhilHealth Employer No.(PEN)
-              </InputLabel>
+              <InputLabel>PhilHealth Employer No.(PEN)</InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
                 // label="Multiline"
@@ -572,8 +578,6 @@ class forms extends React.Component {
               />
             </Grid>
           </Grid>
-
-
 
           <br />
           <Divider>
