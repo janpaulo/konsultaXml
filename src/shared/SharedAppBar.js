@@ -11,7 +11,7 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "@mui/material";
 
-export default function SharedAppBar({ titleName }) {
+export default function SharedAppBar({ titleName, esoaLink }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -29,7 +29,7 @@ export default function SharedAppBar({ titleName }) {
             {titleName}
           </Typography>
           <Link
-            to="/claims_registration"
+            to={esoaLink}
             component={RouterLink}
             variant="button"
             color="secondary"

@@ -29,7 +29,7 @@ class tableList extends React.Component {
     // console.log(start);
     return (
       <>
-        <SharedAppBar titleName={this.state.title} />
+        <SharedAppBar titleName={this.state.title} esoaLink="/esoa_registration"/>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
