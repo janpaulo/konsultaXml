@@ -12,7 +12,7 @@ import SharedAppBar from "../../shared/SharedAppBar"
 class tableList extends React.Component {
   constructor() {
     super();
-    this.state = {
+    this.state = { 
       title: "ESOA",
       item: {},
       items: [],

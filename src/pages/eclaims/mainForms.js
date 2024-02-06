@@ -65,6 +65,19 @@ class mainForms extends React.Component {
           homeDischarged: false,
           abscorded: false,
           expired: false,
+          transfered: false,
+        },
+
+
+        // pPhilhealthClaimType
+        claimsType: {
+          allCaseRate: false,
+          zBenefits: false,
+          confinementAbroad: false,
+          emergencyCase: false,
+          opdCase: false,
+          others: false,
+          posAudit: false,
         },
 
         isTransfered: false,
@@ -113,6 +126,7 @@ class mainForms extends React.Component {
     this.handleDate = this.handleDate.bind(this);
     this.handleClickCheckBoxSpeConsideration = this.handleClickCheckBoxSpeConsideration.bind(this);
     this.handleClickCheckBoxPatientCon = this.handleClickCheckBoxPatientCon.bind(this);
+    this.handleClickCheckBoxClaimsType = this.handleClickCheckBoxClaimsType.bind(this);
   }
 
   handleSubmit(params) {
@@ -158,6 +172,18 @@ class mainForms extends React.Component {
       patienCon: {
         ...Object.fromEntries(Object.entries(prevState.patienCon).map(([key]) => [key, false])),
         [option]: !prevState.patienCon[option],
+
+      },
+    }));
+    
+  };
+
+
+  handleClickCheckBoxClaimsType (option) {
+    this.setState((prevState) => ({
+      claimsType: {
+        ...Object.fromEntries(Object.entries(prevState.claimsType).map(([key]) => [key, false])),
+        [option]: !prevState.claimsType[option],
       },
     }));
   };
@@ -254,6 +280,7 @@ class mainForms extends React.Component {
               startMonthAdmited={month}
               startYearAdmited={year}
               patienCon={this.state.patienCon}
+              claimsType={this.state.claimsType}
 
               handleClick={this.handleSubmit}
               handleToggle ={this.handleToggleIsTrasfered}
@@ -262,6 +289,7 @@ class mainForms extends React.Component {
               onchange={this.handleInputChange}
               handleClickCheckBoxSpeConsideration={this.handleClickCheckBoxSpeConsideration}
               handleClickCheckBoxPatientCon={this.handleClickCheckBoxPatientCon}
+              handleClickCheckBoxClaimsType={this.handleClickCheckBoxClaimsType}
             />
           </CustomTabPanel>
         </div>

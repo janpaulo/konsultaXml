@@ -65,12 +65,19 @@ class forms2 extends React.Component {
                   <Grid item xs={12}>
                     <FormGroup>
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={<Checkbox
+                          
+                          checked={this.props.claimsType.allCaseRate}
+                          onChange={() => this.props.handleClickCheckBoxClaimsType('allCaseRate')} 
+                          />}
                         label="All Case Rate"
                         name=""
                       />
                       <FormControlLabel
-                        control={<Checkbox />}
+                        control={<Checkbox 
+                          
+                          checked={this.props.claimsType.zBenefits}
+                          onChange={() => this.props.handleClickCheckBoxClaimsType('zBenefits')} />}
                         label="Z-Benefits"
                         name=""
                       />
@@ -81,22 +88,34 @@ class forms2 extends React.Component {
                   <b>Claims Cases</b>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox 
+                          
+                        checked={this.props.claimsType.confinementAbroad}
+                        onChange={() => this.props.handleClickCheckBoxClaimsType('confinementAbroad')} />}
                       label="Confinement Abroad"
                       name=""
                     />
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox 
+                          
+                        checked={this.props.claimsType.emergencyCase}
+                        onChange={() => this.props.handleClickCheckBoxClaimsType('emergencyCase')} />}
                       label="Emergency Case"
                       name=""
                     />
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox 
+                          
+                        checked={this.props.claimsType.opdCase}
+                        onChange={() => this.props.handleClickCheckBoxClaimsType('opdCase')} />}
                       label="OPD Case"
                       name=""
                     />
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox 
+                          
+                        checked={this.props.claimsType.others}
+                        onChange={() => this.props.handleClickCheckBoxClaimsType('others')} />}
                       label="Others"
                       name=""
                     />
@@ -106,7 +125,10 @@ class forms2 extends React.Component {
                   <b>Tag if applicable</b>
                   <FormGroup>
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox 
+                          
+                        checked={this.props.claimsType.posAudit}
+                        onChange={() => this.props.handleClickCheckBoxClaimsType('posAudit')} />}
                       label="For Post Audit"
                       name=""
                     />
