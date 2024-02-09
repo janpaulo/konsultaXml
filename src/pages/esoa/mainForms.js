@@ -40,6 +40,17 @@ class mainForms extends React.Component {
       title: "ESOA",
       item: {},
       roomAndBoard: {},
+      
+      summaryOfFees: { },
+        roomAndBoard: { pActualCharges: "", pSeniorCitizenDiscount: "",pPWDDiscount: "",pPCSO: "",pDSWD: "", pDOHMAP: "",pHMO: ""},
+        OtherFundSource: { pDescription: "", pAmount: "" },
+        drugsAndMedicine: { pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
+        laboratoryAndDiagnostic: {pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
+        operatingRoomFees:  {pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
+        medicalSupplies:  {pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
+        PhilHealth :{pTotalCaseRateAmount: ""},
+        Balance :{pAmount: ""},
+        
       itemSummaryFee: {
         pActualCharges: "",
         pSeniorCitizenDiscount: "",

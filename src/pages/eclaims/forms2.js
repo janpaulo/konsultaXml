@@ -62,11 +62,13 @@ class forms2 extends React.Component {
               <Grid container spacing={2}>
                 <Grid item xs={4}>
                   <b>Claims Type</b>
+                  {/* <Checkbox value="Tutor 1" onClick={() => handleSendSelection()}/>
+                    <Checkbox value="Tutorsasasa 1" onClick={() => handleSendSelection()}/> */}
                   <Grid item xs={12}>
                     <FormGroup>
                       <FormControlLabel
                         control={<Checkbox
-                          
+                          name="pPhilhealthClaimType"
                           checked={this.props.claimsType.allCaseRate}
                           onChange={() => this.props.handleClickCheckBoxClaimsType('allCaseRate')} 
                           />}
@@ -75,7 +77,7 @@ class forms2 extends React.Component {
                       />
                       <FormControlLabel
                         control={<Checkbox 
-                          
+                          name="pPhilhealthClaimType"
                           checked={this.props.claimsType.zBenefits}
                           onChange={() => this.props.handleClickCheckBoxClaimsType('zBenefits')} />}
                         label="Z-Benefits"
@@ -89,7 +91,7 @@ class forms2 extends React.Component {
                   <FormGroup>
                     <FormControlLabel
                       control={<Checkbox 
-                          
+                        name="pPhilhealthClaimType"
                         checked={this.props.claimsType.confinementAbroad}
                         onChange={() => this.props.handleClickCheckBoxClaimsType('confinementAbroad')} />}
                       label="Confinement Abroad"
@@ -97,7 +99,7 @@ class forms2 extends React.Component {
                     />
                     <FormControlLabel
                       control={<Checkbox 
-                          
+                        name="pPhilhealthClaimType"
                         checked={this.props.claimsType.emergencyCase}
                         onChange={() => this.props.handleClickCheckBoxClaimsType('emergencyCase')} />}
                       label="Emergency Case"
@@ -105,7 +107,7 @@ class forms2 extends React.Component {
                     />
                     <FormControlLabel
                       control={<Checkbox 
-                          
+                        name="pPhilhealthClaimType"
                         checked={this.props.claimsType.opdCase}
                         onChange={() => this.props.handleClickCheckBoxClaimsType('opdCase')} />}
                       label="OPD Case"
@@ -113,7 +115,7 @@ class forms2 extends React.Component {
                     />
                     <FormControlLabel
                       control={<Checkbox 
-                          
+                        name="pPhilhealthClaimType"
                         checked={this.props.claimsType.others}
                         onChange={() => this.props.handleClickCheckBoxClaimsType('others')} />}
                       label="Others"
@@ -126,7 +128,7 @@ class forms2 extends React.Component {
                   <FormGroup>
                     <FormControlLabel
                       control={<Checkbox 
-                          
+                        name="pPhilhealthClaimType"
                         checked={this.props.claimsType.posAudit}
                         onChange={() => this.props.handleClickCheckBoxClaimsType('posAudit')} />}
                       label="For Post Audit"

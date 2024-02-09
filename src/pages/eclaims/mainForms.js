@@ -84,6 +84,24 @@ class mainForms extends React.Component {
         specialCon: false,
       dateAdmitedCount:"",
       startDayAdmited:"",
+
+      eCLAIMS:{
+        pUserName :  ":ECLAIMS-04-01-2018-00002",
+        pUserPassword : "",
+        pHospitalCode : "300806",
+        pHospitalEmail : "email@yahoo.com"
+      },
+      eTRANSMITTAL: {
+        pHospitalTransmittalNo: "300806-07-21-2023-1",
+        pTotalClaims: "1"
+      },
+      claim: {
+        pClaimNumber: "300806-07-21-20211-1",
+        pTrackingNumber: "",
+        pPhilhealthClaimType: "ALL-CASE-RATE",
+        pPatientType: "I",
+        pIsEmergency: "N"
+      },
       
       itemcf1: {
         pMemberPIN: "",
@@ -113,6 +131,18 @@ class mainForms extends React.Component {
       itemcf2: {
         pDateAdmited: moment(new Date()).format("YYYY-MM-DD"),
         pDateDisCharge:  moment(new Date()).format("YYYY-MM-DD"),
+        pPatientReferred : "Y",
+        pReferredIHCPAccreCode : "H12345678",
+        // pAdmissionDate : "06-01-2023" ,
+        pAdmissionTime : "01:00:00PM" ,
+        // pDischargeDate : "06-03-2023",
+        pDischargeTime : "03:00:00PM",
+        pDisposition : "I",
+        pExpiredDate : "",
+        pExpiredTime : "",
+        pReferralIHCPAccreCode : "",
+        pReferralReasons : "",
+        pAccommodationType : "N"
 
       },
       items: [],
@@ -221,8 +251,47 @@ class mainForms extends React.Component {
     startDayAdmits = satrtDay;
 
 
-    // console.log(start);
-    console.log(JsonToXml({ CF1: 1, CF2: 2, attr: this.state.itemcf1 }, { attributes_key: 'attr' }));
+    // console.log(start)
+    // eTRANSMITTAL: '' , etransAtr: this.state.eTRANSMITTAL,
+    console.log(JsonToXml(
+
+      // { CF1: '', CF2: 2,  attr: this.state.itemcf1 }, 
+
+      // <eCLAIMS> mga lamn </eCLAIMS>
+      // { eCLAIMS:  {
+      //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
+      //  }, 
+      // attr:  this.state.eCLAIMS },
+      // { attributes_key: 'attr' }
+      // ));
+
+
+
+       { eCLAIMS:  {
+          eTRANSMITTAL: { 
+            CLAIM: [
+              {CF1: "", attr: this.state.itemcf1},
+              {CF2: [
+                  { a: 1, attr: { b: 2, c: 3 } },
+
+              ], attr: this.state.itemcf2}
+            ]    ,  attr:  this.state.claim    },  attr:  this.state.eTRANSMITTAL
+        }, 
+       attr:  this.state.eCLAIMS },
+       { attributes_key: 'attr' }
+
+       ));
+
+      //  console.log(JsonToXml(
+         
+      //     { a: 1, attr: { b: 2, c: 3 } },
+      //     { b: 2, attr: { b: 2, c: 3 }} ,
+      //     { attributes_key: 'attr' }
+        
+      //    ));
+
+
+
     return (
       <>
         <Typography variant="h5" component="h5">
