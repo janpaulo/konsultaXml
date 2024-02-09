@@ -68,8 +68,25 @@ class mainForms extends React.Component {
           transfered: false,
         },
 
+        options: [
+          { label: 'All Case Rate', value: 'ALL-CASE-RATE' },
+          { label: 'Z-Benefits', value: 'Z-BENEFITS' },
+          { label: 'Confinement Abroad', value: 'CONFINEMENT-ABROAD' },
+          { label: 'Emergency Case', value: 'EMERGENCY-CASE' },
+          { label: 'OPD Case', value: 'OPD-CASE' },
+          { label: 'Others', value: 'OTHERS' },
+          { label: 'For Post Audit', value: 'POST-AUDIT' },
+        ],
 
-        // pPhilhealthClaimType
+        
+        options2: [
+          { label: 'Private', value: 'Y' },
+          { label: 'Non-Private(Charity/Service)', value: 'G' },
+        ],
+
+        selectedOption: null,
+        selectedTypeOfAccomodation: null,
+
         claimsType: {
           allCaseRate: false,
           zBenefits: false,
@@ -85,6 +102,9 @@ class mainForms extends React.Component {
       dateAdmitedCount:"",
       startDayAdmited:"",
 
+
+      patientDisposition:"",
+
       eCLAIMS:{
         pUserName :  ":ECLAIMS-04-01-2018-00002",
         pUserPassword : "",
@@ -95,6 +115,7 @@ class mainForms extends React.Component {
         pHospitalTransmittalNo: "300806-07-21-2023-1",
         pTotalClaims: "1"
       },
+
       claim: {
         pClaimNumber: "300806-07-21-20211-1",
         pTrackingNumber: "",
@@ -129,13 +150,13 @@ class mainForms extends React.Component {
         pEmployerName: "",
       },
       itemcf2: {
-        pDateAdmited: moment(new Date()).format("YYYY-MM-DD"),
-        pDateDisCharge:  moment(new Date()).format("YYYY-MM-DD"),
+        // pDateAdmited: moment(new Date()).format("YYYY-MM-DD"),
+        // pDateDisCharge:  moment(new Date()).format("YYYY-MM-DD"),
         pPatientReferred : "Y",
         pReferredIHCPAccreCode : "H12345678",
-        // pAdmissionDate : "06-01-2023" ,
+        pAdmissionDate : moment(new Date()).format("YYYY-MM-DD") ,
         pAdmissionTime : "01:00:00PM" ,
-        // pDischargeDate : "06-03-2023",
+        pDischargeDate :moment(new Date()).format("YYYY-MM-DD"),
         pDischargeTime : "03:00:00PM",
         pDisposition : "I",
         pExpiredDate : "",
@@ -156,11 +177,44 @@ class mainForms extends React.Component {
     this.handleDate = this.handleDate.bind(this);
     this.handleClickCheckBoxSpeConsideration = this.handleClickCheckBoxSpeConsideration.bind(this);
     this.handleClickCheckBoxPatientCon = this.handleClickCheckBoxPatientCon.bind(this);
-    this.handleClickCheckBoxClaimsType = this.handleClickCheckBoxClaimsType.bind(this);
+    this.handleSendSelection = this.handleSendSelection.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleCheckboxChangeAccomondation = this.handleCheckboxChangeAccomondation.bind(this);
   }
 
   handleSubmit(params) {
     console.log("here me");
+
+    console.log(this.state.patientDisposition)
+    console.log(JsonToXml(
+
+      // { CF1: '', CF2: 2,  attr: this.state.itemcf1 }, 
+
+      // <eCLAIMS> mga lamn </eCLAIMS>
+      // { eCLAIMS:  {
+      //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
+      //  }, 
+      // attr:  this.state.eCLAIMS },
+      // { attributes_key: 'attr' }
+      // ));
+
+
+
+       { eCLAIMS:  {
+          eTRANSMITTAL: { 
+            CLAIM: [
+              {CF1: "", attr: this.state.itemcf1},
+              {CF2: [
+                  { a: 1, attr: { b: 2, c: 3 } },
+
+              ], attr: this.state.itemcf2}
+            ]    ,  attr:  this.state.claim    },  attr:  this.state.eTRANSMITTAL
+        }, 
+       attr:  this.state.eCLAIMS },
+       { attributes_key: 'attr' }
+
+       ));
+
 
   }
 
@@ -185,6 +239,15 @@ class mainForms extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
+
+    // this.setState({
+    //   itemcf2: {
+    //     ...this.state.itemcf2,
+    //     [e.target.name]: e.target.value,
+    //   },
+    // });
+
+
   }
 
   handleToggleIsTrasfered () {
@@ -198,6 +261,10 @@ class mainForms extends React.Component {
 
   
   handleClickCheckBoxPatientCon (option) {
+
+
+    this.setState({patientDisposition: option})
+
     this.setState((prevState) => ({
       patienCon: {
         ...Object.fromEntries(Object.entries(prevState.patienCon).map(([key]) => [key, false])),
@@ -205,18 +272,8 @@ class mainForms extends React.Component {
 
       },
     }));
-    
   };
 
-
-  handleClickCheckBoxClaimsType (option) {
-    this.setState((prevState) => ({
-      claimsType: {
-        ...Object.fromEntries(Object.entries(prevState.claimsType).map(([key]) => [key, false])),
-        [option]: !prevState.claimsType[option],
-      },
-    }));
-  };
 
 
   handleClickCheckBoxSpeConsideration (e) {
@@ -230,9 +287,24 @@ class mainForms extends React.Component {
     });
   };
 
+
+  handleSendSelection (event) {
+    console.log()
+    console.log("value - ", event.target.value);
+ }
+
+  handleCheckboxChange = (option) => {
+    this.setState({ selectedOption: option });
+  };
+
+  handleCheckboxChangeAccomondation = (option) => {
+    console.log(option)
+    this.setState({ selectedTypeOfAccomodation: option });
+  };
+
   render() {
-    var start = this.state.itemcf2.pDateAdmited;
-    var end = this.state.itemcf2.pDateDisCharge;
+    var start = this.state.itemcf2.pAdmissionDate;
+    var end = this.state.itemcf2.pDischargeDate;
         
     const getDaysDiff = (start_date, end_date, date_format = 'YYYY-MM-DD') => {
       const getDateAsArray = (date) => {
@@ -335,9 +407,6 @@ class mainForms extends React.Component {
               onchange={this.handleInputChange}
               itemCf={this.state.itemcf1}
             />
-
-
-
           </CustomTabPanel>
           <CustomTabPanel value={this.state.value} index={1}>
           <Forms2
@@ -351,6 +420,8 @@ class mainForms extends React.Component {
               patienCon={this.state.patienCon}
               claimsType={this.state.claimsType}
 
+              // itemcf={this.state.itemcf2} 
+              itemCf={this.state.itemcf2}
               handleClick={this.handleSubmit}
               handleToggle ={this.handleToggleIsTrasfered}
               handleClickCheckBox ={this.handleClickCheckBox}
@@ -358,7 +429,13 @@ class mainForms extends React.Component {
               onchange={this.handleInputChange}
               handleClickCheckBoxSpeConsideration={this.handleClickCheckBoxSpeConsideration}
               handleClickCheckBoxPatientCon={this.handleClickCheckBoxPatientCon}
-              handleClickCheckBoxClaimsType={this.handleClickCheckBoxClaimsType}
+              handleSendSelection={this.handleSendSelection}
+              handleCheckboxChange={this.handleCheckboxChange}
+              handleCheckboxChangeAccomondation={this.handleCheckboxChangeAccomondation}
+              options={this.state.options} 
+              options2={this.state.options2} 
+              selectedOption={this.state.selectedOption} 
+              selectedTypeOfAccomodation={this.state.selectedTypeOfAccomodation} 
             />
           </CustomTabPanel>
         </div>

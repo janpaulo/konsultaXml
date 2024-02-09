@@ -96,7 +96,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const items = [
   {name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
   {name: "eSOA", icon: <AddToQueueOutlinedIcon/>, path: 'esoa_table_list',},
-  {name: "claims", icon: <VaccinesIcon/>, path: 'claims_registration',},
+  {name: "claims", icon: <VaccinesIcon/>, path: 'claims',},
   // {name: "test", icon: <VaccinesIcon/>, path: 'test',},
   // {name: "Konsulta", icon: <SaveAsTwoToneIcon/>, path: 'konsulta',element: <Konsulta/>},
   // {name: "Employees", icon: <GroupsTwoToneIcon/>, path: 'employees', element: <Employee/>},

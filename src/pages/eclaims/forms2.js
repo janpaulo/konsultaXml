@@ -52,91 +52,65 @@ class forms2 extends React.Component {
     const startDayAdmit = this.props.startDayAdmited;
     const startMonthAdmit = this.props.startMonthAdmited;
     const startYearAdmit = this.props.startYearAdmited;
-    console.log(this.state.totaldDayAdmited);
-    // console.log(this.props.startDayAdmited);
+    // console.log(this.state.totaldDayAdmited);
+    const { options } = this.props;
+    const { selectedOption } = this.props; 
+    const { options2 } = this.props;
+    const { selectedTypeOfAccomodation } = this.props;
+
+    // console.log(this.props.itemcf.pReferralIHCPAccreCode);
+    // console.log(selectedOption);
     return (
       <>
         <Box id="fullWidth">
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <b>Claims Type</b>
-                  {/* <Checkbox value="Tutor 1" onClick={() => handleSendSelection()}/>
-                    <Checkbox value="Tutorsasasa 1" onClick={() => handleSendSelection()}/> */}
-                  <Grid item xs={12}>
-                    <FormGroup>
-                      <FormControlLabel
-                        control={<Checkbox
-                          name="pPhilhealthClaimType"
-                          checked={this.props.claimsType.allCaseRate}
-                          onChange={() => this.props.handleClickCheckBoxClaimsType('allCaseRate')} 
-                          />}
-                        label="All Case Rate"
-                        name=""
-                      />
-                      <FormControlLabel
-                        control={<Checkbox 
-                          name="pPhilhealthClaimType"
-                          checked={this.props.claimsType.zBenefits}
-                          onChange={() => this.props.handleClickCheckBoxClaimsType('zBenefits')} />}
-                        label="Z-Benefits"
-                        name=""
-                      />
-                    </FormGroup>
-                  </Grid>
-                </Grid>
-                <Grid item xs={4}>
-                  <b>Claims Cases</b>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Checkbox 
-                        name="pPhilhealthClaimType"
-                        checked={this.props.claimsType.confinementAbroad}
-                        onChange={() => this.props.handleClickCheckBoxClaimsType('confinementAbroad')} />}
-                      label="Confinement Abroad"
-                      name=""
-                    />
-                    <FormControlLabel
-                      control={<Checkbox 
-                        name="pPhilhealthClaimType"
-                        checked={this.props.claimsType.emergencyCase}
-                        onChange={() => this.props.handleClickCheckBoxClaimsType('emergencyCase')} />}
-                      label="Emergency Case"
-                      name=""
-                    />
-                    <FormControlLabel
-                      control={<Checkbox 
-                        name="pPhilhealthClaimType"
-                        checked={this.props.claimsType.opdCase}
-                        onChange={() => this.props.handleClickCheckBoxClaimsType('opdCase')} />}
-                      label="OPD Case"
-                      name=""
-                    />
-                    <FormControlLabel
-                      control={<Checkbox 
-                        name="pPhilhealthClaimType"
-                        checked={this.props.claimsType.others}
-                        onChange={() => this.props.handleClickCheckBoxClaimsType('others')} />}
-                      label="Others"
-                      name=""
-                    />
-                  </FormGroup>
-                </Grid>
-                <Grid item xs={4}>
-                  <b>Tag if applicable</b>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={<Checkbox 
-                        name="pPhilhealthClaimType"
-                        checked={this.props.claimsType.posAudit}
-                        onChange={() => this.props.handleClickCheckBoxClaimsType('posAudit')} />}
-                      label="For Post Audit"
-                      name=""
-                    />
-                  </FormGroup>
-                </Grid>
+
+            <Grid container spacing={2}>
+              {/* First row */}
+              <Grid item xs={4}>
+              <b>Claims Type</b>
+                {options.slice(0, 2).map((option) => (
+                  <div key={option.value}>
+                    <Checkbox
+                          id={option.value}
+                          value={option.value}
+                          checked={selectedOption === option.value}
+                          onChange={() => this.props.handleCheckboxChange(option.value)}/>
+                          <label htmlFor={option.value}>{option.label}</label>
+                  </div>
+                ))}
               </Grid>
+              {/* Second row */}
+              <Grid item xs={4}>
+              <b>Claims Cases</b>
+                {options.slice(2, 6).map((option) => (
+                  <div key={option.value}>
+                     <Checkbox
+                          id={option.value}
+                          value={option.value}
+                          checked={selectedOption === option.value}
+                          onChange={() => this.props.handleCheckboxChange(option.value)}/>
+                          <label htmlFor={option.value}>{option.label}</label>
+                  </div>
+                ))}
+              </Grid>
+              {/* Third row */}
+              <Grid item xs={4}>
+              <b>Tag if applicable</b>
+                {options.slice(6).map((option) => (
+                  <div key={option.value}>
+                    <Checkbox
+                          id={option.value}
+                          value={option.value}
+                          checked={selectedOption === option.value}
+                          onChange={() => this.props.handleCheckboxChange(option.value)}/>
+                          <label htmlFor={option.value}>{option.label}</label>
+                  </div>
+                ))}
+              </Grid>
+            </Grid>
+           
             </CardContent>
             <CardActions>
               {/* <Button size="small">Learn More</Button> */}
@@ -160,11 +134,9 @@ class forms2 extends React.Component {
               </InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                // label="Multiline"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                name="pMemberPIN"
+                value={this.props.itemCf.pReferredIHCPAccreCode}
+                name="pReferredIHCPAccreCode"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -178,11 +150,9 @@ class forms2 extends React.Component {
             <Grid item xs={12}>
               <TextField
                 id="outlined-multiline-flexible"
-                // label="Last Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                name="pMemberLastName"
+                // value={this.props.itemCf.pReferredIHCPAccreCode}
+                name="pHCIName"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -193,11 +163,9 @@ class forms2 extends React.Component {
             <Grid item xs={12}>
               <TextField
                 id="outlined-multiline-flexible"
-                // label="First Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                name="pMemberFirstName"
+                // value={this.props.itemCf.pReferredIHCPAccreCode}
+                name="pHCIAddress"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -230,7 +198,8 @@ class forms2 extends React.Component {
                     fullWidth
                     type="date"
                     InputLabelProps={{ shrink: true }}
-                    name="pDateAdmited"
+                    value={this.props.itemCf.pAdmissionDate}
+                    name="pAdmissionDate"
                     size="small"
                     onChange={this.props.handleDate}
                   />
@@ -239,12 +208,11 @@ class forms2 extends React.Component {
                   <TextField
                     id="outlined-multiline-flexible"
                     label="Time Admited"
-                    // multiline
-                    // maxRows={4}
+                    value={this.props.itemCf.pAdmissionTime}
                     fullWidth
                     InputLabelProps={{ shrink: true }}
                     type="time"
-                    name="pMemberMiddleName"
+                    name="pAdmissionTime"
                     size="small"
                     onChange={this.props.onchange}
                   />
@@ -269,7 +237,8 @@ class forms2 extends React.Component {
                     InputLabelProps={{ shrink: true }}
                     fullWidth
                     type="date"
-                    name="pDateDisCharge"
+                    value={this.props.itemCf.pDischargeDate}
+                    name="pDischargeDate"
                     size="small"
                     onChange={this.props.handleDate}
                   />
@@ -278,12 +247,11 @@ class forms2 extends React.Component {
                   <TextField
                     id="outlined-multiline-flexible"
                     label="Time Discharged"
-                    // multiline
-                    // maxRows={4}
+                    value={this.props.itemCf.pDischargeTime}
                     fullWidth
                     InputLabelProps={{ shrink: true }}
                     type="time"
-                    name="pMemberMiddleName"
+                    name="pDischargeTime"
                     size="small"
                     onChange={this.props.onchange}
                   />
@@ -340,7 +308,7 @@ class forms2 extends React.Component {
                     fullWidth
                     InputLabelProps={{ shrink: true }}
                     type="date"
-                    name="pMemberMiddleName"
+                    name="pExpiredDate"
                     size="small"
                     onChange={this.props.onchange}
                   />
@@ -354,7 +322,7 @@ class forms2 extends React.Component {
                     fullWidth
                     InputLabelProps={{ shrink: true }}
                     type="time"
-                    name="pMemberMiddleName"
+                    name="pExpiredTime"
                     size="small"
                     onChange={this.props.onchange}
                   />
@@ -422,8 +390,8 @@ class forms2 extends React.Component {
                   <Typography>
                     <Switch
                       name=""
-                      checked={this.props.isTransfered}
-                      onClick={this.props.handleToggle}
+                      checked={this.props.patienCon.transfered}
+                      onChange={() => this.props.handleClickCheckBoxPatientCon('transfered')} 
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Transferred/Referred
@@ -432,7 +400,7 @@ class forms2 extends React.Component {
                 <Grid item xs={4}></Grid>
 
                 {/* if  Transferred/Referred is True Display */}
-                {this.props.isTransfered ? (
+                {this.props.patienCon.transfered ? (
                   <Grid item xs={12}>
                     <Card sx={{ minWidth: 275 }}>
                       <CardContent>
@@ -446,11 +414,10 @@ class forms2 extends React.Component {
                             <InputLabel>Accreditation Code:</InputLabel>
                             <TextField
                               id="outlined-multiline-flexible"
-                              // label="Multiline"
-                              // multiline
-                              // maxRows={4}
+                              
+                             value={this.props.itemCf.pReferralIHCPAccreCode}
                               fullWidth
-                              name="pMemberPIN"
+                              name="pReferralIHCPAccreCode"
                               size="small"
                               onChange={this.props.onchange}
                             />
@@ -466,9 +433,7 @@ class forms2 extends React.Component {
                           <Grid item xs={12}>
                             <TextField
                               id="outlined-multiline-flexible"
-                              // label="Last Name"
-                              // multiline
-                              // maxRows={4}
+                              value={this.props.itemCf.pReferralIHCPAccreCode}
                               fullWidth
                               name="pMemberLastName"
                               size="small"
@@ -498,11 +463,9 @@ class forms2 extends React.Component {
                           <Grid item xs={12}>
                             <TextField
                               id="outlined-multiline-flexible"
-                              // label="First Name"
-                              // multiline
-                              // maxRows={4}
+                             value={this.props.itemCf.pReferralReasons}
                               fullWidth
-                              name="pMemberFirstName"
+                              name="pReferralReasons"
                               size="small"
                               onChange={this.props.onchange}
                             />
@@ -526,31 +489,22 @@ class forms2 extends React.Component {
                   </Typography>
                   <br />
                 </Grid>
+                <Grid container spacing={2}>
+                  
+                    {options2.map((option) => (
+                        <Grid item xs={3} key={option.value} >
+                        <Switch
+                            id={option.value}
+                            value={option.value}
+                            checked={selectedTypeOfAccomodation === option.value}
+                            onChange={() => this.props.handleCheckboxChangeAccomondation(option.value)}/>
+                            <label htmlFor={option.value}>{option.label}</label>
+                          </Grid>
+                      
+                    ))}
+                  </Grid>
 
-                <Grid item xs={3}>
-                  {" "}
-                  <Typography>
-                    <Switch
-                      name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
-                      inputProps={{ "aria-label": "switch" }}
-                    />
-                    Private
-                  </Typography>
-                </Grid>
-                <Grid item xs={5}>
-                  {" "}
-                  <Typography>
-                    <Switch
-                      name=""
-                      // checked={value === 1}
-                      // onChange={handleChecked}
-                      inputProps={{ "aria-label": "switch" }}
-                    />
-                    Non-Private(Charity/Service)
-                  </Typography>
-                </Grid>
+             
                 <Grid item xs={4}></Grid>
               </Grid>
             </Grid>
