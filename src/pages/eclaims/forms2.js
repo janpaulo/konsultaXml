@@ -35,7 +35,6 @@ import Forms2Table from "./forms2Table";
 import ProfessionalTables from "./ProfessionalTables";
 import Certification from "./certification";
 import DiagnosCode from "./DiagnosCode";
-
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
 
@@ -44,6 +43,7 @@ class forms2 extends React.Component {
     super();
     this.state = {
       items: [],
+      time:'',
     };
   }
 
@@ -57,7 +57,9 @@ class forms2 extends React.Component {
     const { selectedOption } = this.props; 
     const { options2 } = this.props;
     const { selectedTypeOfAccomodation } = this.props;
-
+    const { options3 } = this.props;
+    const { pTBType } = this.props;
+    // const { value } = this.state;
     // console.log(this.props.itemcf.pReferralIHCPAccreCode);
     // console.log(selectedOption);
     return (
@@ -65,6 +67,8 @@ class forms2 extends React.Component {
         <Box id="fullWidth">
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
+           
+            <button onClick={this.props.print}>Print Time</button>
 
             <Grid container spacing={2}>
               {/* First row */}
@@ -214,7 +218,7 @@ class forms2 extends React.Component {
                     type="time"
                     name="pAdmissionTime"
                     size="small"
-                    onChange={this.props.onchange}
+                    onChange={this.props.handleTimeChange}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -253,7 +257,7 @@ class forms2 extends React.Component {
                     type="time"
                     name="pDischargeTime"
                     size="small"
-                    onChange={this.props.onchange}
+                    onChange={this.props.handleTimeChange}
                   />
                 </Grid>
                 <Grid item xs={4}>
@@ -527,6 +531,7 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-static"
                 label=""
+                name="pAdmissionDiagnosis"
                 multiline
                 fullWidth
                 rows={5}
@@ -543,7 +548,12 @@ class forms2 extends React.Component {
             </Typography>
           </Divider>
           <br />
-          <DiagnosCode itemCodes={""} />
+
+          {/* //DiagnosCode component */}
+          <DiagnosCode itemCodes={""}  
+          diagnosCodeData={this.props.diagnosCodeData}
+          onDataChange={this.props.handleDataChange}
+          />
 
           <br />
           <Divider>
@@ -1147,7 +1157,7 @@ class forms2 extends React.Component {
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 // type="time"
-                name="pMemberMiddleName"
+                name="pCheckUpDate1"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1161,7 +1171,7 @@ class forms2 extends React.Component {
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 // type="time"
-                name="pMemberMiddleName"
+                name="pCheckUpDate2"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1175,7 +1185,7 @@ class forms2 extends React.Component {
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 // type="time"
-                name="pMemberMiddleName"
+                name="pCheckUpDate3"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1189,7 +1199,7 @@ class forms2 extends React.Component {
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 // type="time"
-                name="pMemberMiddleName"
+                name="pCheckUpDate4"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1247,37 +1257,25 @@ class forms2 extends React.Component {
                   // onClick={(e) => this.props.handleClickCheckBox(e)}
                 />
               }
-              label="Check all if applicable"
+              label="Check if applicable"
             />
           </Typography>
           <br />
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
-              <Typography>
-                Treatment Phase:
-                <Switch
-                  name=""
-                  // checked={value === 1}
-                  // onChange={handleChecked}
-                  inputProps={{ "aria-label": "switch" }}
-                />
-                Intensive
-              </Typography>
-            </Grid>
-            <Grid item xs={8}>
-              <Typography>
-                <Switch
-                  name=""
-                  // checked={value === 1}
-                  // onChange={handleChecked}
-                  inputProps={{ "aria-label": "switch" }}
-                />
-                Maintenance
-              </Typography>
-            </Grid>
 
-            <Grid item xs={6}></Grid>
-          </Grid>
+          <Grid container spacing={2}>
+                  
+                  {options3.map((option) => (
+                      <Grid item xs={4} key={option.value} >
+                      <Switch
+                          id={option.value}
+                          value={option.value}
+                          checked={pTBType === option.value}
+                          onChange={() => this.props.handleCheckboxChangeTBtype(option.value)}/>
+                          <label htmlFor={option.value}>{option.label}</label>
+                        </Grid>
+                  ))}
+                </Grid>
+
           <br />
           <Typography>
             <b>
@@ -1303,12 +1301,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Day 0  ARV"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="date"
-                name="pMemberMiddleName"
+                name="pDay0ARV"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1317,12 +1312,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Day 3  ARV"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="date"
-                name="pMemberMiddleName"
+                name="pDay3ARV"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1331,12 +1323,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Day 7  ARV"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="date"
-                name="pMemberMiddleName"
+                name="pDay7ARV"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1345,12 +1334,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="RIG"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="date"
-                name="pMemberMiddleName"
+                name="pRIG"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1359,12 +1345,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Others"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="date"
-                name="pMemberMiddleName"
+                name="pABPOthers"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1373,12 +1356,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Specify"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="date"
-                name="pMemberMiddleName"
+                name="pABPSpecify"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1405,7 +1385,7 @@ class forms2 extends React.Component {
               {" "}
               <Typography>
                 <Switch
-                  name=""
+                  name="pEssentialNewbornCare"
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
@@ -1417,7 +1397,7 @@ class forms2 extends React.Component {
               {" "}
               <Typography>
                 <Switch
-                  name=""
+                  name="pNewbornHearingScreeningTest"
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
@@ -1429,7 +1409,7 @@ class forms2 extends React.Component {
               {" "}
               <Typography>
                 <Switch
-                  name=""
+                  name="pNewbornHearingScreeningTestResult"
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
@@ -1476,52 +1456,53 @@ class forms2 extends React.Component {
                 Yes
               </Typography>
             </Grid>
+
             <Grid item xs={4}>
               <FormGroup>
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Immediate drying of newborn, etc."
-                  name=""
+                  name="pDrying"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Early skin-to-skin contact"
-                  name=""
+                  name="pSkinToSkin"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Timely card clamping"
-                  name=""
+                  name="pCordClamping"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Eye prophylaxis"
-                  name=""
+                  name="pProphylaxis"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Weighing of the newborn"
-                  name=""
+                  name="pWeighing"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Vitamin of the newborn"
-                  name=""
+                  name="pVitaminK"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="BCG vaccination"
-                  name=""
+                  name="pBCG"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Non-separation of mother/baby for early breastfeeding initiation"
-                  name=""
+                  name="pNonSeparation"
                 />
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Hepatitis B vaccination"
-                  name=""
+                  name="pHepatitisB"
                 />
               </FormGroup>
             </Grid>
@@ -1529,11 +1510,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Filter Card No."
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                name="pMemberMiddleName"
+                name="pFilterCardNo"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -1572,11 +1551,9 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Laboratory Number"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                name="pMemberMiddleName"
+                name="pLaboratoryNumber"
                 size="small"
                 onChange={this.props.onchange}
               />{" "}

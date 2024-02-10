@@ -4,6 +4,8 @@ import Forms from "./forms";
 // import Forms2 from "./forms2";
 import PropTypes from "prop-types";
 import Box from '@mui/material/Box';
+import JsonToXml from "json2xml";
+import SimplePopUp from "./../../shared/PopUp/PopUpModule";
 
 
 function CustomTabPanel(props) {
@@ -39,7 +41,8 @@ class mainForms extends React.Component {
     this.state = {
       title: "ESOA",
       item: {},
-      roomAndBoard: {},
+      openPopup: false,
+      // roomAndBoard: {},
       
       summaryOfFees: { },
         roomAndBoard: { pActualCharges: "", pSeniorCitizenDiscount: "",pPWDDiscount: "",pPCSO: "",pDSWD: "", pDOHMAP: "",pHMO: ""},
@@ -65,6 +68,17 @@ class mainForms extends React.Component {
         pDescription: "",
         pAmount: ""
       },
+      dataItem: [
+        {
+          pServiceDate: "",
+          pItemCode: "",
+          pUnitOfMeasurement: "",
+          pItemName: "",
+          pUnitPrice: 0,
+          pQuantity: 0,
+          pTotalAmount: 0,
+        },
+      ],
       items: [],
       itembills: [],
       value: 0,
@@ -73,16 +87,78 @@ class mainForms extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleInputChangeOtherFundSource = this.handleInputChangeOtherFundSource.bind(this);
+    this.handleInputChangedrugsAndMedicine = this.handleInputChangedrugsAndMedicine.bind(this);
   }
 
   handleSubmit(params) {
     console.log("here me");
-    //   this.setState({
-    //     bank: {
-    //       ...this.state.bank,
-    //       name: e.target.value
-    //     }
-    //   })
+    const array = this.state.dataItem;
+    // Create JSON object based on the length of the array
+    const ItemizedBillingItems = array.map((value, index) => {
+      return {
+        ["ItemizedBillingItem"]: '', attr: value
+      };
+    });
+    console.log(
+      JsonToXml(
+        {eSOA: [
+          {SummaryOfFees:
+            [
+              {
+                RoomAndBoard: [
+                  {SummaryOfFee: "" , attr: {s: "Dadada"} },
+                  {OtherFundSource: "" , attr: {s: "Dadada"} },
+                ] 
+              },
+              {
+                DrugsAndMedicine: [
+                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
+                ] 
+              },
+              {
+                LaboratoryAndDiagnostic: 
+                [
+                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
+                ]  
+              },
+              {
+                OperatingRoomFees: 
+                [
+                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
+                ]  
+              },
+              {
+                MedicalSupplies: 
+                [
+                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
+                ] 
+              },
+              {PhilHealth: "", attr: {s: "Dadada"}  },
+              {Balance: "", attr: {ssaewrers: "Dadada"}  },
+            ], attr: {s: "Dadada"} },
+          { ProfessionalFees: [
+              {
+                ProfessionalFee: 
+                [
+                  {ProfessionalInfo: "1", attr: {s: "Dadada"} },
+                  {SummaryOfFee: "1", attr: {s: "Dadada"} },
+                ]
+              },
+              {PhilHealth: "1", attr: {s: "Dadada"} },
+              {Balance: "1", attr: {s: "Dadada"} },
+            ] 
+          },
+          { ItemizedBillingItems //data is on the json
+          } ,
+        ],
+          attr: {	pHciPan: "X12345678", pHciTransmittalId: "X12345678-2023-02-13-1"},
+        },
+        { attributes_key: "attr" }
+      )
+    );
+
+
   }
 
   handleChange(event, newValue) {
@@ -90,17 +166,39 @@ class mainForms extends React.Component {
   }
 
   handleInputChange(e) {
-    console.log(e.target.value);
     this.setState({
-      item: {
-        ...this.state.item,
+      roomAndBoard: {
+        ...this.state.roomAndBoard,
         [e.target.name]: e.target.value,
       },
     });
+  
+  }
+  handleInputChangeOtherFundSource(e) {
+    this.setState({
+      OtherFundSource: {
+        ...this.state.OtherFundSource,
+        [e.target.name]: e.target.value,
+      },
+    });
+  
+  }
+  handleInputChangedrugsAndMedicine(e) {
+    this.setState({
+      drugsAndMedicine: {
+        ...this.state.drugsAndMedicine,
+        [e.target.name]: e.target.value,
+      },
+    });
+   
+  
   }
 
+  handleDataChange = (updatedData) => {
+    this.setState({ dataItem: updatedData });
+  };
+
   render() {
-    console.log(this.state.item);
     return (
       <>
         <Typography variant="h5" component="h5">
@@ -113,8 +211,26 @@ class mainForms extends React.Component {
           <Forms
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
+              handleDataChange={this.handleDataChange}
               itembills={this.state.itembills}
+              dataItem={this.state.dataItem}
+
+
+              roomAndBoard={this.state.roomAndBoard}
+              OtherFundSource={this.state.OtherFundSource}
+              drugsAndMedicine={this.state.drugsAndMedicine}
             />
+
+          <SimplePopUp
+            // openPopup={true}
+            openPopup={this.state.openPopup}
+            title={this.state.title}
+            handleClose={this.handleClose}
+            maxWidth={this.state.maxWidth}
+          >
+
+
+          </SimplePopUp>
           
 
          

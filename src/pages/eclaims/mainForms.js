@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Forms from "./forms";
 import Forms2 from "./forms2";
+import SimplePopUp from "./../../shared/PopUp/PopUpModule";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -48,6 +49,7 @@ class mainForms extends React.Component {
     this.state = {
       title: "Claims",
       item: {},
+      openPopup: false,
       specialConsideration: {
         isHemodialysis: false,
         isPentoneal: false,
@@ -57,63 +59,68 @@ class mainForms extends React.Component {
         isBloodTrans: false,
         isBracy: false,
         isSimpleDeb: false,
-        isChemotherapy: false},
-        
-        patienCon: {
-          improved: false,
-          recovered: false,
-          homeDischarged: false,
-          abscorded: false,
-          expired: false,
-          transfered: false,
-        },
+        isChemotherapy: false,
+      },
 
-        options: [
-          { label: 'All Case Rate', value: 'ALL-CASE-RATE' },
-          { label: 'Z-Benefits', value: 'Z-BENEFITS' },
-          { label: 'Confinement Abroad', value: 'CONFINEMENT-ABROAD' },
-          { label: 'Emergency Case', value: 'EMERGENCY-CASE' },
-          { label: 'OPD Case', value: 'OPD-CASE' },
-          { label: 'Others', value: 'OTHERS' },
-          { label: 'For Post Audit', value: 'POST-AUDIT' },
-        ],
+      patienCon: {
+        improved: false,
+        recovered: false,
+        homeDischarged: false,
+        abscorded: false,
+        expired: false,
+        transfered: false,
+      },
 
-        
-        options2: [
-          { label: 'Private', value: 'Y' },
-          { label: 'Non-Private(Charity/Service)', value: 'G' },
-        ],
+      options: [
+        { label: "All Case Rate", value: "ALL-CASE-RATE" },
+        { label: "Z-Benefits", value: "Z-BENEFITS" },
+        { label: "Confinement Abroad", value: "CONFINEMENT-ABROAD" },
+        { label: "Emergency Case", value: "EMERGENCY-CASE" },
+        { label: "OPD Case", value: "OPD-CASE" },
+        { label: "Others", value: "OTHERS" },
+        { label: "For Post Audit", value: "POST-AUDIT" },
+      ],
 
-        selectedOption: null,
-        selectedTypeOfAccomodation: null,
+      options2: [
+        { label: "Private", value: "Y" },
+        { label: "Non-Private(Charity/Service)", value: "N" },
+      ],
 
-        claimsType: {
-          allCaseRate: false,
-          zBenefits: false,
-          confinementAbroad: false,
-          emergencyCase: false,
-          opdCase: false,
-          others: false,
-          posAudit: false,
-        },
+      options3: [
+        { label: "Treatment Phase:", value: "I" },
+        { label: "Maintenance", value: "M" },
+      ],
 
-        isTransfered: false,
-        specialCon: false,
-      dateAdmitedCount:"",
-      startDayAdmited:"",
+      selectedOption: null,
+      selectedTypeOfAccomodation: null,
+      pTBType : null,
 
+      claimsType: {
+        allCaseRate: false,
+        zBenefits: false,
+        confinementAbroad: false,
+        emergencyCase: false,
+        opdCase: false,
+        others: false,
+        posAudit: false,
+      },
 
-      patientDisposition:"",
+      isTransfered: false,
+      specialCon: false,
+      dateAdmitedCount: "",
+      startDayAdmited: "",
 
-      eCLAIMS:{
-        pUserName :  ":ECLAIMS-04-01-2018-00002",
-        pUserPassword : "",
-        pHospitalCode : "300806",
-        pHospitalEmail : "email@yahoo.com"
+      patientDisposition: "",
+
+      eCLAIMS: {
+        pUserName: ":ECLAIMS-04-01-2018-00002",
+        pUserPassword: "",
+        pHospitalCode: "300806",
+        pHospitalEmail: "email@yahoo.com",
       },
       eTRANSMITTAL: {
         pHospitalTransmittalNo: "300806-07-21-2023-1",
-        pTotalClaims: "1"
+        pTotalClaims: "1",
       },
 
       claim: {
@@ -121,9 +128,9 @@ class mainForms extends React.Component {
         pTrackingNumber: "",
         pPhilhealthClaimType: "ALL-CASE-RATE",
         pPatientType: "I",
-        pIsEmergency: "N"
+        pIsEmergency: "N",
       },
-      
+
       itemcf1: {
         pMemberPIN: "",
         pMemberLastName: "",
@@ -150,22 +157,42 @@ class mainForms extends React.Component {
         pEmployerName: "",
       },
       itemcf2: {
-        // pDateAdmited: moment(new Date()).format("YYYY-MM-DD"),
-        // pDateDisCharge:  moment(new Date()).format("YYYY-MM-DD"),
-        pPatientReferred : "Y",
-        pReferredIHCPAccreCode : "H12345678",
-        pAdmissionDate : moment(new Date()).format("YYYY-MM-DD") ,
-        pAdmissionTime : "01:00:00PM" ,
-        pDischargeDate :moment(new Date()).format("YYYY-MM-DD"),
-        pDischargeTime : "03:00:00PM",
-        pDisposition : "I",
-        pExpiredDate : "",
-        pExpiredTime : "",
-        pReferralIHCPAccreCode : "",
-        pReferralReasons : "",
-        pAccommodationType : "N"
-
+        pPatientReferred: "Y",
+        pReferredIHCPAccreCode: "H12345678",
+        pAdmissionDate: moment(new Date()).format("YYYY-MM-DD"),
+        pAdmissionTime: "", //01:00:00PM" ,
+        pDischargeDate: moment(new Date()).format("YYYY-MM-DD"),
+        pDischargeTime: "", //"03:00:00PM",
+        pDisposition: "I",
+        pExpiredDate: "",
+        pExpiredTime: "",
+        pReferralIHCPAccreCode: "",
+        pReferralReasons: "",
+        pAccommodationType: "N",
       },
+
+      // RVSCODES
+      rvscodes: {
+        pRelatedProcedure: "",
+        RVSCode: "",
+        pProcedureDate: "",
+        pLaterality: "",
+      },
+
+      diagnosCodeData: [
+        {
+          pDischargeDiagnosis: "",
+          pLaterality: "",
+          pICDCode: "",
+          pRVSCode: "",
+          pProcedureDate: "",
+          pRelatedProcedure: "",
+          left: false,
+          right: false,
+          both: false,
+        },
+      ],
+
       items: [],
       value: 0,
     };
@@ -175,57 +202,69 @@ class mainForms extends React.Component {
     this.handleToggleIsTrasfered = this.handleToggleIsTrasfered.bind(this);
     this.handleClickCheckBox = this.handleClickCheckBox.bind(this);
     this.handleDate = this.handleDate.bind(this);
-    this.handleClickCheckBoxSpeConsideration = this.handleClickCheckBoxSpeConsideration.bind(this);
-    this.handleClickCheckBoxPatientCon = this.handleClickCheckBoxPatientCon.bind(this);
+    this.handleClickCheckBoxSpeConsideration =
+      this.handleClickCheckBoxSpeConsideration.bind(this);
+    this.handleClickCheckBoxPatientCon =
+      this.handleClickCheckBoxPatientCon.bind(this);
     this.handleSendSelection = this.handleSendSelection.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.handleCheckboxChangeAccomondation = this.handleCheckboxChangeAccomondation.bind(this);
+    this.handleCheckboxChangeAccomondation =
+      this.handleCheckboxChangeAccomondation.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    this.setState({ openPopup: false });
   }
 
   handleSubmit(params) {
-    console.log("here me");
+    console.log(this.state.diagnosCodeData);
 
-    console.log(this.state.patientDisposition)
-    console.log(JsonToXml(
+    this.setState({ openPopup: true });
+    console.log(this.state.patientDisposition);
 
-      // { CF1: '', CF2: 2,  attr: this.state.itemcf1 }, 
+    console.log(
+      JsonToXml(
+        // { CF1: '', CF2: 2,  attr: this.state.itemcf1 },
 
-      // <eCLAIMS> mga lamn </eCLAIMS>
-      // { eCLAIMS:  {
-      //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
-      //  }, 
-      // attr:  this.state.eCLAIMS },
-      // { attributes_key: 'attr' }
-      // ));
+        // <eCLAIMS> mga lamn </eCLAIMS>
+        // { eCLAIMS:  {
+        //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
+        //  },
+        // attr:  this.state.eCLAIMS },
+        // { attributes_key: 'attr' }
+        // ));
 
-
-
-       { eCLAIMS:  {
-          eTRANSMITTAL: { 
-            CLAIM: [
-              {CF1: "", attr: this.state.itemcf1},
-              {CF2: [
-                  { a: 1, attr: { b: 2, c: 3 } },
-
-              ], attr: this.state.itemcf2}
-            ]    ,  attr:  this.state.claim    },  attr:  this.state.eTRANSMITTAL
-        }, 
-       attr:  this.state.eCLAIMS },
-       { attributes_key: 'attr' }
-
-       ));
-
-
+        {
+          eCLAIMS: {
+            eTRANSMITTAL: {
+              CLAIM: [
+                { CF1: "", attr: this.state.itemcf1 },
+                {
+                  CF2: [{ a: 1, attr: { b: 2, c: 3 } }],
+                  attr: this.state.itemcf2,
+                },
+              ],
+              attr: this.state.claim,
+            },
+            attr: this.state.eTRANSMITTAL,
+          },
+          attr: this.state.eCLAIMS,
+        },
+        { attributes_key: "attr" }
+      )
+    );
   }
 
-  handleDate(e)  {
+  handleDate(e) {
     this.setState({
       itemcf2: {
         ...this.state.itemcf2,
         [e.target.name]: e.target.value,
       },
     });
-  };
+
+  }
 
   handleChange(event, newValue) {
     this.setState({ value: newValue });
@@ -246,38 +285,46 @@ class mainForms extends React.Component {
     //     [e.target.name]: e.target.value,
     //   },
     // });
-
-
   }
 
-  handleToggleIsTrasfered () {
-      this.setState({ isTransfered: !this.state.isTransfered });
-  };
+  handleToggleIsTrasfered() {
+    this.setState({ isTransfered: !this.state.isTransfered });
+  }
 
-  handleClickCheckBox (e) {
-    console.log(this.state.specialCon )
-      this.setState({ specialCon: !this.state.specialCon });
-  };
+  handleClickCheckBox(e) {
+    console.log(this.state.specialCon);
+    this.setState({ specialCon: !this.state.specialCon });
+  }
 
-  
-  handleClickCheckBoxPatientCon (option) {
+  handleClickCheckBoxPatientCon(option) {
+    var valueOfDisposition = ""
+    if( option === "improved"){
+      valueOfDisposition= "I"
+    }else if (option === "recovered") {
+      valueOfDisposition= "R"
+    }  else if (option === "homeDischarged") {
+      valueOfDisposition= "H"
+    } else if (option === "abscorded") {
+      valueOfDisposition= "A"
+    } else if (option === "expired") {
+      valueOfDisposition= "E"
+    }else if (option === "transfered") {
+      valueOfDisposition= "T"
+    } 
 
-
-    this.setState({patientDisposition: option})
+    this.setState({ patientDisposition: valueOfDisposition });
 
     this.setState((prevState) => ({
       patienCon: {
-        ...Object.fromEntries(Object.entries(prevState.patienCon).map(([key]) => [key, false])),
+        ...Object.fromEntries(
+          Object.entries(prevState.patienCon).map(([key]) => [key, false])
+        ),
         [option]: !prevState.patienCon[option],
-
       },
     }));
-  };
+  }
 
-
-
-  handleClickCheckBoxSpeConsideration (e) {
-
+  handleClickCheckBoxSpeConsideration(e) {
     // console.log(e.target.checked);
     this.setState({
       specialConsideration: {
@@ -285,84 +332,125 @@ class mainForms extends React.Component {
         [e.target.name]: e.target.checked,
       },
     });
-  };
+  }
 
-
-  handleSendSelection (event) {
-    console.log()
+  handleSendSelection(event) {
+    console.log();
     console.log("value - ", event.target.value);
- }
+  }
 
   handleCheckboxChange = (option) => {
     this.setState({ selectedOption: option });
   };
 
   handleCheckboxChangeAccomondation = (option) => {
-    console.log(option)
+    console.log(option);
     this.setState({ selectedTypeOfAccomodation: option });
+  };
+
+  
+  handleCheckboxChangeTBtype = (option) => {
+    console.log(option);
+    this.setState({ pTBType: option });
+  };
+
+  handleTimeChange = (e) => {
+    // this.setState({ time: event.target.value });
+
+    this.setState({
+      itemcf2: {
+        ...this.state.itemcf2,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  print = () => {
+    const { pDischargeTime, pAdmissionTime } = this.state.itemcf2;
+    console.log(pDischargeTime);
+    const [h, m] = pDischargeTime.split(":");
+    const [H, M] = pAdmissionTime.split(":");
+    console.log(
+      (h % 12 ? h % 12 : 12) + ":" + m,
+      parseInt(h, 10) >= 12 ? "PM" : "AM"
+    );
+    console.log(
+      (H % 12 ? H % 12 : 12) + ":" + M,
+      parseInt(H, 10) >= 12 ? "PM" : "AM"
+    );
+  };
+
+  // for diagnosCodeData
+  handleDataChange = (updatedData) => {
+    this.setState({ diagnosCodeData: updatedData });
   };
 
   render() {
     var start = this.state.itemcf2.pAdmissionDate;
     var end = this.state.itemcf2.pDischargeDate;
-        
-    const getDaysDiff = (start_date, end_date, date_format = 'YYYY-MM-DD') => {
+
+    const getDaysDiff = (start_date, end_date, date_format = "YYYY-MM-DD") => {
       const getDateAsArray = (date) => {
         return moment(date.split(/\D+/), date_format);
-      }
-      return getDateAsArray(end_date).diff(getDateAsArray(start_date), 'days') + 1;
-    }
-    const countAdmidatedDate = getDaysDiff(start,end);
+      };
+      return (
+        getDateAsArray(end_date).diff(getDateAsArray(start_date), "days") + 1
+      );
+    };
+    const countAdmidatedDate = getDaysDiff(start, end);
     let satrtDay = moment(start).date();
     let month = 1 + moment(start).month();
     let year = moment(start).year();
-    let dateAdmitedCounts = this.state.dateAdmitedCount 
-    let startDayAdmits = this.state.startDayAdmited 
-    
+    let dateAdmitedCounts = this.state.dateAdmitedCount;
+    let startDayAdmits = this.state.startDayAdmited;
+
     dateAdmitedCounts = countAdmidatedDate;
     startDayAdmits = satrtDay;
 
-
-    // console.log(start)
-    // eTRANSMITTAL: '' , etransAtr: this.state.eTRANSMITTAL,
     console.log(JsonToXml(
-
-      // { CF1: '', CF2: 2,  attr: this.state.itemcf1 }, 
-
-      // <eCLAIMS> mga lamn </eCLAIMS>
-      // { eCLAIMS:  {
-      //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
-      //  }, 
-      // attr:  this.state.eCLAIMS },
-      // { attributes_key: 'attr' }
-      // ));
-
-
-
        { eCLAIMS:  {
-          eTRANSMITTAL: { 
+          eTRANSMITTAL: {
             CLAIM: [
               {CF1: "", attr: this.state.itemcf1},
               {CF2: [
-                  { a: 1, attr: { b: 2, c: 3 } },
+                  { DIAGNOSIS: 
+                    [
+                      { DISCHARGE: [
+                        { ICDCODE: "wqwqw", }
+                        // {
+                        //     ICDCODE: "", attr: { pICDCode:  "K31.9"},
+                           
+                        // },
+                        // {
+                        //   ICDCODE: "", attr: { pICDCode:  "K31.9"},
+                        // }
+                    ] 
+                    },
 
-              ], attr: this.state.itemcf2}
+                      // [ { DISCHARGE: [{ICDCODE: "da"},{ICDCODE: "ssf"}] , attr: { pDischargeDiagnosis: 2 } } ]
+                    ], attr: { pAdmissionDiagnosis: 2} 
+                  },
+
+                  { SPECIAL:  [{a: 1}] }, 
+                  { PROFESSIONALS: [{a: "s", attr: { pICDCode:  "K31.9"}}] },
+                  { CONSUMPTION:  [{BENEFITS: "s" , attr: { pTotalHCIFees:  "sa"}}], attr: { pEnoughBenefits:  "Y"} },
+
+              ], attr: this.state.itemcf2},
+
+              {ALLCASERATE: { CASERATE: '', attr: { pCaseRateCode:  "sa"}  } },
+
+              {PARTICULARS: { DRGMED: '', attr: { pCaseRateCode:  "sa"}  } },
+
+              {RECEIPTS: { RECEIPT: '', attr: { pCaseRateCode:  "sa"}  } },
+
+              {DOCUMENTS: { DOCUMENT: '', attr: { pCaseRateCode:  "sa"}  } }
+
             ]    ,  attr:  this.state.claim    },  attr:  this.state.eTRANSMITTAL
-        }, 
+        },
        attr:  this.state.eCLAIMS },
        { attributes_key: 'attr' }
 
        ));
-
-      //  console.log(JsonToXml(
-         
-      //     { a: 1, attr: { b: 2, c: 3 } },
-      //     { b: 2, attr: { b: 2, c: 3 }} ,
-      //     { attributes_key: 'attr' }
-        
-      //    ));
-
-
 
     return (
       <>
@@ -409,7 +497,7 @@ class mainForms extends React.Component {
             />
           </CustomTabPanel>
           <CustomTabPanel value={this.state.value} index={1}>
-          <Forms2
+            <Forms2
               isTransfered={this.state.isTransfered}
               specialConsideration={this.state.specialConsideration}
               isSpecialCon={this.state.specialCon}
@@ -419,25 +507,42 @@ class mainForms extends React.Component {
               startYearAdmited={year}
               patienCon={this.state.patienCon}
               claimsType={this.state.claimsType}
-
-              // itemcf={this.state.itemcf2} 
+              // itemcf={this.state.itemcf2}
               itemCf={this.state.itemcf2}
               handleClick={this.handleSubmit}
-              handleToggle ={this.handleToggleIsTrasfered}
-              handleClickCheckBox ={this.handleClickCheckBox}
+              handleToggle={this.handleToggleIsTrasfered}
+              handleClickCheckBox={this.handleClickCheckBox}
               handleDate={this.handleDate}
               onchange={this.handleInputChange}
-              handleClickCheckBoxSpeConsideration={this.handleClickCheckBoxSpeConsideration}
+              handleClickCheckBoxSpeConsideration={
+                this.handleClickCheckBoxSpeConsideration
+              }
               handleClickCheckBoxPatientCon={this.handleClickCheckBoxPatientCon}
               handleSendSelection={this.handleSendSelection}
               handleCheckboxChange={this.handleCheckboxChange}
-              handleCheckboxChangeAccomondation={this.handleCheckboxChangeAccomondation}
-              options={this.state.options} 
-              options2={this.state.options2} 
-              selectedOption={this.state.selectedOption} 
-              selectedTypeOfAccomodation={this.state.selectedTypeOfAccomodation} 
+              handleCheckboxChangeAccomondation={ this.handleCheckboxChangeAccomondation}
+              handleTimeChange={this.handleTimeChange}
+              handleCheckboxChangeTBtype={this.handleCheckboxChangeTBtype}
+              options3={this.state.options3}
+              pTBType={this.state.pTBType}
+              
+              print={this.print}
+              options={this.state.options}
+              options2={this.state.options2}
+              selectedOption={this.state.selectedOption}
+              selectedTypeOfAccomodation={this.state.selectedTypeOfAccomodation}
+              diagnosCodeData={this.state.diagnosCodeData}
+              handleDataChange={this.handleDataChange}
             />
           </CustomTabPanel>
+
+          <SimplePopUp
+            // openPopup={true}
+            openPopup={this.state.openPopup}
+            title={this.state.title}
+            handleClose={this.handleClose}
+            maxWidth={this.state.maxWidth}
+          ></SimplePopUp>
         </div>
       </>
     );

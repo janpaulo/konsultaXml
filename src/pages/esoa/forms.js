@@ -21,6 +21,10 @@ class forms extends React.Component {
   }
 
   render() {
+    const {roomAndBoard} = this.props
+    const {OtherFundSource} = this.props
+    const {drugsAndMedicine} = this.props
+    console.log(drugsAndMedicine)
     return (
       <>
         <Divider>
@@ -38,11 +42,8 @@ class forms extends React.Component {
               </InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                // label="Multiline"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                name="pMemberPIN"
+                name="pHciPan"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -65,6 +66,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pSeniorCitizenDiscount"
                 size="small"
+                value={roomAndBoard.pSeniorCitizenDiscount}
                 onChange={this.props.onchange}
               />
             </Grid>
@@ -72,8 +74,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="PWD Discount"
-                // multiline
-                // maxRows={4}
+                value={roomAndBoard.pPWDDiscount}
                 fullWidth
                 name="pPWDDiscount"
                 size="small"
@@ -84,8 +85,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="PCSO"
-                // multiline
-                // maxRows={4}
+                value={roomAndBoard.pPCSO}
                 fullWidth
                 name="pPCSO"
                 size="small"
@@ -96,8 +96,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="DSWD"
-                // multiline
-                // maxRows={4}
+                value={roomAndBoard.pDSWD}
                 fullWidth
                 name="pDSWD"
                 size="small"
@@ -108,8 +107,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="DOH MAP"
-                // multiline
-                // maxRows={4}
+                value={roomAndBoard.pDOHMAP}
                 fullWidth
                 name="pDOHMAP"
                 size="small"
@@ -120,8 +118,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="HMO"
-                // multiline
-                // maxRows={4}
+                value={roomAndBoard.pHMO}
                 fullWidth
                 name="pHMO"
                 size="small"
@@ -132,8 +129,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Actual Charges"
-                // multiline
-                // maxRows={4}
+                value={roomAndBoard.pActualCharges}
                 fullWidth
                 name="pActualCharges"
                 size="small"
@@ -149,8 +145,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Description"
-                // multiline
-                // maxRows={4}
+                value={OtherFundSource.pPWDDiscount}
                 fullWidth
                 name="pDescription"
                 size="small"
@@ -161,8 +156,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Amount"
-                // multiline
-                // maxRows={4}
+                value={OtherFundSource.pPWDDiscount}
                 fullWidth
                 name="pAmount"
                 size="small"
@@ -181,8 +175,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Senior Citizen Discount"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pSeniorCitizenDiscount}
                 fullWidth
                 name="pSeniorCitizenDiscount"
                 size="small"
@@ -193,8 +186,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="PWD Discount"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pPWDDiscount}
                 fullWidth
                 name="pPWDDiscount"
                 size="small"
@@ -205,8 +197,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="PCSO"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pPCSO}
                 fullWidth
                 name="pPCSO"
                 size="small"
@@ -217,8 +208,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="DSWD"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pDSWD}
                 fullWidth
                 name="pDSWD"
                 size="small"
@@ -229,8 +219,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="DOH MAP"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pDOHMAP}
                 fullWidth
                 name="pDOHMAP"
                 size="small"
@@ -241,8 +230,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="HMO"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pHMO}
                 fullWidth
                 name="pHMO"
                 size="small"
@@ -253,8 +241,7 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Actual Charges"
-                // multiline
-                // maxRows={4}
+                value={drugsAndMedicine.pActualCharges}
                 fullWidth
                 name="pActualCharges"
                 size="small"
@@ -575,7 +562,7 @@ class forms extends React.Component {
 
           <Professional />
           <ItemizzedBill />
-          <Itembills itembills={this.props.itembills} />
+          <Itembills itembills={this.props.itembills} dataItem={this.props.dataItem}   onDataChange={this.props.handleDataChange}  />
 
           <br />
           <Grid

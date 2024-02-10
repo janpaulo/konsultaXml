@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,31 +7,60 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-
 import TextField from "@mui/material/TextField";
 
-function Itembills({ itembills }){
-    const [data,setData]=useState([{pServiceDate:"",pItemCode:"",pUnitOfMeasurement:"",pItemName:"",pUnitPrice:"",pQuantity:"",pTotalAmount:""}])
-    // const [value, setValue] = useState("0.0");
-    const handleClick=()=>{
-        setData([...data,{pServiceDate:"",pItemCode:"",pUnitOfMeasurement:"",pItemName:"",pUnitPrice:"",pQuantity:"",pTotalAmount:""}])
-    }
-    const handleChange=(e,i)=>{
-        const {name,value}=e.target
-        const onchangeVal = [...data]
-        onchangeVal[i][name]=value
-        setData(onchangeVal)
-        itembills = onchangeVal
-    }
-    const handleDelete=(i)=>{
-        const deleteVal = [...data]
-        deleteVal.splice(i,1)
-        setData(deleteVal)
-    }
-    return(
-        <div className="App">
+class Itembills extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data:this.props.dataItem,
+    };
+  }
 
-            <TableContainer component={Paper}>
+  handleClick = () => {
+    this.setState((prevState) => ({
+      data: [
+        ...prevState.data,
+        {
+          pServiceDate: "",
+          pItemCode: "",
+          pUnitOfMeasurement: "",
+          pItemName: "",
+          pUnitPrice: 0,
+          pQuantity: 0,
+          pTotalAmount: 0,
+        },
+      ],
+    }));
+  };
+
+  handleChange = (e, i) => {
+    const { name, value } = e.target;
+    const newData = [...this.state.data];
+    newData[i][name] = value;
+
+    const amount = newData[i].pUnitPrice * newData[i].pQuantity;
+    newData[i].pTotalAmount = amount;
+    console.log("Amount for index " + i + ": " + amount);
+    
+    this.setState({ data: newData });
+    
+    this.props.onDataChange(newData);
+    // Assuming you want to pass the updated data back to a parent component
+    // this.props.itembills(newData);
+  };
+
+  handleDelete = (i) => {
+    const newData = [...this.state.data];
+    newData.splice(i, 1);
+    this.setState({ data: newData });
+    this.props.onDataChange(newData);
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -43,139 +72,127 @@ function Itembills({ itembills }){
                 <TableCell align="center">Quantity</TableCell>
                 <TableCell align="center">Total Amount</TableCell>
                 <TableCell align="center">
-            <Button variant="contained" color="success" onClick={handleClick}>Add</Button></TableCell>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={this.handleClick}
+                  >
+                    Add
+                  </Button>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-
-            {
-                data.map((val,i)=>
-              <TableRow>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    // label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pServiceDate"
-                    type="date"
-                    size="small"
-                    // onChange={this.props.onchange}
-                    value={val.pServiceDate} onChange={(e)=>handleChange(e,i)} 
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    // label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pItemCode"
-                    size="small"
-                    // onChange={this.props.onchange}
-                    value={val.pItemCode} onChange={(e)=>handleChange(e,i)} 
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    // label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pItemName"
-                    size="small"
-                    // onChange={this.props.onchange}
-                    value={val.pItemName} onChange={(e)=>handleChange(e,i)} 
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    // label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pUnitOfMeasurement"
-                    size="small"
-                    // onChange={this.props.onchange}
-                    value={val.pUnitOfMeasurement} onChange={(e)=>handleChange(e,i)} 
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    // label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pUnitPrice"
-                    type="number"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    size="small"
-                    // onChange={this.props.onchange}
-                    value={val.pUnitPrice} onChange={(e)=>handleChange(e,i)} 
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    // label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pQuantity"
-                    type="number"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    size="small"
-                    // onChange={this.props.onchange}
-                    value={val.pQuantity} onChange={(e)=>handleChange(e,i)} 
-                  />
-                </TableCell>
-                <TableCell align="center">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    label="Amount"
-                    // multiline
-                    // maxRows={4}
-                    fullWidth
-                    name="pTotalAmount"
-                    size="small"
-                    disabled
-                    // onChange={this.props.onchange}
-                    value={val.pUnitPrice * val.pQuantity} 
-                    // onChange={(e)=>handleChange(e,i)} 
-
-                  />
-                </TableCell>
-                <TableCell>
-                <Button variant="outlined" color="error" onClick={()=>handleDelete(i)}>Delete</Button>
-                </TableCell>
-              </TableRow>
-
-              )
-            }
-
+              {this.state.data.map((val, i) => (
+                <TableRow key={i}>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      fullWidth
+                      name="pServiceDate"
+                      type="date"
+                      size="small"
+                      value={val.pServiceDate}
+                      onChange={(e) => this.handleChange(e, i)}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      fullWidth
+                      name="pItemCode"
+                      size="small"
+                      value={val.pItemCode}
+                      onChange={(e) => this.handleChange(e, i)}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      // label="Amount"
+                      // multiline
+                      // maxRows={4}
+                      fullWidth
+                      name="pItemName"
+                      size="small"
+                      // onChange={this.props.onchange}
+                      value={val.pItemName}
+                      onChange={(e) => this.handleChange(e, i)}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      fullWidth
+                      name="pUnitOfMeasurement"
+                      size="small"
+                      // onChange={this.props.onchange}
+                      value={val.pUnitOfMeasurement}
+                      onChange={(e) => this.handleChange(e, i)}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      fullWidth
+                      name="pUnitPrice"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      size="small"
+                      value={val.pUnitPrice}
+                      onChange={(e) => this.handleChange(e, i)}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      fullWidth
+                      name="pQuantity"
+                      type="number"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      size="small"
+                      value={val.pQuantity}
+                      onChange={(e) => this.handleChange(e, i)}
+                    />
+                  </TableCell>
+                  <TableCell align="center">
+                    <TextField
+                      id="outlined-multiline-flexible"
+                      label="Amount"
+                      // multiline
+                      // maxRows={4}
+                      fullWidth
+                      name="pTotalAmount"
+                      size="small"
+                      disabled
+                      // onChange={this.props.onchange}
+                      value={val.pUnitPrice * val.pQuantity}
+                      // onChange={(e)=>handleChange(e,i)}
+                    />
+                  </TableCell>
+                  {/* Repeat similar structure for other fields */}
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => this.handleDelete(i)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
-            {/* {
-                data.map((val,i)=>
-                <div>
-                    <input name="fname" value={val.fname} onChange={(e)=>handleChange(e,i)} />
-                    <input name="lname" value={val.lname} onChange={(e)=>handleChange(e,i)} />
-                    <button onClick={()=>handleDelete(i)}>Delete</button>
-                </div>
-                )
-            } */}
-            {/* <p>{JSON.stringify(data)}</p> */}
-        </div>
-    )
+        {/* <p>{JSON.stringify(this.state.data)}</p> */}
+      </div>
+    );
+  }
 }
+
 export default Itembills;
