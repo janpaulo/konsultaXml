@@ -21,7 +21,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Link } from "react-router-dom";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AddToQueueOutlinedIcon from '@mui/icons-material/AddToQueueOutlined';
-import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
+// import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 //icons
 
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
