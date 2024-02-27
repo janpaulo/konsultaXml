@@ -5,7 +5,13 @@ import Forms from "./forms";
 import PropTypes from "prop-types";
 import Box from '@mui/material/Box';
 import JsonToXml from "json2xml";
-import SimplePopUp from "./../../shared/PopUp/PopUpModule";
+// import SimplePopUp from "./../../shared/PopUp/PopUpModule";
+import axios from 'axios'
+import PositionedSnackbar from './../../shared/alerts/PositionedSnackbar'
+
+import CryptoJS from "crypto-js";
+
+import { Navigate } from 'react-router-dom';
 
 
 function CustomTabPanel(props) {
@@ -34,34 +40,40 @@ CustomTabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-
 class mainForms extends React.Component {
   constructor() {
     super();
     this.state = {
       title: "ESOA",
-      item: {},
+      item: {pHciPan: ''},
       openPopup: false,
+      xml: "",
       // roomAndBoard: {},
       
       summaryOfFees: { },
-        roomAndBoard: { pActualCharges: "", pSeniorCitizenDiscount: "",pPWDDiscount: "",pPCSO: "",pDSWD: "", pDOHMAP: "",pHMO: ""},
+        roomAndBoard: { pActualCharges: 0, pSeniorCitizenDiscount: "0",pPWDDiscount: "0",pPCSO: "0",pDSWD: "0", pDOHMAP: "0",pHMO: "0"},
         OtherFundSource: { pDescription: "", pAmount: "" },
-        drugsAndMedicine: { pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
-        laboratoryAndDiagnostic: {pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
-        operatingRoomFees:  {pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
-        medicalSupplies:  {pActualCharges: "",  pSeniorCitizenDiscount: "", pPWDDiscount: "", pPCSO: "", pDSWD: "",   pDOHMAP: "",pHMO: ""},
-        PhilHealth :{pTotalCaseRateAmount: ""},
-        Balance :{pAmount: ""},
+        drugsAndMedicine: { pActualCharges: 0,  pSeniorCitizenDiscount: "0", pPWDDiscount: "0", pPCSO: "0", pDSWD: "0",   pDOHMAP: "0",pHMO: "0"},
+        laboratoryAndDiagnostic: {pActualCharges: 0,  pSeniorCitizenDiscount: "0", pPWDDiscount: "0", pPCSO: "0", pDSWD: "0",   pDOHMAP: "0",pHMO: "0"},
+        operatingRoomFees:  {pActualCharges: 0,  pSeniorCitizenDiscount: "0", pPWDDiscount: "0", pPCSO: "0", pDSWD: "0",   pDOHMAP: "0",pHMO: "0"},
+        medicalSupplies:  {pActualCharges: 0,  pSeniorCitizenDiscount: "0", pPWDDiscount: "0", pPCSO: "0", pDSWD: "0",   pDOHMAP: "0",pHMO: "0"},
+        
+        professionalInfo: { pPAN: "1100-9501805-6",  pFirstName: "LADY", pMiddleName: "IMHO", pLastName: "GAGA",  pSuffixName: "" },
+        summaryOfFee: { pActualCharges: "0", pSeniorCitizenDiscount: "0", pPWDDiscount: "0", pPCSO: "0",  pDSWD: "0", pDOHMAP: "0", pHMO: "0" },
+        
+        orfPhilHealth :{pTotalCaseRateAmount: ""},
+        orfBalance :{pAmount: ""}, 
+        profPhilHealth :{pTotalCaseRateAmount: ""},
+        profBalance :{pAmount: ""},
         
       itemSummaryFee: {
-        pActualCharges: "",
-        pSeniorCitizenDiscount: "",
-        pPWDDiscount: "",
-        pPCSO: "",
-        pDSWD: "",
-        pDOHMAP: "",
-        pHMO: ""
+        pActualCharges: 0,
+        pSeniorCitizenDiscount: "0",
+        pPWDDiscount: "0",
+        pPCSO: "0",
+        pDSWD: "0",
+        pDOHMAP: "0",
+        pHMO: "0"
 
       },
       itemOtherFundSource: {
@@ -82,6 +94,9 @@ class mainForms extends React.Component {
       items: [],
       itembills: [],
       value: 0,
+      alert: false,
+      redirectToSuccess: false,
+      redirectTimeout: 4000 // 4 seconds timeout
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -89,77 +104,141 @@ class mainForms extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleInputChangeOtherFundSource = this.handleInputChangeOtherFundSource.bind(this);
     this.handleInputChangedrugsAndMedicine = this.handleInputChangedrugsAndMedicine.bind(this);
+    this.handleInputChangelaboratoryAndDiagnostic = this.handleInputChangelaboratoryAndDiagnostic.bind(this);
+    this.handleInputChangeoperatingRoomFees = this.handleInputChangeoperatingRoomFees.bind(this);
+    this.handleInputChangemedicalSupplies = this.handleInputChangemedicalSupplies.bind(this);
   }
+
+  
+
+  encryptStringWithCipherKey = (str, cipherKey) => {
+    const encrypted = CryptoJS.AES.encrypt(str, cipherKey);
+    return encrypted.toString();
+  };
 
   handleSubmit(params) {
     console.log("here me");
     const array = this.state.dataItem;
     // Create JSON object based on the length of the array
     const ItemizedBillingItems = array.map((value, index) => {
-      return {
-        ["ItemizedBillingItem"]: '', attr: value
-      };
+      return { ["ItemizedBillingItem"]: '', attr: value };
     });
-    console.log(
-      JsonToXml(
-        {eSOA: [
-          {SummaryOfFees:
-            [
-              {
-                RoomAndBoard: [
-                  {SummaryOfFee: "" , attr: {s: "Dadada"} },
-                  {OtherFundSource: "" , attr: {s: "Dadada"} },
-                ] 
-              },
-              {
-                DrugsAndMedicine: [
-                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
-                ] 
-              },
-              {
-                LaboratoryAndDiagnostic: 
-                [
-                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
-                ]  
-              },
-              {
-                OperatingRoomFees: 
-                [
-                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
-                ]  
-              },
-              {
-                MedicalSupplies: 
-                [
-                  { SummaryOfFee:  "", attr: {s: "Dadada"} }
-                ] 
-              },
-              {PhilHealth: "", attr: {s: "Dadada"}  },
-              {Balance: "", attr: {ssaewrers: "Dadada"}  },
-            ], attr: {s: "Dadada"} },
-          { ProfessionalFees: [
-              {
-                ProfessionalFee: 
-                [
-                  {ProfessionalInfo: "1", attr: {s: "Dadada"} },
-                  {SummaryOfFee: "1", attr: {s: "Dadada"} },
-                ]
-              },
-              {PhilHealth: "1", attr: {s: "Dadada"} },
-              {Balance: "1", attr: {s: "Dadada"} },
-            ] 
-          },
-          { ItemizedBillingItems //data is on the json
-          } ,
-        ],
-          attr: {	pHciPan: "X12345678", pHciTransmittalId: "X12345678-2023-02-13-1"},
+    
+    const XML = JsonToXml(
+      {eSOA: [
+        {SummaryOfFees:
+          [
+            {
+              RoomAndBoard: [
+                {SummaryOfFee: "" , attr: this.state.roomAndBoard },
+                {OtherFundSource: "" , attr: this.state.OtherFundSource },
+              ] 
+            },
+            {
+              DrugsAndMedicine: [
+                { SummaryOfFee:  "", attr: this.state.drugsAndMedicine }
+              ] 
+            },
+            {
+              LaboratoryAndDiagnostic: 
+              [
+                { SummaryOfFee:  "", attr: this.state.laboratoryAndDiagnostic }
+              ]  
+            },
+            {
+              OperatingRoomFees: 
+              [
+                { SummaryOfFee:  "", attr: this.state.operatingRoomFees }
+              ]  
+            },
+            {
+              MedicalSupplies: 
+              [
+                { SummaryOfFee:  "",  attr: this.state.medicalSupplies }
+              ] 
+            },
+            {PhilHealth: "", attr: this.state.orfPhilHealth  },
+            {Balance: "", attr: this.state.orfBalance   },
+          ]
+          // , attr: {s: "Dadada"} 
         },
-        { attributes_key: "attr" }
-      )
+        { ProfessionalFees: [
+            {
+              ProfessionalFee: 
+              [
+                {ProfessionalInfo: "", attr: this.state.professionalInfo },
+                {SummaryOfFee: "", attr: this.state.summaryOfFee },
+              ]
+            },
+            {PhilHealth: "", attr: this.state.profPhilHealth},
+            {Balance: "", attr: this.state.profBalance },
+          ] 
+        },
+        { ItemizedBillingItems //data is on the json
+        } ,
+      ],
+        attr: {	pHciPan: "X12345678", pHciTransmittalId: "X12345678-2023-02-13-1"},
+      },
+      { attributes_key: "attr" }
+    )
+
+
+
+
+    this.setState({openPopup: true})
+    this.setState({alert: true})
+
+
+    // this.setState({xml: XML})
+
+    const xml_data = "'" + XML  + "'";
+    // console.log(xml_data)
+
+    const data = {
+      "professional_fee": 2000,
+      "hci_no": this.state.item.pHciPan,
+      "date_created": new Date(),
+      "total_amount": 0,
+      "sum_philhealth_amount": this.state.orfBalance.pAmount,
+      "prof_philhealth_amount":  this.state.profBalance.pAmount,
+      "xml_data": XML
+    }
+
+    // axios({
+    //   method: "POST",
+    //   url: "http://localhost:3000/esoas",
+    //   data: (data), 
+    //   withCredentials: false,
+    //   headers: { 'Content-Type': 'application/json' }
+    //   // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
+    // }).then(resp => {
+    //   setTimeout(() => {
+        
+    //   this.setState({redirectToSuccess: true});
+    //   console.log(resp.data)
+    //   }, this.state.redirectTimeout);
+    // })
+
+    const cipherKey = "PHilheaLthDuMmyciPHerKeyS";
+    const originalString = xml_data;
+    const encryptedString = this.encryptStringWithCipherKey(
+      originalString,
+      cipherKey
     );
+    console.log(xml_data);
 
 
   }
+
+
+
+  handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ alert: false });
+  };
 
   handleChange(event, newValue) {
     this.setState({ value: newValue });
@@ -190,15 +269,126 @@ class mainForms extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
-   
-  
+  }
+
+  handleInputChangelaboratoryAndDiagnostic(e) {
+    this.setState({
+      laboratoryAndDiagnostic: {
+        ...this.state.laboratoryAndDiagnostic,
+        [e.target.name]: e.target.value,
+      },
+    });
+  }
+
+  handleInputChangeoperatingRoomFees(e) {
+    this.setState({
+      operatingRoomFees: {
+        ...this.state.operatingRoomFees,
+        [e.target.name]: e.target.value,
+      },
+    });
+  }
+
+  handleInputChangemedicalSupplies(e) {
+    this.setState({
+      medicalSupplies: {
+        ...this.state.medicalSupplies,
+        [e.target.name]: e.target.value,
+      },
+    });
   }
 
   handleDataChange = (updatedData) => {
     this.setState({ dataItem: updatedData });
   };
 
+  handleDataChangeOrfPhilHealth = (e) => {
+    
+    console.log(e.target.name);
+    if(e.target.name === "pTotalCaseRateAmount") {
+      this.setState({
+        orfPhilHealth: {
+          ...this.state.orfPhilHealth,
+          [e.target.name]: e.target.value,
+        },
+      });
+    }
+    if (e.target.name === "pAmount") {
+      this.setState({
+        orfBalance: {
+          ...this.state.orfBalance,
+          [e.target.name]: e.target.value,
+        },
+      });
+    }
+  };
+
+  handleDataChangeprofPhilHealth = (e) => {
+    
+    console.log(e.target.name);
+    if (e.target.name === "pTotalCaseRateAmount") {
+      this.setState({
+        profPhilHealth: {
+          ...this.state.profPhilHealth,
+          [e.target.name]: e.target.value,
+        },
+      });
+    }
+    if (e.target.name === "pAmount") {
+      this.setState({
+        profBalance: {
+          ...this.state.profBalance,
+          [e.target.name]: e.target.value,
+        },
+      });
+    }
+  };
+  handleInputChangePen = (e) => {
+      this.setState({
+        item: {
+          ...this.state.item,
+          [e.target.name]: e.target.value,
+        },
+      });
+    
+  };
+
+
+  handleDataChangeProf = (e) => {
+    this.setState({
+      professionalInfo: {
+        ...this.state.professionalInfo,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  handleDataChangeProfSumary = (e) => {
+    this.setState({
+      summaryOfFee: {
+        ...this.state.summaryOfFee,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+  handleClose= (e) =>{
+    this.setState({ openPopup: false });
+  }
+
+  
+
+
   render() {
+    if (this.state.redirectToSuccess) {
+      return  (<Navigate
+        to={{  pathname: "/esoa_table_list"   }} 
+        state={{ open: this.state.alert, handleAlertClose:  this.handleAlertClose}} 
+      />)
+      
+      
+      
+      // <redirect to="/esoa_table_list" />;
+    }
     return (
       <>
         <Typography variant="h5" component="h5">
@@ -212,27 +402,47 @@ class mainForms extends React.Component {
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
               handleDataChange={this.handleDataChange}
+              handleInputChangeOtherFundSource={this.handleInputChangeOtherFundSource}
+              handleInputChangedrugsAndMedicine={this.handleInputChangedrugsAndMedicine}
+              handleInputChangelaboratoryAndDiagnostic={this.handleInputChangelaboratoryAndDiagnostic}
+              handleInputChangeoperatingRoomFees={this.handleInputChangeoperatingRoomFees}
+              handleInputChangemedicalSupplies={this.handleInputChangemedicalSupplies}
+              handleDataChangeOrfPhilHealth={this.handleDataChangeOrfPhilHealth}
+              handleDataChangeprofPhilHealth={this.handleDataChangeprofPhilHealth}
+              handleDataChangeProfSumary={this.handleDataChangeProfSumary}
+              handleDataChangeProf={this.handleDataChangeProf}
+              handleInputChangePen={this.handleInputChangePen}
               itembills={this.state.itembills}
               dataItem={this.state.dataItem}
+              item={this.state.item}
 
 
               roomAndBoard={this.state.roomAndBoard}
+              professionalInfo={this.state.professionalInfo}
+              summaryOfFee={this.state.summaryOfFee}
               OtherFundSource={this.state.OtherFundSource}
               drugsAndMedicine={this.state.drugsAndMedicine}
+              laboratoryAndDiagnostic={this.state.laboratoryAndDiagnostic}
+              operatingRoomFees={this.state.operatingRoomFees}
+              medicalSupplies={this.state.medicalSupplies}
             />
 
-          <SimplePopUp
+          {/* <SimplePopUp
             // openPopup={true}
             openPopup={this.state.openPopup}
             title={this.state.title}
             handleClose={this.handleClose}
             maxWidth={this.state.maxWidth}
           >
+            
 
+          </SimplePopUp> */}
 
-          </SimplePopUp>
+          <PositionedSnackbar 
+           open={this.state.alert}
+           handleAlertClose={this.handleAlertClose}
           
-
+          />
          
         </div>
       </>

@@ -35,6 +35,12 @@ import Forms2Table from "./forms2Table";
 import ProfessionalTables from "./ProfessionalTables";
 import Certification from "./certification";
 import DiagnosCode from "./DiagnosCode";
+import URLUploader from "./URLUploader";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormLabel from "@mui/material/FormLabel";
+import FormControl from "@mui/material/FormControl";
+
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
 
@@ -43,7 +49,7 @@ class forms2 extends React.Component {
     super();
     this.state = {
       items: [],
-      time:'',
+      time: "",
     };
   }
 
@@ -54,67 +60,131 @@ class forms2 extends React.Component {
     const startYearAdmit = this.props.startYearAdmited;
     // console.log(this.state.totaldDayAdmited);
     const { options } = this.props;
-    const { selectedOption } = this.props; 
+    const { selectedOption } = this.props;
     const { options2 } = this.props;
     const { selectedTypeOfAccomodation } = this.props;
     const { options3 } = this.props;
     const { pTBType } = this.props;
+
+    const { handleCheckboxChangeHemodialysis } = this.props;
+    const { handleCheckboxChangeBloodTransfusion } = this.props;
+    const { handleCheckboxChangePeritoneal } = this.props;
+    const { handleCheckboxChangeBrachytherapy } = this.props;
+    const { handleCheckboxChangeRadiotherapyLINAC } = this.props;
+    const { handleCheckboxChangeChemotherapy } = this.props;
+    const { handleCheckboxChangeRadiotherapyCOBALT } = this.props;
+    const { handleCheckboxChangeDebridement } = this.props;
+    const { handleCheckboxChangeRadiotherapyIMRT } = this.props;
+    const { selectedClaimsTypes } = this.props;
+
     // const { value } = this.state;
     // console.log(this.props.itemcf.pReferralIHCPAccreCode);
-    // console.log(selectedOption);
+    console.log(this.props.patientDisposition);
     return (
       <>
         <Box id="fullWidth">
           <Card sx={{ minWidth: 275 }}>
             <CardContent>
-           
-            <button onClick={this.props.print}>Print Time</button>
-
-            <Grid container spacing={2}>
-              {/* First row */}
-              <Grid item xs={4}>
-              <b>Claims Type</b>
-                {options.slice(0, 2).map((option) => (
-                  <div key={option.value}>
-                    <Checkbox
-                          id={option.value}
-                          value={option.value}
-                          checked={selectedOption === option.value}
-                          onChange={() => this.props.handleCheckboxChange(option.value)}/>
-                          <label htmlFor={option.value}>{option.label}</label>
-                  </div>
-                ))}
+              <Grid container spacing={2}>
+                {/* First row */}
+                <Grid item xs={4}>
+                  <b>Claims Type</b>
+                  {options.slice(0, 2).map((option) => (
+                    <div key={option.value}>
+                      <Checkbox
+                        id={option.value}
+                        value={option.value}
+                        checked={selectedOption === option.value}
+                        onChange={() =>
+                          this.props.handleCheckboxChange(option.value)
+                        }
+                      />
+                      <label htmlFor={option.value}>{option.label}</label>
+                    </div>
+                  ))}
+                </Grid>
+                {/* Second row */}
+                <Grid item xs={4}>
+                  <b>Claims Cases</b>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="confinementAbroad"
+                          checked={selectedClaimsTypes.includes(
+                            "confinementAbroad"
+                          )}
+                          onChange={() =>
+                            this.props.handleClickCheckBoxClaimsType(
+                              "confinementAbroad"
+                            )
+                          }
+                        />
+                      }
+                      label="Confinement Abroad"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="emergencyCase"
+                          checked={selectedClaimsTypes.includes(
+                            "emergencyCase"
+                          )}
+                          onChange={() =>
+                            this.props.handleClickCheckBoxClaimsType(
+                              "emergencyCase"
+                            )
+                          }
+                        />
+                      }
+                      label="Emergency Case"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="opdCase"
+                          checked={selectedClaimsTypes.includes("opdCase")}
+                          onChange={() =>
+                            this.props.handleClickCheckBoxClaimsType("opdCase")
+                          }
+                        />
+                      }
+                      label="OPD Case"
+                    />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="others"
+                          checked={selectedClaimsTypes.includes("others")}
+                          onChange={() =>
+                            this.props.handleClickCheckBoxClaimsType("others")
+                          }
+                        />
+                      }
+                      label="Others"
+                    />
+                  </FormGroup>
+                </Grid>
+                {/* Third row */}
+                <Grid item xs={4}>
+                  <b>Tag if applicable</b>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          name="posAudit"
+                          checked={selectedClaimsTypes.includes("posAudit")}
+                          onChange={() =>
+                            this.props.handleClickCheckBoxClaimsType("posAudit")
+                          }
+                        />
+                      }
+                      label="For Post Audit"
+                      name=""
+                    />
+                  </FormGroup>
+                </Grid>
               </Grid>
-              {/* Second row */}
-              <Grid item xs={4}>
-              <b>Claims Cases</b>
-                {options.slice(2, 6).map((option) => (
-                  <div key={option.value}>
-                     <Checkbox
-                          id={option.value}
-                          value={option.value}
-                          checked={selectedOption === option.value}
-                          onChange={() => this.props.handleCheckboxChange(option.value)}/>
-                          <label htmlFor={option.value}>{option.label}</label>
-                  </div>
-                ))}
-              </Grid>
-              {/* Third row */}
-              <Grid item xs={4}>
-              <b>Tag if applicable</b>
-                {options.slice(6).map((option) => (
-                  <div key={option.value}>
-                    <Checkbox
-                          id={option.value}
-                          value={option.value}
-                          checked={selectedOption === option.value}
-                          onChange={() => this.props.handleCheckboxChange(option.value)}/>
-                          <label htmlFor={option.value}>{option.label}</label>
-                  </div>
-                ))}
-              </Grid>
-            </Grid>
-           
             </CardContent>
             <CardActions>
               {/* <Button size="small">Learn More</Button> */}
@@ -126,7 +196,7 @@ class forms2 extends React.Component {
             {" "}
             <Typography variant="h5" component="h5">
               {" "}
-              Health Care Institution(HCI) Information{" "}
+              Part I - Health Care Institution(HCI) Information{" "}
             </Typography>
           </Divider>
           <br />
@@ -181,7 +251,7 @@ class forms2 extends React.Component {
             {" "}
             <Typography variant="h5" component="h5">
               {" "}
-              Patient Confinement Information{" "}
+              Part II - Patient Confinement Information{" "}
             </Typography>
           </Divider>
           <br />
@@ -286,7 +356,9 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       checked={this.props.patienCon.improved}
-                      onChange={() => this.props.handleClickCheckBoxPatientCon('improved')} 
+                      onChange={() =>
+                        this.props.handleClickCheckBoxPatientCon("improved")
+                      }
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Improved
@@ -297,7 +369,9 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       checked={this.props.patienCon.expired}
-                      onChange={() => this.props.handleClickCheckBoxPatientCon('expired')} 
+                      onChange={() =>
+                        this.props.handleClickCheckBoxPatientCon("expired")
+                      }
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Expired
@@ -309,6 +383,9 @@ class forms2 extends React.Component {
                     label="Date"
                     // multiline
                     // maxRows={4}
+                    required={
+                      this.props.patientDisposition === "E" ? true : false
+                    }
                     fullWidth
                     InputLabelProps={{ shrink: true }}
                     type="date"
@@ -324,6 +401,9 @@ class forms2 extends React.Component {
                     // multiline
                     // maxRows={4}
                     fullWidth
+                    required={
+                      this.props.patientDisposition === "E" ? true : false
+                    }
                     InputLabelProps={{ shrink: true }}
                     type="time"
                     name="pExpiredTime"
@@ -352,7 +432,9 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       checked={this.props.patienCon.recovered}
-                      onChange={() => this.props.handleClickCheckBoxPatientCon('recovered')} 
+                      onChange={() =>
+                        this.props.handleClickCheckBoxPatientCon("recovered")
+                      }
                       // checked={value === 1}
                       inputProps={{ "aria-label": "switch" }}
                     />
@@ -369,7 +451,11 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       checked={this.props.patienCon.homeDischarged}
-                      onChange={() => this.props.handleClickCheckBoxPatientCon('homeDischarged')} 
+                      onChange={() =>
+                        this.props.handleClickCheckBoxPatientCon(
+                          "homeDischarged"
+                        )
+                      }
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Home/Discharged Againts Medical Advise
@@ -383,7 +469,9 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       checked={this.props.patienCon.abscorded}
-                      onChange={() => this.props.handleClickCheckBoxPatientCon('abscorded')} 
+                      onChange={() =>
+                        this.props.handleClickCheckBoxPatientCon("abscorded")
+                      }
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Abscorded
@@ -395,7 +483,9 @@ class forms2 extends React.Component {
                     <Switch
                       name=""
                       checked={this.props.patienCon.transfered}
-                      onChange={() => this.props.handleClickCheckBoxPatientCon('transfered')} 
+                      onChange={() =>
+                        this.props.handleClickCheckBoxPatientCon("transfered")
+                      }
                       inputProps={{ "aria-label": "switch" }}
                     />
                     Transferred/Referred
@@ -418,8 +508,12 @@ class forms2 extends React.Component {
                             <InputLabel>Accreditation Code:</InputLabel>
                             <TextField
                               id="outlined-multiline-flexible"
-                              
-                             value={this.props.itemCf.pReferralIHCPAccreCode}
+                              value={this.props.itemCf.pReferralIHCPAccreCode}
+                              required={
+                                this.props.patientDisposition === "T"
+                                  ? true
+                                  : false
+                              }
                               fullWidth
                               name="pReferralIHCPAccreCode"
                               size="small"
@@ -437,9 +531,9 @@ class forms2 extends React.Component {
                           <Grid item xs={12}>
                             <TextField
                               id="outlined-multiline-flexible"
-                              value={this.props.itemCf.pReferralIHCPAccreCode}
+                              // value={this.props.itemCf.pReferralIHCPAccreCode}
                               fullWidth
-                              name="pMemberLastName"
+                              name="pReferralAddress"
                               size="small"
                               onChange={this.props.onchange}
                             />
@@ -454,7 +548,8 @@ class forms2 extends React.Component {
                               // multiline
                               // maxRows={4}
                               fullWidth
-                              name="pMemberFirstName"
+                              // value={this.props.itemCf.pReferralReasons}
+                              name="pReferralReasons"
                               size="small"
                               onChange={this.props.onchange}
                             />
@@ -467,7 +562,7 @@ class forms2 extends React.Component {
                           <Grid item xs={12}>
                             <TextField
                               id="outlined-multiline-flexible"
-                             value={this.props.itemCf.pReferralReasons}
+                              value={this.props.itemCf.pReferralReasons}
                               fullWidth
                               name="pReferralReasons"
                               size="small"
@@ -494,21 +589,86 @@ class forms2 extends React.Component {
                   <br />
                 </Grid>
                 <Grid container spacing={2}>
-                  
-                    {options2.map((option) => (
-                        <Grid item xs={3} key={option.value} >
-                        <Switch
-                            id={option.value}
-                            value={option.value}
-                            checked={selectedTypeOfAccomodation === option.value}
-                            onChange={() => this.props.handleCheckboxChangeAccomondation(option.value)}/>
-                            <label htmlFor={option.value}>{option.label}</label>
-                          </Grid>
-                      
-                    ))}
+                  {options2.map((option) => (
+                    <Grid item xs={3} key={option.value}>
+                      <Switch
+                        id={option.value}
+                        value={option.value}
+                        checked={selectedTypeOfAccomodation === option.value}
+                        onChange={() =>
+                          this.props.handleCheckboxChangeAccomondation(
+                            option.value
+                          )
+                        }
+                      />
+                      <label htmlFor={option.value}>{option.label}</label>
+                    </Grid>
+                  ))}
+                </Grid>
+
+                <Grid item xs={6}>
+                  <Typography>
+                      <b>Patient Type :</b>
+                    </Typography>
+                    <FormControl>
+                      <FormLabel id="demo-row-radio-buttons-group-label">
+                        {" "}
+                        {/* Relationship to Member */}
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="pPatientType"
+                        value={this.props.claim.pPatientType}
+                        onChange={this.props.handleInputChangeclaim}
+                      >
+                        {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
+                        <FormControlLabel
+                          value="O"
+                          control={<Radio />}
+                          label="Outpatient"
+                        />
+                        <FormControlLabel
+                          value="I"
+                          control={<Radio />}
+                          label="Inpatient"
+                        />
+                        {/* <FormControlLabel value="S" control={<Radio />} label="Spouse" /> */}
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                <Grid item xs={6}>
+                  <Typography>
+                      <b> Emergency Case :</b>
+                    </Typography>
+                    <FormControl>
+                      <FormLabel id="demo-row-radio-buttons-group-label">
+                        {" "}
+                        {/* Relationship to Member */}
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="pIsEmergency"
+                        value={this.props.claim.pIsEmergency}
+                        onChange={this.props.handleInputChangeclaim}
+                      >
+                        {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
+                        <FormControlLabel
+                          value="Y"
+                          control={<Radio />}
+                          label="YES"
+                        />
+                        <FormControlLabel
+                          value="N"
+                          control={<Radio />}
+                          label="NO"
+                        />
+                        {/* <FormControlLabel value="S" control={<Radio />} label="Spouse" /> */}
+                      </RadioGroup>
+                    </FormControl>
                   </Grid>
 
-             
                 <Grid item xs={4}></Grid>
               </Grid>
             </Grid>
@@ -550,9 +710,10 @@ class forms2 extends React.Component {
           <br />
 
           {/* //DiagnosCode component */}
-          <DiagnosCode itemCodes={""}  
-          diagnosCodeData={this.props.diagnosCodeData}
-          onDataChange={this.props.handleDataChange}
+          <DiagnosCode
+            itemCodes={""}
+            diagnosCodeData={this.props.diagnosCodeData}
+            onDataChange={this.props.handleDataChange}
           />
 
           <br />
@@ -570,7 +731,7 @@ class forms2 extends React.Component {
                 a. For the following repetitive procedures, check box that
                 applies and emunerate the procedure/session dates{" "}
               </b>
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={
                   <Checkbox
                     name="specialCon"
@@ -579,7 +740,7 @@ class forms2 extends React.Component {
                   />
                 }
                 label="Check all if applicable"
-              />
+              /> */}
             </Typography>
             <Grid item xs={6}>
               <Typography>
@@ -593,41 +754,34 @@ class forms2 extends React.Component {
                 />
                 Hemodialysis
               </Typography>
-
-              {this.props.specialConsideration.isHemodialysis ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isHemodialysis &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesHemodialysis.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeHemodialysis(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -641,40 +795,34 @@ class forms2 extends React.Component {
                 />
                 Blood Transfusion
               </Typography>
-              {this.props.specialConsideration.isBloodTrans ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isBloodTrans &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesBloodTransfusion.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeBloodTransfusion(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -688,40 +836,34 @@ class forms2 extends React.Component {
                 />
                 Peritoneal
               </Typography>
-              {this.props.specialConsideration.isPentoneal ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isPentoneal &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesPeritoneal.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangePeritoneal(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -735,40 +877,34 @@ class forms2 extends React.Component {
                 />
                 Brachytherapy
               </Typography>
-              {this.props.specialConsideration.isBracy ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isBracy &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesBrachytherapy.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeBrachytherapy(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -782,40 +918,34 @@ class forms2 extends React.Component {
                 />
                 Radiotherapy (LINAC)
               </Typography>
-              {this.props.specialConsideration.isRadioLinac ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isRadioLinac &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesRadiotherapyLINAC.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeRadiotherapyLINAC(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -829,40 +959,34 @@ class forms2 extends React.Component {
                 />
                 Chemotherapy
               </Typography>
-              {this.props.specialConsideration.isChemotherapy ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isChemotherapy &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesChemotherapy.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeChemotherapy(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -876,40 +1000,34 @@ class forms2 extends React.Component {
                 />
                 Radiotherapy (COBALT)
               </Typography>
-              {this.props.specialConsideration.isRadioCobalt ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isRadioCobalt &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesRadiotherapyCOBALT.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeRadiotherapyCOBALT(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -923,40 +1041,34 @@ class forms2 extends React.Component {
                 />
                 Simple Debridement
               </Typography>
-              {this.props.specialConsideration.isSimpleDeb ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isSimpleDeb &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesDebridement.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeDebridement(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
             <Grid item xs={6}>
               <Typography>
@@ -970,46 +1082,40 @@ class forms2 extends React.Component {
                 />
                 Radiotherapy (IMRT)
               </Typography>
-              {this.props.specialConsideration.isRadioIMRT ? (
-                <>
-                  {totaldDayAdmited !== undefined ? (
-                    <>
-                      <b>Please Check if Session Date is Applicable :</b> <br />
-                      {Array.from(
-                        { length: totaldDayAdmited },
-                        (value, key) => (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                name=""
-                                // checked={this.props.isSpecialCon}
-                                // onClick={(e) => this.props.handleClickCheckBox(e)}
-                              />
-                            }
-                            label={
-                              startMonthAdmit +
-                              "/" +
-                              (key + startDayAdmit) +
-                              "/" +
-                              startYearAdmit
-                            }
-                          />
-                        )
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </>
-              ) : (
-                ""
-              )}
+              {this.props.specialConsideration.isRadioIMRT &&
+                totaldDayAdmited !== undefined && (
+                  <>
+                    <b>Please Check if Session Date is Applicable :</b> <br />
+                    {Array.from({ length: totaldDayAdmited }, (value, key) => {
+                      const date = `${startMonthAdmit}/${
+                        startDayAdmit + key
+                      }/${startYearAdmit}`;
+                      return (
+                        <FormControlLabel
+                          key={key}
+                          control={
+                            <Checkbox
+                              name={date}
+                              checked={this.props.checkedDatesRadiotherapyIMRT.includes(
+                                date
+                              )}
+                              onClick={(e) =>
+                                handleCheckboxChangeRadiotherapyIMRT(e, date)
+                              }
+                            />
+                          }
+                          label={date}
+                        />
+                      );
+                    })}
+                  </>
+                )}
             </Grid>
           </Grid>
           <br />
           <Typography>
             <b>b. For Z-Benefits Package </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1018,7 +1124,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -1053,7 +1159,7 @@ class forms2 extends React.Component {
             <Grid item xs={3}>
               <Typography>
                 Pre-Authorization Type:
-                <FormControlLabel
+                {/* <FormControlLabel
                   control={
                     <Checkbox
                       name="specialCon"
@@ -1062,7 +1168,7 @@ class forms2 extends React.Component {
                     />
                   }
                   label="Check all if applicable"
-                />
+                /> */}
               </Typography>
             </Grid>
             <Grid item xs={3}>
@@ -1135,7 +1241,7 @@ class forms2 extends React.Component {
             <b>
               c. For MCP Package, emunerate four dates of pre-natal check-ups{" "}
             </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1144,7 +1250,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -1156,7 +1262,7 @@ class forms2 extends React.Component {
                 // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="time"
+                type="date"
                 name="pCheckUpDate1"
                 size="small"
                 onChange={this.props.onchange}
@@ -1166,11 +1272,11 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="2 :"
+                type="date"
                 // multiline
                 // maxRows={4}
                 fullWidth
                 InputLabelProps={{ shrink: true }}
-                // type="time"
                 name="pCheckUpDate2"
                 size="small"
                 onChange={this.props.onchange}
@@ -1180,6 +1286,7 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="3 :"
+                type="date"
                 // multiline
                 // maxRows={4}
                 fullWidth
@@ -1194,6 +1301,7 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="4 :"
+                type="date"
                 // multiline
                 // maxRows={4}
                 fullWidth
@@ -1249,7 +1357,7 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>d. For TB DOTS PAckage :</b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1258,23 +1366,25 @@ class forms2 extends React.Component {
                 />
               }
               label="Check if applicable"
-            />
+            /> */}
           </Typography>
           <br />
 
           <Grid container spacing={2}>
-                  
-                  {options3.map((option) => (
-                      <Grid item xs={4} key={option.value} >
-                      <Switch
-                          id={option.value}
-                          value={option.value}
-                          checked={pTBType === option.value}
-                          onChange={() => this.props.handleCheckboxChangeTBtype(option.value)}/>
-                          <label htmlFor={option.value}>{option.label}</label>
-                        </Grid>
-                  ))}
-                </Grid>
+            {options3.map((option) => (
+              <Grid item xs={4} key={option.value}>
+                <Switch
+                  id={option.value}
+                  value={option.value}
+                  checked={pTBType === option.value}
+                  onChange={() =>
+                    this.props.handleCheckboxChangeTBtype(option.value)
+                  }
+                />
+                <label htmlFor={option.value}>{option.label}</label>
+              </Grid>
+            ))}
+          </Grid>
 
           <br />
           <Typography>
@@ -1284,7 +1394,7 @@ class forms2 extends React.Component {
               <br />
               Remiders: Anti Rabies Vaccine (ARV), Rabies Immunoglobulin (RIG){" "}
             </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1293,7 +1403,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -1302,6 +1412,7 @@ class forms2 extends React.Component {
                 id="outlined-multiline-flexible"
                 label="Day 0  ARV"
                 fullWidth
+                type="date"
                 InputLabelProps={{ shrink: true }}
                 name="pDay0ARV"
                 size="small"
@@ -1313,6 +1424,7 @@ class forms2 extends React.Component {
                 id="outlined-multiline-flexible"
                 label="Day 3  ARV"
                 fullWidth
+                type="date"
                 InputLabelProps={{ shrink: true }}
                 name="pDay3ARV"
                 size="small"
@@ -1323,6 +1435,7 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Day 7  ARV"
+                type="date"
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 name="pDay7ARV"
@@ -1332,6 +1445,7 @@ class forms2 extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <TextField
+                type="date"
                 id="outlined-multiline-flexible"
                 label="RIG"
                 fullWidth
@@ -1345,6 +1459,7 @@ class forms2 extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Others"
+                type="date"
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 name="pABPOthers"
@@ -1367,7 +1482,7 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>f. Newborn Care Package </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1376,7 +1491,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
 
@@ -1384,50 +1499,87 @@ class forms2 extends React.Component {
             <Grid item xs={4}>
               {" "}
               <Typography>
-                <Switch
+                {/* <Switch
                   name="pEssentialNewbornCare"
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
-                />
+                /> */}
                 Essential Newborn Care
               </Typography>
+
+              <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="pEssentialNewbornCare" 
+                    // value={this.props.itemCf.pPatientIs}
+                    onChange={this.props.onchange}
+                  >
+                    <FormControlLabel value="Y" control={<Radio />} label="YES" />
+                    <FormControlLabel value="N" control={<Radio />} label="NO" />
+                  </RadioGroup>
+                </FormControl>
             </Grid>
             <Grid item xs={4}>
               {" "}
               <Typography>
-                <Switch
+                {/* <Switch
                   name="pNewbornHearingScreeningTest"
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
-                />
+                /> */}
                 Newborn Screening Test
               </Typography>
+              <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="pNewbornScreeningTest" 
+                    // value={this.props.itemCf.pPatientIs}
+                    onChange={this.props.onchange}
+                  >
+                    <FormControlLabel value="Y" control={<Radio />} label="YES" />
+                    <FormControlLabel value="N" control={<Radio />} label="NO" />
+                  </RadioGroup>
+                </FormControl>
             </Grid>
             <Grid item xs={4}>
               {" "}
               <Typography>
-                <Switch
+                {/* <Switch
                   name="pNewbornHearingScreeningTestResult"
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
-                />
+                /> */}
                 Newborn Hearing Screening Test
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="pNewbornHearingScreeningTest" 
+                    // value={this.props.itemCf.pPatientIs}
+                    onChange={this.props.onchange}
+                  >
+                    <FormControlLabel value="Y" control={<Radio />} label="YES" />
+                    <FormControlLabel value="N" control={<Radio />} label="NO" />
+                  </RadioGroup>
+                </FormControl>
               </Typography>
             </Grid>
             <Grid item xs={4}>
               {" "}
               <Typography>
                 Tick Applicable Box
-                <Switch
+                {/* <Switch
                   name=""
                   // checked={value === 1}
                   // onChange={handleChecked}
                   inputProps={{ "aria-label": "switch" }}
                 />
-                Check all
+                Check all */}
               </Typography>
             </Grid>
             <Grid item xs={4}>
@@ -1460,47 +1612,84 @@ class forms2 extends React.Component {
             <Grid item xs={4}>
               <FormGroup>
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox 
+                    name="pDrying"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pDrying === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)}
+                  />}
                   label="Immediate drying of newborn, etc."
                   name="pDrying"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pSkinToSkin"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pSkinToSkin === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Early skin-to-skin contact"
                   name="pSkinToSkin"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pCordClamping"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pCordClamping === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Timely card clamping"
                   name="pCordClamping"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pProphylaxis"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pProphylaxis === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Eye prophylaxis"
                   name="pProphylaxis"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pWeighing"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pWeighing === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Weighing of the newborn"
                   name="pWeighing"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pVitaminK"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pVitaminK === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Vitamin of the newborn"
                   name="pVitaminK"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pBCG"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pBCG === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="BCG vaccination"
                   name="pBCG"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pNonSeparation"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pNonSeparation === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Non-separation of mother/baby for early breastfeeding initiation"
                   name="pNonSeparation"
                 />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={<Checkbox
+                    name="pHepatitisB"
+                    value="Y"
+                    checked={this.props.essentialNewbornCare.pHepatitisB === "Y"}
+                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
                   label="Hepatitis B vaccination"
                   name="pHepatitisB"
                 />
@@ -1533,7 +1722,7 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>g.Outpatient HIV/AIDS Treatment Package </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1542,7 +1731,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
 
@@ -1577,7 +1766,7 @@ class forms2 extends React.Component {
               Other Cases :<br /> h.For NSD Package emunerate four dates of
               pre-natal check-ups{" "}
             </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1586,7 +1775,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
 
@@ -1693,7 +1882,7 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>i. For Contact Package </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1702,7 +1891,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
 
@@ -1815,7 +2004,7 @@ class forms2 extends React.Component {
           <br />
           <Typography>
             <b>j. For Medical Detoxification Package </b>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1824,7 +2013,7 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            />
+            /> */}
           </Typography>
           <br />
 
@@ -1910,6 +2099,8 @@ class forms2 extends React.Component {
           </Grid>
 
           <Certification />
+
+          <URLUploader />
 
           <Grid
             container

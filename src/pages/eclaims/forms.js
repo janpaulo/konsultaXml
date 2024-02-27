@@ -19,16 +19,16 @@ import Select from "@mui/material/Select";
 
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+// import Checkbox from "@mui/material/Checkbox";
 import Switch from "@mui/material/Switch";
 
 import Divider from "@mui/material/Divider";
 
 // import Paper from "@mui/material/Paper";
 
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
+// import Card from "@mui/material/Card";
+// import CardActions from "@mui/material/CardActions";
+// import CardContent from "@mui/material/CardContent";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
@@ -63,14 +63,12 @@ class forms extends React.Component {
               </InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                // label="Multiline"
-                // multiline
-                // maxRows={4}
                 value={this.props.itemCf.pMemberPIN}
                 fullWidth
                 name="pMemberPIN"
                 size="small"
                 onChange={this.props.onchange}
+                required
               />
             </Grid>
             <Grid item xs={4}>
@@ -83,8 +81,6 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Last Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 value={this.props.itemCf.pMemberLastName}
                 name="pMemberLastName"
@@ -109,8 +105,6 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Extension Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 size="small"
                 name="pMemberSuffix"
@@ -147,8 +141,30 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={12}>
-              <InputLabel>Member Category</InputLabel>
-              <TextField
+              {/* <InputLabel>Member Category</InputLabel> */}
+              <FormControl fullWidth>
+                <InputLabel id="membershipType-label">Select Membership Type</InputLabel>
+                <Select
+                  labelId="membershipType-label"
+                  id="pMemberShipType"
+                  name="pMemberShipType"
+                  size="small"
+                  value={this.props.itemCf.pMemberShipType}
+                  onChange={this.props.handleSelectChangeMember}
+                  label="Select Membership Type"
+                >
+                  <MenuItem value="">Select an option</MenuItem>
+                  <MenuItem value="S">Employed Private</MenuItem>
+                  <MenuItem value="G">Employer Government</MenuItem>
+                  <MenuItem value="I">Indigent</MenuItem>
+                  <MenuItem value="NS">Individually Paying</MenuItem>
+                  <MenuItem value="NO">OFW</MenuItem>
+                  <MenuItem value="PS">Non Paying Private</MenuItem>
+                  <MenuItem value="PG">Non Paying Government</MenuItem>
+                  <MenuItem value="P">Lifetime member</MenuItem>
+                </Select>
+              </FormControl>
+              {/* <TextField
                 id="outlined-multiline-flexible"
                 // label="Middle Name"
                 // multiline
@@ -158,7 +174,8 @@ class forms extends React.Component {
                 value={this.props.itemCf.pMemberShipType}
                 size="small"
                 onChange={this.props.onchange}
-              />
+
+              /> */}
             </Grid>
             <Grid item xs={7}>
               <TextField
@@ -266,12 +283,9 @@ class forms extends React.Component {
               </InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                // label="Multiline"
-                // multiline
-                // maxRows={4}
-                value={this.props.itemCf.pMemberPIN}
+                value={this.props.itemCf.pPatientPIN}
                 fullWidth
-                name="pMemberPIN"
+                name="pPatientPIN"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -286,11 +300,9 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Last Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                value={this.props.itemCf.pMemberLastName}
-                name="pMemberLastName"
+                value={this.props.itemCf.pPatientLastName}
+                name="pPatientLastName"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -299,11 +311,9 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="First Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                name="pMemberFirstName"
-                value={this.props.itemCf.pMemberFirstName}
+                name="pPatientFirstName"
+                value={this.props.itemCf.pPatientFirstName}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -312,12 +322,10 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Extension Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 size="small"
-                name="pMemberSuffix"
-                value={this.props.itemCf.pMemberSuffix}
+                name="pPatientSuffix"
+                value={this.props.itemCf.pPatientSuffix}
                 onChange={this.props.onchange}
               />
             </Grid>
@@ -325,11 +333,9 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Middle Name"
-                // multiline
-                // maxRows={4}
                 fullWidth
-                name="pMemberMiddleName"
-                value={this.props.itemCf.pMemberMiddleName}
+                name="pPatientMiddleName"
+                value={this.props.itemCf.pPatientMiddleName}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -338,13 +344,11 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Date of Birth"
-                // multiline
-                // maxRows={4}
                 type="date"
                 InputLabelProps={{ shrink: true, required: true }}
                 fullWidth
-                value={this.props.itemCf.pMemberBirthDate}
-                name="pMemberBirthDate"
+                value={this.props.itemCf.pPatientBirthDate}
+                name="pPatientBirthDate"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -356,11 +360,14 @@ class forms extends React.Component {
                   <RadioGroup
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
+                    name="pPatientIs" 
+                    value={this.props.itemCf.pPatientIs}
+                    onChange={this.props.onchange}
                   >
-                    <FormControlLabel value="child" control={<Radio />} label="Child" />
-                    <FormControlLabel value="parent" control={<Radio />} label="Parent" />
-                    <FormControlLabel value="spouse" control={<Radio />} label="Spouse" />
+                    {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
+                    <FormControlLabel value="C" control={<Radio />} label="Child" />
+                    <FormControlLabel value="P" control={<Radio />} label="Parent" />
+                    <FormControlLabel value="S" control={<Radio />} label="Spouse" />
                   </RadioGroup>
                 </FormControl>
             </Grid>{" "}
@@ -375,13 +382,13 @@ class forms extends React.Component {
                   // value={age}
                   label="Gender"
                   size="small"
-                  value={this.props.itemCf.pMemberSex}
-                  name="pMemberSex"
+                  value={this.props.itemCf.pPatientSex}
+                  name="pPatientSex"
                   onChange={this.props.onchange}
                   // onChange={handleChange}
                 >
-                  <MenuItem value={1}>Male</MenuItem>
-                  <MenuItem value={2}>Female</MenuItem>
+                  <MenuItem value={"M"}>Male</MenuItem>
+                  <MenuItem value={"F"}>Female</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -538,9 +545,9 @@ class forms extends React.Component {
                 // label="Multiline"
                 // multiline
                 // maxRows={4}
-                value={this.props.itemCf.pMemberPIN}
+                value={this.props.itemCf.pPEN }
                 fullWidth
-                name="pMemberPIN"
+                name="pPEN"
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -558,7 +565,7 @@ class forms extends React.Component {
                 // multiline
                 // maxRows={4}
                 fullWidth
-                value={this.props.itemCf.pMemberLastName}
+                value={this.props.itemCf.pEmployerName}
                 name="pEmployerName"
                 size="small"
                 onChange={this.props.onchange}
@@ -580,7 +587,7 @@ class forms extends React.Component {
           </Grid>
 
           <br />
-          <Divider>
+          {/* <Divider>
             {" "}
             <Typography variant="h6" component="h6">
               {" "}
@@ -679,8 +686,8 @@ class forms extends React.Component {
               />
             </Grid>
           </Grid>
-          <br />
-          <Grid container spacing={2}>
+          <br /> */}
+          {/* <Grid container spacing={2}>
             <Grid item xs={12}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
@@ -808,10 +815,12 @@ class forms extends React.Component {
                 </CardContent>
                 <CardActions>
                   {/* <Button size="small">Learn More</Button> */}
-                </CardActions>
+                {/* </CardActions>
               </Card>
-            </Grid>
-          </Grid>
+            </Grid> */}
+          {/* </Grid> */} 
+
+
           <br />
           <Grid
             container

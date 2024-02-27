@@ -21,6 +21,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Link } from "react-router-dom";
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import AddToQueueOutlinedIcon from '@mui/icons-material/AddToQueueOutlined';
+import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
 //icons
 
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
@@ -97,6 +98,7 @@ const items = [
   {name: "Dashboard", icon: <HomeTwoToneIcon/>, path: '',}, 
   {name: "eSOA", icon: <AddToQueueOutlinedIcon/>, path: 'esoa_table_list',},
   {name: "claims", icon: <VaccinesIcon/>, path: 'claims',},
+  // {name: "encryptor", icon: <EnhancedEncryptionIcon/>, path: 'encryptor',},
   // {name: "test", icon: <VaccinesIcon/>, path: 'test',},
   // {name: "Konsulta", icon: <SaveAsTwoToneIcon/>, path: 'konsulta',element: <Konsulta/>},
   // {name: "Employees", icon: <GroupsTwoToneIcon/>, path: 'employees', element: <Employee/>},

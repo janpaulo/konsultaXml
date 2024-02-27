@@ -10,6 +10,7 @@ import MainRegistration from '../src/pages/eclaims/mainForms'
 import EsoaRegistration from '../src/pages/esoa/mainForms'
 import EsoatableList from '../src/pages/esoa/tableList'
 import ClaimTableList from '../src/pages/eclaims/tableList'
+import XMLEncryptor from '../src/pages/encryptors/XMLEncryptor'
 // import Itembills from '../src/pages/esoa/Itembills'
 
 import Login from '../src/pages/login/Login';
@@ -39,6 +40,7 @@ function App() {
                   <Route exact path="/claims"  element={ <ClaimTableList/> } />
                   <Route exact path="/esoa_table_list"  element={ <EsoatableList/> } />
                   <Route exact path="/esoa_registration"  element={ <EsoaRegistration/> } />
+                  <Route exact path="/encryptor"  element={ <XMLEncryptor/> } />
                   {/* <Route exact path="/test"  element={ <Itembills/> } /> */}
                   {/* <Route exact path="/employees"  element={ <Employees/> } />
                   <Route exact path="/files" element={ <Files/> }  />

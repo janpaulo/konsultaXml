@@ -88,7 +88,11 @@ class mainForms extends React.Component {
 
       options3: [
         { label: "Treatment Phase:", value: "I" },
-        { label: "Maintenance", value: "M" },
+        { label: "Maintenance Phase", value: "M" },
+      ],
+      options4: [
+        { label: "Treatment Phase:", value: "I" },
+        { label: "Maintenance Phase", value: "M" },
       ],
 
       selectedOption: null,
@@ -127,8 +131,8 @@ class mainForms extends React.Component {
         pClaimNumber: "300806-07-21-20211-1",
         pTrackingNumber: "",
         pPhilhealthClaimType: "ALL-CASE-RATE",
-        pPatientType: "I",
-        pIsEmergency: "N",
+        pPatientType: "",
+        pIsEmergency: "",
       },
 
       itemcf1: {
@@ -145,7 +149,7 @@ class mainForms extends React.Component {
         pLandlineNo: "",
         pMobileNo: "",
         pEmailAddress: "",
-        pPatientIs: "",
+        pPatientIs: "M",
         pPatientPIN: "",
         pPatientLastName: "",
         pPatientFirstName: "",
@@ -163,7 +167,7 @@ class mainForms extends React.Component {
         pAdmissionTime: "", //01:00:00PM" ,
         pDischargeDate: moment(new Date()).format("YYYY-MM-DD"),
         pDischargeTime: "", //"03:00:00PM",
-        pDisposition: "I",
+        pDisposition: "",
         pExpiredDate: "",
         pExpiredTime: "",
         pReferralIHCPAccreCode: "",
@@ -182,19 +186,44 @@ class mainForms extends React.Component {
       diagnosCodeData: [
         {
           pDischargeDiagnosis: "",
-          pLaterality: "",
           pICDCode: "",
           pRVSCode: "",
           pProcedureDate: "",
           pRelatedProcedure: "",
-          left: false,
-          right: false,
-          both: false,
+          pLaterality: "N",
+          // left: false,
+          // right: false,
+          // both: false,
         },
       ],
 
+      //IF YES pEssentialNewbornCare 
+      essentialNewbornCare:{
+        pDrying: "N",
+        pSkinToSkin: "N",
+        pCordClamping: "N",
+        pProphylaxis: "N",
+        pWeighing: "N",
+        pVitaminK: "N",
+        pBCG: "N",
+        pNonSeparation: "N",
+        pHepatitisB: "N",
+
+      },
+
       items: [],
       value: 0,
+      selectedClaimsTypes: [],
+      checkedDatesHemodialysis: [], 
+      checkedDatesBloodTransfusion: [], 
+      checkedDatesPeritoneal: [], 
+      checkedDatesBrachytherapy: [], 
+      checkedDatesRadiotherapyLINAC: [], 
+      checkedDatesChemotherapy: [], 
+      checkedDatesRadiotherapyCOBALT: [], 
+      checkedDatesDebridement: [], 
+      checkedDatesRadiotherapyIMRT: [], 
+      // Array to store checked dates
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -213,47 +242,166 @@ class mainForms extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
+  handleCheckboxChangeNewBorn = (e) => {
+    const { name, checked } = e.target;
+        const updatedItem = {
+          ...this.state.essentialNewbornCare,
+          [name]: checked ? "Y" : "N"
+        };
+        // Assuming you're updating the state directly in this component
+        this.setState({ essentialNewbornCare: updatedItem });
+  };
+
+  handleCheckboxChangeHemodialysis = (event, date) => {
+    const { checkedDatesHemodialysis } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesHemodialysis: [...checkedDatesHemodialysis, date] });
+    } else {
+      this.setState({
+        checkedDatesHemodialysis: checkedDatesHemodialysis.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeBloodTransfusion = (event, date) => {
+    const { checkedDatesBloodTransfusion } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesBloodTransfusion: [...checkedDatesBloodTransfusion, date] });
+    } else {
+      this.setState({
+        checkedDatesBloodTransfusion: checkedDatesBloodTransfusion.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangePeritoneal = (event, date) => {
+    const { checkedDatesPeritoneal } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesPeritoneal: [...checkedDatesPeritoneal, date] });
+    } else {
+      this.setState({
+        checkedDatesPeritoneal: checkedDatesPeritoneal.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeBrachytherapy = (event, date) => {
+    const { checkedDatesBrachytherapy } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesBrachytherapy: [...checkedDatesBrachytherapy, date] });
+    } else {
+      this.setState({
+        checkedDatesBrachytherapy: checkedDatesBrachytherapy.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeRadiotherapyLINAC = (event, date) => {
+    const { checkedDatesRadiotherapyLINAC } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesRadiotherapyLINAC: [...checkedDatesRadiotherapyLINAC, date] });
+    } else {
+      this.setState({
+        checkedDatesRadiotherapyLINAC: checkedDatesRadiotherapyLINAC.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeChemotherapy = (event, date) => {
+    const { checkedDatesChemotherapy } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesChemotherapy: [...checkedDatesChemotherapy, date] });
+    } else {
+      this.setState({
+        checkedDatesChemotherapy: checkedDatesChemotherapy.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeRadiotherapyCOBALT = (event, date) => {
+    const { checkedDatesRadiotherapyCOBALT } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesRadiotherapyCOBALT: [...checkedDatesRadiotherapyCOBALT, date] });
+    } else {
+      this.setState({
+        checkedDatesRadiotherapyCOBALT: checkedDatesRadiotherapyCOBALT.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeDebridement = (event, date) => {
+    const { checkedDatesDebridement } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesDebridement: [...checkedDatesDebridement, date] });
+    } else {
+      this.setState({
+        checkedDatesDebridement: checkedDatesDebridement.filter(d => d !== date)
+      });
+    }
+  };
+  handleCheckboxChangeRadiotherapyIMRT = (event, date) => {
+    const { checkedDatesRadiotherapyIMRT } = this.state;
+    if (event.target.checked) {
+      this.setState({ checkedDatesRadiotherapyIMRT: [...checkedDatesRadiotherapyIMRT, date] });
+    } else {
+      this.setState({
+        checkedDatesRadiotherapyIMRT: checkedDatesRadiotherapyIMRT.filter(d => d !== date)
+      });
+    }
+  };
+
+  handleClickCheckBoxClaimsType = (type) => {
+    // Check if the type is already in the array
+    if (this.state.selectedClaimsTypes.includes(type)) {
+      // If it is, remove it
+      this.setState(prevState => ({
+        selectedClaimsTypes: prevState.selectedClaimsTypes.filter(item => item !== type)
+      }));
+    } else {
+      // If it's not, add it
+      this.setState(prevState => ({
+        selectedClaimsTypes: [...prevState.selectedClaimsTypes, type]
+      }));
+    }
+  }
+  
+
   handleClose() {
     this.setState({ openPopup: false });
   }
 
   handleSubmit(params) {
-    console.log(this.state.diagnosCodeData);
+    
+    console.log(this.state.essentialNewbornCare)
+    // console.log(this.state.diagnosCodeData);
 
-    this.setState({ openPopup: true });
-    console.log(this.state.patientDisposition);
+    // this.setState({ openPopup: true });
+    // console.log(this.state.patientDisposition);
 
-    console.log(
-      JsonToXml(
-        // { CF1: '', CF2: 2,  attr: this.state.itemcf1 },
+    // console.log(
+    //   JsonToXml(
+    //     // { CF1: '', CF2: 2,  attr: this.state.itemcf1 },
 
-        // <eCLAIMS> mga lamn </eCLAIMS>
-        // { eCLAIMS:  {
-        //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
-        //  },
-        // attr:  this.state.eCLAIMS },
-        // { attributes_key: 'attr' }
-        // ));
+    //     // <eCLAIMS> mga lamn </eCLAIMS>
+    //     // { eCLAIMS:  {
+    //     //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
+    //     //  },
+    //     // attr:  this.state.eCLAIMS },
+    //     // { attributes_key: 'attr' }
+    //     // ));
 
-        {
-          eCLAIMS: {
-            eTRANSMITTAL: {
-              CLAIM: [
-                { CF1: "", attr: this.state.itemcf1 },
-                {
-                  CF2: [{ a: 1, attr: { b: 2, c: 3 } }],
-                  attr: this.state.itemcf2,
-                },
-              ],
-              attr: this.state.claim,
-            },
-            attr: this.state.eTRANSMITTAL,
-          },
-          attr: this.state.eCLAIMS,
-        },
-        { attributes_key: "attr" }
-      )
-    );
+    //     {
+    //       eCLAIMS: {
+    //         eTRANSMITTAL: {
+    //           CLAIM: [
+    //             { CF1: "", attr: this.state.itemcf1 },
+    //             {
+    //               CF2: [{ a: 1, attr: { b: 2, c: 3 } }],
+    //               attr: this.state.itemcf2,
+    //             },
+    //           ],
+    //           attr: this.state.claim,
+    //         },
+    //         attr: this.state.eTRANSMITTAL,
+    //       },
+    //       attr: this.state.eCLAIMS,
+    //     },
+    //     { attributes_key: "attr" }
+    //   )
+    // );
   }
 
   handleDate(e) {
@@ -277,15 +425,28 @@ class mainForms extends React.Component {
         ...this.state.itemcf1,
         [e.target.name]: e.target.value,
       },
-    });
+    }); 
 
-    // this.setState({
-    //   itemcf2: {
-    //     ...this.state.itemcf2,
-    //     [e.target.name]: e.target.value,
-    //   },
-    // });
   }
+    
+    handleInputChangeclaim = (e) => {
+    this.setState({
+      claim: {
+        ...this.state.claim,
+        [e.target.name]: e.target.value,
+      },
+    });
+  }
+  
+  handleInputChanges = (e) => {
+    this.setState({
+      itemcf2: {
+        ...this.state.itemcf2,
+        [e.target.name]: e.target.value,
+      },
+    });
+    // this.setState({ selectedOption: event.target.value });
+  };
 
   handleToggleIsTrasfered() {
     this.setState({ isTransfered: !this.state.isTransfered });
@@ -295,6 +456,17 @@ class mainForms extends React.Component {
     console.log(this.state.specialCon);
     this.setState({ specialCon: !this.state.specialCon });
   }
+
+  handleSelectChangeMember = (e) => {
+    this.setState({
+      itemcf1: {
+        ...this.state.itemcf1,
+        [e.target.name]: e.target.value,
+      },
+    });
+    // this.setState({ selectedOption: event.target.value });
+  };
+
 
   handleClickCheckBoxPatientCon(option) {
     var valueOfDisposition = ""
@@ -350,7 +522,6 @@ class mainForms extends React.Component {
 
   
   handleCheckboxChangeTBtype = (option) => {
-    console.log(option);
     this.setState({ pTBType: option });
   };
 
@@ -379,6 +550,7 @@ class mainForms extends React.Component {
       parseInt(H, 10) >= 12 ? "PM" : "AM"
     );
   };
+
 
   // for diagnosCodeData
   handleDataChange = (updatedData) => {
@@ -451,7 +623,7 @@ class mainForms extends React.Component {
        { attributes_key: 'attr' }
 
        ));
-
+       console.log(process.env.REACT_APP_API_KEY);
     return (
       <>
         <Typography variant="h5" component="h5">
@@ -471,7 +643,7 @@ class mainForms extends React.Component {
               label={
                 <div>
                   <span>
-                    <b>C1</b>
+                    <b>CF1</b>
                   </span>
                 </div>
               }
@@ -481,7 +653,7 @@ class mainForms extends React.Component {
               label={
                 <div>
                   <span>
-                    <b>C2</b>
+                    <b>CF2</b>
                   </span>
                 </div>
               }
@@ -493,6 +665,7 @@ class mainForms extends React.Component {
             <Forms
               handleClick={this.handleSubmit}
               onchange={this.handleInputChange}
+              handleSelectChangeMember={this.handleSelectChangeMember}
               itemCf={this.state.itemcf1}
             />
           </CustomTabPanel>
@@ -513,19 +686,54 @@ class mainForms extends React.Component {
               handleToggle={this.handleToggleIsTrasfered}
               handleClickCheckBox={this.handleClickCheckBox}
               handleDate={this.handleDate}
-              onchange={this.handleInputChange}
+              onchange={this.handleInputChanges}
               handleClickCheckBoxSpeConsideration={
                 this.handleClickCheckBoxSpeConsideration
               }
+
+
               handleClickCheckBoxPatientCon={this.handleClickCheckBoxPatientCon}
               handleSendSelection={this.handleSendSelection}
               handleCheckboxChange={this.handleCheckboxChange}
               handleCheckboxChangeAccomondation={ this.handleCheckboxChangeAccomondation}
               handleTimeChange={this.handleTimeChange}
               handleCheckboxChangeTBtype={this.handleCheckboxChangeTBtype}
+              handleCheckboxChanges={this.handleCheckboxChanges}
               options3={this.state.options3}
+              checkedDates ={this.state.checkedDates}
               pTBType={this.state.pTBType}
-              
+
+
+
+              checkedDatesHemodialysis={this.state.checkedDatesHemodialysis}
+              checkedDatesBloodTransfusion={this.state.checkedDatesBloodTransfusion}
+              checkedDatesPeritoneal={this.state.checkedDatesPeritoneal}
+              checkedDatesBrachytherapy={this.state.checkedDatesBrachytherapy}
+              checkedDatesRadiotherapyLINAC={this.state.checkedDatesRadiotherapyLINAC}
+              checkedDatesChemotherapy={this.state.checkedDatesChemotherapy}
+              checkedDatesRadiotherapyCOBALT={this.state.checkedDatesRadiotherapyCOBALT}
+              checkedDatesDebridement={this.state.checkedDatesDebridement}
+              checkedDatesRadiotherapyIMRT={this.state.checkedDatesRadiotherapyIMRT}
+              handleCheckboxChangeHemodialysis={this.handleCheckboxChangeHemodialysis}
+              handleCheckboxChangeBloodTransfusion={this.handleCheckboxChangeBloodTransfusion}
+              handleCheckboxChangePeritoneal={this.handleCheckboxChangePeritoneal}
+              handleCheckboxChangeBrachytherapy={this.handleCheckboxChangeBrachytherapy}
+              handleCheckboxChangeRadiotherapyLINAC={this.handleCheckboxChangeRadiotherapyLINAC}
+              handleCheckboxChangeChemotherapy={this.handleCheckboxChangeChemotherapy}
+              handleCheckboxChangeRadiotherapyCOBALT={this.handleCheckboxChangeRadiotherapyCOBALT}
+              handleCheckboxChangeDebridement={this.handleCheckboxChangeDebridement}
+              handleCheckboxChangeRadiotherapyIMRT={this.handleCheckboxChangeRadiotherapyIMRT}
+
+              handleClickCheckBoxClaimsType={this.handleClickCheckBoxClaimsType}
+              handleCheckboxChangeNewBorn={this.handleCheckboxChangeNewBorn}
+
+              selectedClaimsTypes={this.state.selectedClaimsTypes}
+              patientDisposition={this.state.patientDisposition}
+              essentialNewbornCare={this.state.essentialNewbornCare}
+
+              claim={this.state.claim}
+              handleInputChangeclaim={this.handleInputChangeclaim}
+
               print={this.print}
               options={this.state.options}
               options2={this.state.options2}

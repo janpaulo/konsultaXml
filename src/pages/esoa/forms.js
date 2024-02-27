@@ -24,7 +24,9 @@ class forms extends React.Component {
     const {roomAndBoard} = this.props
     const {OtherFundSource} = this.props
     const {drugsAndMedicine} = this.props
-    console.log(drugsAndMedicine)
+    const {operatingRoomFees} = this.props
+    const {laboratoryAndDiagnostic} = this.props
+    const {medicalSupplies} = this.props
     return (
       <>
         <Divider>
@@ -44,8 +46,9 @@ class forms extends React.Component {
                 id="outlined-multiline-flexible"
                 fullWidth
                 name="pHciPan"
+                value={this.props.item.pHciPan}
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangePen}
               />
             </Grid>
             <Grid item xs={4}>
@@ -149,7 +152,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pDescription"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeOtherFundSource}
               />
             </Grid>
             <Grid item xs={2}>
@@ -160,7 +163,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pAmount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeOtherFundSource}
               />
             </Grid>
             <Grid item xs={4}></Grid>
@@ -179,7 +182,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pSeniorCitizenDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
             <Grid item xs={2}>
@@ -190,7 +193,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pPWDDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
             <Grid item xs={2}>
@@ -201,7 +204,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pPCSO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
             <Grid item xs={2}>
@@ -212,7 +215,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pDSWD"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
             <Grid item xs={1}>
@@ -223,7 +226,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pDOHMAP"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
             <Grid item xs={1}>
@@ -234,7 +237,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pHMO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
             <Grid item xs={2}>
@@ -245,7 +248,7 @@ class forms extends React.Component {
                 fullWidth
                 name="pActualCharges"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangedrugsAndMedicine}
               />
             </Grid>
 
@@ -259,84 +262,77 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Senior Citizen Discount"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pSeniorCitizenDiscount}
                 fullWidth
                 name="pSeniorCitizenDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="PWD Discount"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pPWDDiscount}
                 fullWidth
                 name="pPWDDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="PCSO"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pPCSO}
                 fullWidth
                 name="pPCSO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="DSWD"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pDSWD}
                 fullWidth
                 name="pDSWD"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
             <Grid item xs={1}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="DOH MAP"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pDOHMAP}
                 fullWidth
                 name="pDOHMAP"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
             <Grid item xs={1}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="HMO"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pHMO}
                 fullWidth
                 name="pHMO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="Actual Charges"
-                // multiline
-                // maxRows={4}
+                value={laboratoryAndDiagnostic.pActualCharges}
                 fullWidth
                 name="pActualCharges"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangelaboratoryAndDiagnostic}
               />
             </Grid>
 
@@ -350,84 +346,77 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Senior Citizen Discount"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pSeniorCitizenDiscount}
                 fullWidth
                 name="pSeniorCitizenDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="PWD Discount"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pPWDDiscount}
                 fullWidth
                 name="pPWDDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="PCSO"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pPCSO}
                 fullWidth
                 name="pPCSO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="DSWD"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pDSWD}
                 fullWidth
                 name="pDSWD"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
             <Grid item xs={1}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="DOH MAP"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pDOHMAP}
                 fullWidth
                 name="pDOHMAP"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
             <Grid item xs={1}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="HMO"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pHMO}
                 fullWidth
                 name="pHMO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="Actual Charges"
-                // multiline
-                // maxRows={4}
+                value={operatingRoomFees.pActualCharges}
                 fullWidth
                 name="pActualCharges"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangeoperatingRoomFees}
               />
             </Grid>
 
@@ -441,84 +430,77 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Senior Citizen Discount"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pSeniorCitizenDiscount}
                 fullWidth
                 name="pSeniorCitizenDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="PWD Discount"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pPWDDiscount}
                 fullWidth
                 name="pPWDDiscount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="PCSO"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pPCSO}
                 fullWidth
                 name="pPCSO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="DSWD"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pDSWD}
                 fullWidth
                 name="pDSWD"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={1}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="DOH MAP"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pDOHMAP}
                 fullWidth
                 name="pDOHMAP"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={1}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="HMO"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pHMO}
                 fullWidth
                 name="pHMO"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="Actual Charges"
-                // multiline
-                // maxRows={4}
+                value={medicalSupplies.pActualCharges}
                 fullWidth
                 name="pActualCharges"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleInputChangemedicalSupplies}
               />
             </Grid>
             <Grid item xs={2}>
@@ -532,12 +514,11 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Total Case Rate Amount"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 name="pTotalCaseRateAmount"
+                // value={pTotalCaseRateAmount}
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleDataChangeOrfPhilHealth}
               />
             </Grid>
             <Grid item xs={2}>
@@ -550,17 +531,21 @@ class forms extends React.Component {
               <TextField
                 id="outlined-multiline-flexible"
                 label="Amount"
-                // multiline
-                // maxRows={4}
                 fullWidth
                 name="pAmount"
                 size="small"
-                onChange={this.props.onchange}
+                onChange={this.props.handleDataChangeOrfPhilHealth}
               />
             </Grid>
           </Grid>
 
-          <Professional />
+          <Professional 
+            handleDataChangeprofPhilHealth={this.props.handleDataChangeprofPhilHealth}  
+            handleDataChangeProf={this.props.handleDataChangeProf} 
+            handleDataChangeProfSumary={this.props.handleDataChangeProfSumary} 
+            professionalInfo={this.props.professionalInfo} 
+            summaryOfFee={this.props.summaryOfFee} 
+          />
           <ItemizzedBill />
           <Itembills itembills={this.props.itembills} dataItem={this.props.dataItem}   onDataChange={this.props.handleDataChange}  />
 
