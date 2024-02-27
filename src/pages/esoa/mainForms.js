@@ -121,9 +121,10 @@ class mainForms extends React.Component {
     const array = this.state.dataItem;
     // Create JSON object based on the length of the array
     const ItemizedBillingItems = array.map((value, index) => {
-      return { ["ItemizedBillingItem"]: '', attr: value };
+      return { "ItemizedBillingItem": '', attr: value };
     });
     
+    console.log(ItemizedBillingItems)
     const XML = JsonToXml(
       {eSOA: [
         {SummaryOfFees:
@@ -204,20 +205,20 @@ class mainForms extends React.Component {
       "xml_data": XML
     }
 
-    // axios({
-    //   method: "POST",
-    //   url: "http://localhost:3000/esoas",
-    //   data: (data), 
-    //   withCredentials: false,
-    //   headers: { 'Content-Type': 'application/json' }
-    //   // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
-    // }).then(resp => {
-    //   setTimeout(() => {
+    axios({
+      method: "POST",
+      url: "http://localhost:3000/esoas",
+      data: (data), 
+      withCredentials: false,
+      headers: { 'Content-Type': 'application/json' }
+      // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
+    }).then(resp => {
+      setTimeout(() => {
         
-    //   this.setState({redirectToSuccess: true});
-    //   console.log(resp.data)
-    //   }, this.state.redirectTimeout);
-    // })
+      this.setState({redirectToSuccess: true});
+      console.log(resp.data)
+      }, this.state.redirectTimeout);
+    })
 
     const cipherKey = "PHilheaLthDuMmyciPHerKeyS";
     const originalString = xml_data;
@@ -225,7 +226,7 @@ class mainForms extends React.Component {
       originalString,
       cipherKey
     );
-    console.log(xml_data);
+    console.log(encryptedString);
 
 
   }
