@@ -46,6 +46,14 @@ class mainForms extends React.Component {
     this.state = {
       title: "ESOA",
       item: {pHciPan: ''},
+      originalData: {
+        docMimeType: 'text/xml',
+        hash: '8add3bdd69d6f69b0791dd6af583784ea82091c5de9ffe52473ec54fbcb4ed8d',
+        key1: '',
+        key2: '',
+        iv: 'MDEyMzQ1Njc4OUFCQ0RFRg==',
+        doc: ''
+      },
       openPopup: false,
       xml: "",
       // roomAndBoard: {},
@@ -114,6 +122,24 @@ class mainForms extends React.Component {
   encryptStringWithCipherKey = (str, cipherKey) => {
     const encrypted = CryptoJS.AES.encrypt(str, cipherKey);
     return encrypted.toString();
+  };
+
+
+  encryptStringWithDynamicIV = (stringToEncrypt, key) => {
+    // Generate a random IV for each encryption
+    const iv = CryptoJS.lib.WordArray.random(16);
+    // Encrypt the string using AES cipher with the dynamically generated IV
+    const encryptedString = CryptoJS.AES.encrypt(stringToEncrypt, key, { iv }).toString();
+    return {
+      iv: iv.toString(CryptoJS.enc.Base64),
+      encryptedString: encryptedString
+    };
+  };
+
+  hashString = (stringToHash) => {
+    // Add a hash key using SHA-256
+    const hashedString = CryptoJS.SHA256(stringToHash).toString();
+    return hashedString;
   };
 
   handleSubmit(params) {
@@ -192,7 +218,7 @@ class mainForms extends React.Component {
 
     // this.setState({xml: XML})
 
-    const xml_data = "'" + XML  + "'";
+    // const xml_data = "'" + XML  + "'";
     // console.log(xml_data)
 
     const data = {
@@ -220,15 +246,37 @@ class mainForms extends React.Component {
       }, this.state.redirectTimeout);
     })
 
-    const cipherKey = "PHilheaLthDuMmyciPHerKeyS";
-    const originalString = xml_data;
-    const encryptedString = this.encryptStringWithCipherKey(
-      originalString,
-      cipherKey
-    );
-    console.log(encryptedString);
+    // const newObject = {};
+
+    // const cipherKey = "PHilheaLthDuMmyciPHerKeyS";
+    // const originalString = xml_data;
+    // const encryptedString = this.encryptStringWithCipherKey(
+    //   originalString,
+    //   cipherKey
+    // );
+    // const { originalData } = this.state;
+    // const jsonString = JSON.stringify(originalData);
+    // const encryptedData = CryptoJS.AES.encrypt(jsonString, cipherKey).toString();
+    // originalData.doc = encryptedString;
+    // console.log(originalData);
 
 
+    // const originalString = xml_data;
+    // const encryptionKey = "PHilheaLthDuMmyciPHerKeyS";
+
+    // const { iv, encryptedString } = this.encryptStringWithDynamicIV(originalString, encryptionKey);
+    // const hashedString = this.hashString(encryptedString);
+
+  //   const resultObject = {
+  //     docMimeType: 'text/xml',
+  //     key1: '',
+  //     key2: '',
+  //     iv: iv,
+  //     doc: encryptedString,
+  //     hash: hashedString
+
+  // }
+  // console.log(xml_data)
   }
 
 

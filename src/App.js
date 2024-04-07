@@ -10,7 +10,10 @@ import MainRegistration from '../src/pages/eclaims/mainForms'
 import EsoaRegistration from '../src/pages/esoa/mainForms'
 import EsoatableList from '../src/pages/esoa/tableList'
 import ClaimTableList from '../src/pages/eclaims/tableList'
-import XMLEncryptor from '../src/pages/encryptors/XMLEncryptor'
+// import XMLEncryptor from '../src/pages/encryptors/XMLEncryptor'
+import XMLEncryptor from '../src/pages/esoa/samplecryptors'
+import ICDCodes from '../src/pages/icd_rsc_codes/icdCodes'
+import RVSCodes from '../src/pages/icd_rsc_codes/rvsCodes'
 // import Itembills from '../src/pages/esoa/Itembills'
 
 import Login from '../src/pages/login/Login';
@@ -41,6 +44,8 @@ function App() {
                   <Route exact path="/esoa_table_list"  element={ <EsoatableList/> } />
                   <Route exact path="/esoa_registration"  element={ <EsoaRegistration/> } />
                   <Route exact path="/encryptor"  element={ <XMLEncryptor/> } />
+                  <Route exact path="/icd_codes"  element={ <ICDCodes/> } />
+                  <Route exact path="/rvs_codes"  element={ <RVSCodes/> } />
                   {/* <Route exact path="/test"  element={ <Itembills/> } /> */}
                   {/* <Route exact path="/employees"  element={ <Employees/> } />
                   <Route exact path="/files" element={ <Files/> }  />

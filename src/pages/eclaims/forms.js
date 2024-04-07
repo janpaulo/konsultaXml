@@ -29,9 +29,12 @@ import Divider from "@mui/material/Divider";
 // import Card from "@mui/material/Card";
 // import CardActions from "@mui/material/CardActions";
 // import CardContent from "@mui/material/CardContent";
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormLabel from '@mui/material/FormLabel';
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormLabel from "@mui/material/FormLabel";
+import moment from "moment";
+import EmployerValidation from "./employerValidation";
+// import Autocomplete from './Autocomplete';
 
 // import { styled } from "@mui/material/styles";
 // import Stack from "@mui/material/Stack";
@@ -45,7 +48,11 @@ class forms extends React.Component {
   }
 
   render() {
-    console.log(this.props.itemCf);
+    const { searchText } = this.props;
+    const { employerData } = this.props;
+    const { selectedOption } = this.props;
+    const { selectedObject } = this.props;
+
     return (
       <>
         <Divider>
@@ -63,7 +70,11 @@ class forms extends React.Component {
               </InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                value={this.props.itemCf.pMemberPIN}
+                value={
+                  this.props.memberDataPin === null
+                    ? this.props.itemCf.pMemberPIN
+                    : (this.props.itemCf.pMemberPIN = this.props.memberDataPin)
+                }
                 fullWidth
                 name="pMemberPIN"
                 size="small"
@@ -82,7 +93,11 @@ class forms extends React.Component {
                 id="outlined-multiline-flexible"
                 label="Last Name"
                 fullWidth
-                value={this.props.itemCf.pMemberLastName}
+                value={
+                  searchText.lastname === undefined
+                    ? this.props.itemCf.pMemberLastName
+                    : (this.props.itemCf.pMemberLastName = searchText.lastname)
+                }
                 name="pMemberLastName"
                 size="small"
                 onChange={this.props.onchange}
@@ -96,7 +111,13 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMemberFirstName"
-                value={this.props.itemCf.pMemberFirstName}
+                value={
+                  searchText.firstname === undefined
+                    ? this.props.itemCf.pMemberFirstName
+                    : (this.props.itemCf.pMemberFirstName =
+                        searchText.firstname)
+                }
+                // value={this.props.itemCf.pMemberFirstName}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -108,7 +129,12 @@ class forms extends React.Component {
                 fullWidth
                 size="small"
                 name="pMemberSuffix"
-                value={this.props.itemCf.pMemberSuffix}
+                value={
+                  searchText.suffix === undefined
+                    ? this.props.itemCf.pMemberSuffix
+                    : (this.props.itemCf.pMemberSuffix = searchText.suffix)
+                }
+                // value={this.props.itemCf.pMemberSuffix}
                 onChange={this.props.onchange}
               />
             </Grid>
@@ -120,7 +146,13 @@ class forms extends React.Component {
                 // maxRows={4}
                 fullWidth
                 name="pMemberMiddleName"
-                value={this.props.itemCf.pMemberMiddleName}
+                value={
+                  searchText.middlename === undefined
+                    ? this.props.itemCf.pMemberMiddleName
+                    : (this.props.itemCf.pMemberMiddleName =
+                        searchText.middlename)
+                }
+                // value={this.props.itemCf.pMemberMiddleName}
                 size="small"
                 onChange={this.props.onchange}
               />
@@ -134,7 +166,13 @@ class forms extends React.Component {
                 type="date"
                 InputLabelProps={{ shrink: true, required: true }}
                 fullWidth
-                value={this.props.itemCf.pMemberBirthDate}
+                value={
+                  searchText.bday === undefined
+                    ? this.props.itemCf.pMemberBirthDate
+                    : (this.props.itemCf.pMemberBirthDate = moment(
+                        new Date(searchText.bday)
+                      ).format("YYYY-MM-DD"))
+                }
                 name="pMemberBirthDate"
                 size="small"
                 onChange={this.props.onchange}
@@ -143,7 +181,9 @@ class forms extends React.Component {
             <Grid item xs={12}>
               {/* <InputLabel>Member Category</InputLabel> */}
               <FormControl fullWidth>
-                <InputLabel id="membershipType-label">Select Membership Type</InputLabel>
+                <InputLabel id="membershipType-label">
+                  Select Membership Type
+                </InputLabel>
                 <Select
                   labelId="membershipType-label"
                   id="pMemberShipType"
@@ -276,7 +316,13 @@ class forms extends React.Component {
             (To be filled-out only if the patient is a dependent)
           </Divider>
 
-          <Grid container spacing={2}>
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            justifyContent="center"
+            alignItems="flex-end"
+          >
             <Grid item xs={8}>
               <InputLabel>
                 Philhealth Identification No. (PIN) of Dependent :
@@ -354,26 +400,39 @@ class forms extends React.Component {
               />
             </Grid>
             <Grid item xs={4}>
-               {" "}
+              {" "}
               <FormControl>
-                  <FormLabel id="demo-row-radio-buttons-group-label"> Relationship to Member</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="pPatientIs" 
-                    value={this.props.itemCf.pPatientIs}
-                    onChange={this.props.onchange}
-                  >
-                    {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
-                    <FormControlLabel value="C" control={<Radio />} label="Child" />
-                    <FormControlLabel value="P" control={<Radio />} label="Parent" />
-                    <FormControlLabel value="S" control={<Radio />} label="Spouse" />
-                  </RadioGroup>
-                </FormControl>
+                <FormLabel id="demo-row-radio-buttons-group-label">
+                  {" "}
+                  Relationship to Member
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="pPatientIs"
+                  value={this.props.itemCf.pPatientIs}
+                  onChange={this.props.onchange}
+                >
+                  {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
+                  <FormControlLabel
+                    value="C"
+                    control={<Radio />}
+                    label="Child"
+                  />
+                  <FormControlLabel
+                    value="P"
+                    control={<Radio />}
+                    label="Parent"
+                  />
+                  <FormControlLabel
+                    value="S"
+                    control={<Radio />}
+                    label="Spouse"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Grid>{" "}
-            <Grid item xs={4
-            
-            }>
+            <Grid item xs={4}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                 <Select
@@ -537,54 +596,90 @@ class forms extends React.Component {
             </Typography>
           </Divider>
 
-          <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <InputLabel>PhilHealth Employer No.(PEN)</InputLabel>
-              <TextField
-                id="outlined-multiline-flexible"
-                // label="Multiline"
-                // multiline
-                // maxRows={4}
-                value={this.props.itemCf.pPEN }
-                fullWidth
-                name="pPEN"
-                size="small"
-                onChange={this.props.onchange}
-              />
+          <EmployerValidation
+            searchEmployer={this.props.searchEmployer}
+            updateEmployerData={this.props.updateEmployerData}
+          />
+
+          {this.props.employerData ? (
+            <Grid container spacing={2}>
+              <Grid item xs={8}>
+                {/* <InputLabel>PhilHealth Employer No.(PEN)</InputLabel> */}
+                {/* <TextField
+                  id="outlined-multiline-flexible"
+                  // value={selectedOption != null ? selectedOption = this.props.itemCf.pPEN: this.props.itemCf.pPEN}
+                  hidden
+                  fullWidth
+                  name="pPEN"
+                  size="small"
+                  // onChange={this.props.onchange}
+                /> */}
+
+              <input
+                      name="pPEN"
+                      type="text"
+                      hidden
+                      value={selectedOption != null ? this.props.itemCf.pPEN = selectedOption : this.props.itemCf.pPEN}
+                      // onChange={this.handleChange}
+                    />
+
+                <FormControl fullWidth>
+                  <InputLabel>Select Option</InputLabel>
+                  <Select
+                    value={selectedOption}
+                    onChange={this.props.handleChangeSelectEmp}
+                    label="Select Option"
+                    size="small"
+                  >
+                    {employerData !== null && employerData.length > 0 ? (
+                      employerData.map((option, index) => (
+                        <MenuItem key={index} value={option.epmlist.pPEN}>
+                          {option.epmlist.pPEN}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem disabled>No options available</MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={4}>
+                {" "}
+              </Grid>
+              <Grid item xs={12}>
+                <InputLabel>Name of Employer</InputLabel>{" "}
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Name"
+                  // multiline
+                  // maxRows={4}
+                  fullWidth
+                  value={selectedObject !== null ? this.props.itemCf.pEmployerName = selectedObject.epmlist.pEmployerName:this.props.itemCf.pEmployerName }
+                  name="pEmployerName"
+                  size="small"
+                  onChange={this.props.onchange}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  label="Address"
+                  // multiline
+                  // maxRows={4}
+                  fullWidth
+                  name="pAddress"
+                  // value={this.props.itemCf.pAddress}
+                  value={selectedObject !== null ? this.props.itemCf.pAddress = selectedObject.epmlist.pEmployerAddress : this.props.itemCf.pEmployerName }
+                  size="small"
+                  onChange={this.props.onchange}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={4}>
-              {" "}
-            </Grid>
-            <Grid item xs={12}>
-              <InputLabel>Name of Employer</InputLabel>{" "}
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Name"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                value={this.props.itemCf.pEmployerName}
-                name="pEmployerName"
-                size="small"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Address"
-                // multiline
-                // maxRows={4}
-                fullWidth
-                name="pEmpAddress"
-                value={this.props.itemCf.pMemberFirstName}
-                size="small"
-                onChange={this.props.onchange}
-              />
-            </Grid>
-          </Grid>
+          ) : (
+            ""
+          )}
 
           <br />
           {/* <Divider>
@@ -815,11 +910,10 @@ class forms extends React.Component {
                 </CardContent>
                 <CardActions>
                   {/* <Button size="small">Learn More</Button> */}
-                {/* </CardActions>
+          {/* </CardActions>
               </Card>
             </Grid> */}
-          {/* </Grid> */} 
-
+          {/* </Grid> */}
 
           <br />
           <Grid

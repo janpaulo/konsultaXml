@@ -8,10 +8,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import SharedAppBar from "../../shared/SharedAppBar";
-import CryptoJS from "crypto-js";
+// import CryptoJS from "crypto-js";
 import axios from "axios";
 import moment from "moment";
 import PositionedSnackbar from './../../shared/alerts/PositionedSnackbar'
+// import { Button } from "@mui/material";
+import Xml2js from "xml2js";
 
 class tableList extends React.Component {
   constructor() {
@@ -39,7 +41,7 @@ class tableList extends React.Component {
     })
       .then((resp) => {
         this.setState({ items: resp.data.response });
-        console.log(resp.data.response);
+        // console.log(resp.data.response);
       })
       .catch((error) => {
         // Handle error
@@ -49,6 +51,70 @@ class tableList extends React.Component {
 
   handleSubmit(params) {
     console.log("here me");
+
+
+
+  // Define the SOAP request body
+  const soapRequest = `
+      <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+      <Body>
+          <SearchEmployer xmlns="http://philhealth.gov.ph">
+              <pUserName>:ECLAIMS-04-01-2018-00002</pUserName>
+              <pUserPassword></pUserPassword>
+              <pHospitalCode>300806</pHospitalCode>
+              <pPEN></pPEN>
+              <pEmployerName>PHILIPHINE HEALTH ISURANCE</pEmployerName>
+          </SearchEmployer>
+      </Body>
+    </Envelope>
+  `;
+
+  // Define the URL of the SOAP service
+  const url = 'https://eclaimstest2.philhealth.gov.ph:8077/soap?service=PhilhealthService';
+
+  // Define headers for the request
+  const headers = {
+    'Content-Type': 'text/xml;charset=UTF-8',
+    // 'SOAPAction': 'YourSOAPAction' // SOAP action if required
+  };
+
+  // Make the SOAP request using Axios
+  axios.post(url, soapRequest, { headers })
+    .then(response => {
+      // Handle successful response
+      // console.log(response.data);
+      // You may need to parse the XML response if needed
+      // You can use xml2js or other libraries for that
+      Xml2js.parseString(response.data, (err, result) => {
+        if (err) {
+          console.error(err);
+        } else {
+          const parentObject  =result['SOAP-ENV:Envelope'];
+          console.log(parentObject['SOAP-ENV:Body'][0]['NS1:SearchEmployerResponse'][0]['Result']);
+        }
+      });
+    })
+    .catch(error => {
+      // Handle error
+      console.error(error);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   render() {
@@ -61,20 +127,20 @@ class tableList extends React.Component {
     // };
     
 
-    const cipherKey = "PHilheaLthDuMmyciPHerKeyS";
+    // const cipherKey = "PHilheaLthDuMmyciPHerKeyS";
 
-    const encryptStringWithCipherKey = (str, cipherKey) => {
-      const encrypted = CryptoJS.AES.encrypt(str, cipherKey);
-      return encrypted.toString();
-    };
+    // const encryptStringWithCipherKey = (str, cipherKey) => {
+    //   const encrypted = CryptoJS.AES.encrypt(str, cipherKey);
+    //   return encrypted.toString();
+    // };
 
-    // Example usage
-    const originalString = "<foo>Foo!</foo>";
-    const encryptedString = encryptStringWithCipherKey(
-      originalString,
-      cipherKey
-    );
-    console.log(encryptedString);
+    // // Example usage
+    // const originalString = "<foo>Foo!</foo>";
+    // const encryptedString = encryptStringWithCipherKey(
+    //   originalString,
+    //   cipherKey
+    // );
+    // console.log(encryptedString);
     // console.log(start);
 
     // const ast = parse('<foo>Foo!</foo>');

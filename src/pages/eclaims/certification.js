@@ -48,7 +48,10 @@ class certification extends React.Component {
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <FormControlLabel
-                      control={<Checkbox />}
+                      control={<Checkbox 
+                        value={"Y"}
+                        name="pEnoughBenefits"
+                      />}
                       //   label={`${""} ${<br/>} (${"PhilHealth Benefits is enough to cover HCI and FF charges."})`}
                       label={
                         <>
@@ -92,7 +95,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pTotalHCIFees"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -110,7 +113,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pTotalProfFees"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -128,7 +131,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pGrandTotal"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -140,8 +143,10 @@ class certification extends React.Component {
                   </Grid>
                   <Grid item xs={12}>
                     <FormControlLabel
-                      control={<Checkbox />}
-                      //   label={`${""} ${<br/>} (${"PhilHealth Benefits is enough to cover HCI and FF charges."})`}
+                      control={<Checkbox 
+                        value={"N"}
+                        name="pEnoughBenefits"
+                        />}
                       label={
                         <>
                           <div>
@@ -193,7 +198,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pTotalActualCharges"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -206,7 +211,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pDiscount"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -219,7 +224,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pPhilhealthBenefit"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -231,7 +236,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pTotalAmount "
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -241,21 +246,26 @@ class certification extends React.Component {
                                 <Grid item xs={6}>
                                   {" "}
                                   <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox 
+                                    name="pMemberPatient"/>}
                                     label="Member/ patient "
                                   />
                                 </Grid>
                                 <Grid item xs={6}>
                                   {" "}
                                   <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox 
+                                    name="pHMO"
+                                    />}
                                     label="HMO"
                                   />
                                 </Grid>
                                 <Grid item xs={12}>
                                   {" "}
                                   <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox
+                                      value={"Y"}
+                                      name="pOthers" />}
                                     label="Others(i.e., PCSO, Priomissory note, etc)"
                                   />
                                 </Grid>
@@ -277,7 +287,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pTotalActualCharges"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -290,7 +300,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pDiscount"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -303,7 +313,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pPhilhealthBenefit"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -316,7 +326,7 @@ class certification extends React.Component {
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pTotalAmount"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -325,21 +335,26 @@ class certification extends React.Component {
                                 <Grid item xs={6}>
                                   {" "}
                                   <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox
+                                      name="pMemberPatient" />}
                                     label="Member/ patient "
                                   />
                                 </Grid>
                                 <Grid item xs={6}>
                                   {" "}
                                   <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox
+                                      name="pHMO"
+                                      />}
                                     label="HMO"
                                   />
                                 </Grid>
                                 <Grid item xs={12}>
                                   {" "}
                                   <FormControlLabel
-                                    control={<Checkbox />}
+                                    control={<Checkbox
+                                      value={"Y"}
+                                      name="pOthers " />}
                                     label="Others(i.e., PCSO, Priomissory note, etc)"
                                   />
                                 </Grid>
@@ -368,34 +383,35 @@ class certification extends React.Component {
                           <TableRow>
                             <TableCell align="">
                               <b>
-                                Total cost of purchase/s for drugs/mediv=cines
-                                and/or medical supplies bought by the
+                                Total cost of purchase/s for drugs/medicines
+                                and/or medical supplies bought by the<br/>
                                 patient/member within/outside the HCI during
                                 confinement
                               </b>
                             </TableCell>
                             <TableCell align="">
                               {" "}
-                              <FormControlLabel
-                                control={<Checkbox />}
-                                label="None"
-                              />
+                            
                             </TableCell>
                             <TableCell align="">
                               <FormControlLabel
-                                control={<Checkbox />}
-                                label="Total Amount"
+                                control={<Checkbox 
+                                  name="pDrugsMedicinesSupplies"/>}
+                                label="YES ?"
                               />
                             </TableCell>
                             <TableCell align="">
                               {" "}
+                              <Typography>
+                              Total Amount
+                              </Typography>
                               <TextField
                                 id="outlined-multiline-flexible"
                                 // label="Multiline"
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pDMSTotalAmount"
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -405,33 +421,32 @@ class certification extends React.Component {
                             <TableCell align="">
                               <b>
                                 Total cost of diagnostic/laboratory examinations
-                                paid for by the patient/member done
+                                paid for by the patient/member done<br/>
                                 within/outside the HCI during confinement
                               </b>
                             </TableCell>
                             <TableCell align="">
                               {" "}
+                            </TableCell>
+                            <TableCell align="">
                               <FormControlLabel
-                                control={<Checkbox />}
-                                label="None "
+                                control={<Checkbox 
+                                  name="pExaminations"/>}
+                                label="YES ?"
                               />
                             </TableCell>
                             <TableCell align="">
                               {" "}
-                              <FormControlLabel
-                                control={<Checkbox />}
-                                label="Total Amount "
-                              />
-                            </TableCell>
-                            <TableCell align="center">
-                              {" "}
+                              <Typography>
+                              Total Amount
+                              </Typography>
                               <TextField
                                 id="outlined-multiline-flexible"
                                 // label="Multiline"
                                 // multiline
                                 // maxRows={4}
                                 fullWidth
-                                name="pMemberPIN"
+                                name="pExamTotalAmount "
                                 size="small"
                                 onChange={this.props.onchange}
                               />
@@ -449,6 +464,9 @@ class certification extends React.Component {
             </Card>
           </Grid>
 
+
+
+{/* babalikan ko bukas */}
           <Grid item xs={12}>
             <Typography>B. CONSENT TO ACCESS PATIENT RECORD/</Typography>
           </Grid>

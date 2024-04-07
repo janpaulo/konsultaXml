@@ -608,66 +608,66 @@ class forms2 extends React.Component {
 
                 <Grid item xs={6}>
                   <Typography>
-                      <b>Patient Type :</b>
-                    </Typography>
-                    <FormControl>
-                      <FormLabel id="demo-row-radio-buttons-group-label">
-                        {" "}
-                        {/* Relationship to Member */}
-                      </FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="pPatientType"
-                        value={this.props.claim.pPatientType}
-                        onChange={this.props.handleInputChangeclaim}
-                      >
-                        {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
-                        <FormControlLabel
-                          value="O"
-                          control={<Radio />}
-                          label="Outpatient"
-                        />
-                        <FormControlLabel
-                          value="I"
-                          control={<Radio />}
-                          label="Inpatient"
-                        />
-                        {/* <FormControlLabel value="S" control={<Radio />} label="Spouse" /> */}
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
+                    <b>Patient Type :</b>
+                  </Typography>
+                  <FormControl>
+                    <FormLabel id="demo-row-radio-buttons-group-label">
+                      {" "}
+                      {/* Relationship to Member */}
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="pPatientType"
+                      value={this.props.claim.pPatientType}
+                      onChange={this.props.handleInputChangeclaim}
+                    >
+                      {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
+                      <FormControlLabel
+                        value="O"
+                        control={<Radio />}
+                        label="Outpatient"
+                      />
+                      <FormControlLabel
+                        value="I"
+                        control={<Radio />}
+                        label="Inpatient"
+                      />
+                      {/* <FormControlLabel value="S" control={<Radio />} label="Spouse" /> */}
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
                 <Grid item xs={6}>
                   <Typography>
-                      <b> Emergency Case :</b>
-                    </Typography>
-                    <FormControl>
-                      <FormLabel id="demo-row-radio-buttons-group-label">
-                        {" "}
-                        {/* Relationship to Member */}
-                      </FormLabel>
-                      <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="pIsEmergency"
-                        value={this.props.claim.pIsEmergency}
-                        onChange={this.props.handleInputChangeclaim}
-                      >
-                        {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
-                        <FormControlLabel
-                          value="Y"
-                          control={<Radio />}
-                          label="YES"
-                        />
-                        <FormControlLabel
-                          value="N"
-                          control={<Radio />}
-                          label="NO"
-                        />
-                        {/* <FormControlLabel value="S" control={<Radio />} label="Spouse" /> */}
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
+                    <b> Emergency Case :</b>
+                  </Typography>
+                  <FormControl>
+                    <FormLabel id="demo-row-radio-buttons-group-label">
+                      {" "}
+                      {/* Relationship to Member */}
+                    </FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="pIsEmergency"
+                      value={this.props.claim.pIsEmergency}
+                      onChange={this.props.handleInputChangeclaim}
+                    >
+                      {/* <FormControlLabel value="M" control={<Radio />} label="member" /> */}
+                      <FormControlLabel
+                        value="Y"
+                        control={<Radio />}
+                        label="YES"
+                      />
+                      <FormControlLabel
+                        value="N"
+                        control={<Radio />}
+                        label="NO"
+                      />
+                      {/* <FormControlLabel value="S" control={<Radio />} label="Spouse" /> */}
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
 
                 <Grid item xs={4}></Grid>
               </Grid>
@@ -1156,7 +1156,9 @@ class forms2 extends React.Component {
                 onChange={this.props.onchange}
               />
             </Grid>
-            <Grid item xs={3}>
+
+            {/* comment Pre-Authorization Type: */}
+            {/* <Grid item xs={3}>
               <Typography>
                 Pre-Authorization Type:
                 {/* <FormControlLabel
@@ -1169,7 +1171,7 @@ class forms2 extends React.Component {
                   }
                   label="Check all if applicable"
                 /> */}
-              </Typography>
+            {/* </Typography>
             </Grid>
             <Grid item xs={3}>
               <Typography>
@@ -1192,7 +1194,7 @@ class forms2 extends React.Component {
                 />
                 Electronic
               </Typography>
-            </Grid>
+            </Grid> */}
             <Grid item xs={6}>
               <TextField
                 id="outlined-multiline-flexible"
@@ -1507,19 +1509,18 @@ class forms2 extends React.Component {
                 /> */}
                 Essential Newborn Care
               </Typography>
-
               <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="pEssentialNewbornCare" 
-                    // value={this.props.itemCf.pPatientIs}
-                    onChange={this.props.onchange}
-                  >
-                    <FormControlLabel value="Y" control={<Radio />} label="YES" />
-                    <FormControlLabel value="N" control={<Radio />} label="NO" />
-                  </RadioGroup>
-                </FormControl>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="pEssentialNewbornCare"
+                  // value={this.props.itemCf.pPatientIs}
+                  onChange={this.props.onchange}
+                >
+                  <FormControlLabel value="Y" control={<Radio />} label="YES" />
+                  <FormControlLabel value="N" control={<Radio />} label="NO" />
+                </RadioGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={4}>
               {" "}
@@ -1533,17 +1534,17 @@ class forms2 extends React.Component {
                 Newborn Screening Test
               </Typography>
               <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="pNewbornScreeningTest" 
-                    // value={this.props.itemCf.pPatientIs}
-                    onChange={this.props.onchange}
-                  >
-                    <FormControlLabel value="Y" control={<Radio />} label="YES" />
-                    <FormControlLabel value="N" control={<Radio />} label="NO" />
-                  </RadioGroup>
-                </FormControl>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="pNewbornScreeningTest"
+                  // value={this.props.itemCf.pPatientIs}
+                  onChange={this.props.onchange}
+                >
+                  <FormControlLabel value="Y" control={<Radio />} label="YES" />
+                  <FormControlLabel value="N" control={<Radio />} label="NO" />
+                </RadioGroup>
+              </FormControl>
             </Grid>
             <Grid item xs={4}>
               {" "}
@@ -1555,24 +1556,24 @@ class forms2 extends React.Component {
                   inputProps={{ "aria-label": "switch" }}
                 /> */}
                 Newborn Hearing Screening Test
-                <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="pNewbornHearingScreeningTest" 
-                    // value={this.props.itemCf.pPatientIs}
-                    onChange={this.props.onchange}
-                  >
-                    <FormControlLabel value="Y" control={<Radio />} label="YES" />
-                    <FormControlLabel value="N" control={<Radio />} label="NO" />
-                  </RadioGroup>
-                </FormControl>
               </Typography>
+              <FormControl>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="pNewbornHearingScreeningTest"
+                  // value={this.props.itemCf.pPatientIs}
+                  onChange={this.props.onchange}
+                >
+                  <FormControlLabel value="Y" control={<Radio />} label="YES" />
+                  <FormControlLabel value="N" control={<Radio />} label="NO" />
+                </RadioGroup>
+              </FormControl>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12}>
               {" "}
               <Typography>
-                Tick Applicable Box
+                <b>For Essential Care</b>(Check Applicable boxes)
                 {/* <Switch
                   name=""
                   // checked={value === 1}
@@ -1582,7 +1583,7 @@ class forms2 extends React.Component {
                 Check all */}
               </Typography>
             </Grid>
-            <Grid item xs={4}>
+            {/* <Grid item xs={4}>
               {" "}
               <Typography>
                 With O.R Attached?
@@ -1607,95 +1608,180 @@ class forms2 extends React.Component {
                 />
                 Yes
               </Typography>
+            </Grid> */}
+
+            <Grid item xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pDrying"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pDrying === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Immediate drying of newborn, etc."
+                    name="pDrying"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pSkinToSkin"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pSkinToSkin === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Early skin-to-skin contact"
+                    name="pSkinToSkin"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pCordClamping"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pCordClamping === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Timely card clamping"
+                    name="pCordClamping"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pProphylaxis"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pProphylaxis === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Eye prophylaxis"
+                    name="pProphylaxis"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pWeighing"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pWeighing === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Weighing of the newborn"
+                    name="pWeighing"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pVitaminK"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pVitaminK === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Vitamin of the newborn"
+                    name="pVitaminK"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pBCG"
+                        value="Y"
+                        checked={this.props.essentialNewbornCare.pBCG === "Y"}
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="BCG vaccination"
+                    name="pBCG"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pNonSeparation"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pNonSeparation === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Non-separation of mother/baby for early breastfeeding initiation"
+                    name="pNonSeparation"
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="pHepatitisB"
+                        value="Y"
+                        checked={
+                          this.props.essentialNewbornCare.pHepatitisB === "Y"
+                        }
+                        onChange={(e) =>
+                          this.props.handleCheckboxChangeNewBorn(e)
+                        }
+                      />
+                    }
+                    label="Hepatitis B vaccination"
+                    name="pHepatitisB"
+                  />
+                </Grid>
+                {/* </FormGroup> */}
+              </Grid>
             </Grid>
 
-            <Grid item xs={4}>
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox 
-                    name="pDrying"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pDrying === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)}
-                  />}
-                  label="Immediate drying of newborn, etc."
-                  name="pDrying"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pSkinToSkin"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pSkinToSkin === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Early skin-to-skin contact"
-                  name="pSkinToSkin"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pCordClamping"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pCordClamping === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Timely card clamping"
-                  name="pCordClamping"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pProphylaxis"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pProphylaxis === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Eye prophylaxis"
-                  name="pProphylaxis"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pWeighing"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pWeighing === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Weighing of the newborn"
-                  name="pWeighing"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pVitaminK"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pVitaminK === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Vitamin of the newborn"
-                  name="pVitaminK"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pBCG"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pBCG === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="BCG vaccination"
-                  name="pBCG"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pNonSeparation"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pNonSeparation === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Non-separation of mother/baby for early breastfeeding initiation"
-                  name="pNonSeparation"
-                />
-                <FormControlLabel
-                  control={<Checkbox
-                    name="pHepatitisB"
-                    value="Y"
-                    checked={this.props.essentialNewbornCare.pHepatitisB === "Y"}
-                    onChange={(e) => this.props.handleCheckboxChangeNewBorn(e)} />}
-                  label="Hepatitis B vaccination"
-                  name="pHepatitisB"
-                />
-              </FormGroup>
-            </Grid>
-            <Grid item xs={4}>
+            {/* <Grid item xs={4}>
               <TextField
                 id="outlined-multiline-flexible"
                 label="Filter Card No."
@@ -1717,12 +1803,12 @@ class forms2 extends React.Component {
                 />
                 Yes
               </Typography>
-            </Grid>
+            </Grid> */}
           </Grid>
           <br />
-          <Typography>
+          {/* <Typography>
             <b>g.Outpatient HIV/AIDS Treatment Package </b>
-            {/* <FormControlLabel
+            <FormControlLabel
               control={
                 <Checkbox
                   name="specialCon"
@@ -1731,11 +1817,11 @@ class forms2 extends React.Component {
                 />
               }
               label="Check all if applicable"
-            /> */}
+            />
           </Typography>
-          <br />
+          <br /> */}
 
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
                 id="outlined-multiline-flexible"
@@ -1758,28 +1844,18 @@ class forms2 extends React.Component {
                 Laboratory number is not indicated
               </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
 
-          <br />
+          {/* <br />
           <Typography>
             <b>
               Other Cases :<br /> h.For NSD Package emunerate four dates of
               pre-natal check-ups{" "}
             </b>
-            {/* <FormControlLabel
-              control={
-                <Checkbox
-                  name="specialCon"
-                  // checked={this.props.isSpecialCon}
-                  // onClick={(e) => this.props.handleClickCheckBox(e)}
-                />
-              }
-              label="Check all if applicable"
-            /> */}
           </Typography>
-          <br />
+          <br /> */}
 
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             <Grid item xs={3}>
               <TextField
                 id="outlined-multiline-flexible"
@@ -1877,25 +1953,16 @@ class forms2 extends React.Component {
               />
             </Grid>
             <Grid item xs={6}></Grid>
-          </Grid>
+          </Grid> */}
 
-          <br />
+          {/* <br />
           <Typography>
             <b>i. For Contact Package </b>
-            {/* <FormControlLabel
-              control={
-                <Checkbox
-                  name="specialCon"
-                  checked={this.props.isSpecialCon}
-                  onClick={(e) => this.props.handleClickCheckBox(e)}
-                />
-              }
-              label="Check all if applicable"
-            /> */}
+           
           </Typography>
-          <br />
+          <br /> */}
 
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
                 id="outlined-multiline-flexible"
@@ -1996,28 +2063,17 @@ class forms2 extends React.Component {
                   </Grid>
                 </CardContent>
                 <CardActions>
-                  {/* <Button size="small">Learn More</Button> */}
                 </CardActions>
               </Card>
             </Grid>
-          </Grid>
-          <br />
-          <Typography>
+          </Grid> */}
+          {/* <br /> */}
+          {/* <Typography>
             <b>j. For Medical Detoxification Package </b>
-            {/* <FormControlLabel
-              control={
-                <Checkbox
-                  name="specialCon"
-                  // checked={this.props.isSpecialCon}
-                  // onClick={(e) => this.props.handleClickCheckBox(e)}
-                />
-              }
-              label="Check all if applicable"
-            /> */}
           </Typography>
-          <br />
+          <br /> */}
 
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             <Grid item xs={12}>
               <FormGroup>
                 <FormControlLabel
@@ -2047,7 +2103,10 @@ class forms2 extends React.Component {
                 />
               </FormGroup>
             </Grid>
-          </Grid>
+          </Grid> */}
+
+
+
           <br />
           <Divider>
             {" "}
@@ -2058,7 +2117,9 @@ class forms2 extends React.Component {
           </Divider>
 
           {/* This line of code is inside in table */}
-          <Forms2Table />
+          <Forms2Table 
+            diagnosCodeData={this.props.diagnosCodeData}
+          />
 
           <br />
           <Divider>
