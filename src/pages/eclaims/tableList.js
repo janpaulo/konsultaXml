@@ -31,7 +31,7 @@ class tableList extends React.Component {
   handleGetClaims = (e) => {
     axios({
       method: "GET",
-      url: "http://localhost:3000/claims",
+      url: process.env.REACT_APP_API_CLAIMS + "claims",
       headers: { "Content-Type": "application/json" },
       // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
     })

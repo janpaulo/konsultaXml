@@ -30,6 +30,8 @@ class employerValidation extends Component {
   handleSubmit = () => {
     const item = this.state.searchText;
     console.log(item);
+    
+    this.setState({isData:  false});
 
     this.setState({loading:  true});
     // if (
@@ -97,6 +99,8 @@ class employerValidation extends Component {
         });
       })
       .catch((error) => {
+        this.setState({loading:  false});
+        this.setState({isData:  true});
         console.error("Error:", error);
       });
     // }

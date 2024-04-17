@@ -634,7 +634,7 @@ class forms extends React.Component {
                     {employerData !== null && employerData.length > 0 ? (
                       employerData.map((option, index) => (
                         <MenuItem key={index} value={option.epmlist.pPEN}>
-                          {option.epmlist.pPEN}
+                          {option.epmlist.pPEN} - {option.epmlist.pEmployerName}
                         </MenuItem>
                       ))
                     ) : (

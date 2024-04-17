@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-// import JsonToXml from "json2xml";
+import JsonToXml from "json2xml";
 import moment from "moment";
 import MemberValidation from "./memberValidation";
 
@@ -58,17 +58,17 @@ class mainForms extends React.Component {
       selectedEmployerOption: "",
       searchEmployer: { pPen: "", employerName: "" },
       searchText: {
-        // lastname: "RAMIREZ",
-        // firstname: "DANTE",
-        // middlename: "GALLARDO",
-        // suffix: "",
-        // bday: moment(new Date("11-18-1953")).format("YYYY-MM-DD"),  //"11-18-1953",
-        
-        lastname: "",
-        firstname: "",
-        middlename: "",
+        lastname: "RAMIREZ",
+        firstname: "DANTE",
+        middlename: "GALLARDO",
         suffix: "",
-        bday: "",  //"11-18-1953",
+        bday: moment(new Date("11-18-1953")).format("YYYY-MM-DD"), //"11-18-1953",
+
+        // lastname: "",
+        // firstname: "",
+        // middlename: "",
+        // suffix: "",
+        // bday: "",  //"11-18-1953",
       },
       specialConsideration: {
         isHemodialysis: false,
@@ -425,43 +425,93 @@ class mainForms extends React.Component {
   }
 
   handleSubmit(params) {
-    console.log(this.state.essentialNewbornCare);
-    console.log(this.state.itemcf1);
+    // console.log(this.state.essentialNewbornCare);
+
+    const DIAGNOSIS = this.state.diagnosCodeData.map((item) => {
+      
+      if (item.pRVSCode !== null && item.pRVSCode !== "") {
+        return {
+          DISCHARGE: [
+            {
+              ICDCODE: "",attr: {
+                pICDCode: item.pICDCode,
+              }
+             
+            },
+            { 
+              RVSCODES: "",attr: {
+              pRelatedProcedure: item.pRelatedProcedure,
+              pRVSCode: item.pRVSCode,
+              pProcedureDate: item.pProcedureDate,
+              pLaterality: item.pLaterality,
+            },}
+          ], attr: {pDischargeDiagnosis: item.pDischargeDiagnosis}
+        };
+      } else {
+        return {
+          DISCHARGE: [
+            {
+              ICDCODE:"",attr: {
+                pICDCode: item.pICDCode,
+              },
+            },
+          ], attr: {pDischargeDiagnosis: item.pDischargeDiagnosis}
+        };
+      }
+    });
+
+    console.log(DIAGNOSIS);
+
+    console.log(
+      JsonToXml(
+        {
+          eCLAIMS: {
+            eTRANSMITTAL: {
+              CLAIM: [
+                { CF1: "", attr: this.state.itemcf1 },
+                {
+                  CF2: [
+                    {// DIAGNOSIS ITEM IS ON THE STATE
+                      DIAGNOSIS,
+                      attr: { pAdmissionDiagnosis: 2 },
+                    },
+
+                    { SPECIAL: [{ a: 1 }] },
+                    {
+                      PROFESSIONALS: [{ a: "s", attr: { pICDCode: "K31.9" } }],
+                    },
+                    {
+                      CONSUMPTION: [
+                        { BENEFITS: "s", attr: { pTotalHCIFees: "sa" } },
+                      ],
+                      attr: { pEnoughBenefits: "Y" },
+                    },
+                  ],
+                  attr: this.state.itemcf2,
+                },
+
+                {
+                  ALLCASERATE: { CASERATE: "", attr: { pCaseRateCode: "sa" } },
+                },
+
+                { PARTICULARS: { DRGMED: "", attr: { pCaseRateCode: "sa" } } },
+
+                { RECEIPTS: { RECEIPT: "", attr: { pCaseRateCode: "sa" } } },
+
+                { DOCUMENTS: { DOCUMENT: "", attr: { pCaseRateCode: "sa" } } },
+              ],
+              attr: this.state.claim,
+            },
+            attr: this.state.eTRANSMITTAL,
+          },
+          attr: this.state.eCLAIMS,
+        },
+        { attributes_key: "attr" }
+      )
+    );
 
     // this.setState({ openPopup: true });
     // console.log(this.state.patientDisposition);
-
-    // console.log(
-    //   JsonToXml(
-    //     // { CF1: '', CF2: 2,  attr: this.state.itemcf1 },
-
-    //     // <eCLAIMS> mga lamn </eCLAIMS>
-    //     // { eCLAIMS:  {
-    //     //   eTRANSMITTAL: {Claim:'2'  ,  attr:  this.state.claim    },  attr: { b: 2, c: 3 }
-    //     //  },
-    //     // attr:  this.state.eCLAIMS },
-    //     // { attributes_key: 'attr' }
-    //     // ));
-
-    //     {
-    //       eCLAIMS: {
-    //         eTRANSMITTAL: {
-    //           CLAIM: [
-    //             { CF1: "", attr: this.state.itemcf1 },
-    //             {
-    //               CF2: [{ a: 1, attr: { b: 2, c: 3 } }],
-    //               attr: this.state.itemcf2,
-    //             },
-    //           ],
-    //           attr: this.state.claim,
-    //         },
-    //         attr: this.state.eTRANSMITTAL,
-    //       },
-    //       attr: this.state.eCLAIMS,
-    //     },
-    //     { attributes_key: "attr" }
-    //   )
-    // );
   }
 
   handleDate(e) {
@@ -613,41 +663,40 @@ class mainForms extends React.Component {
   };
 
   // Callback function to update memberData state
-  updateMemberData = (data,isTrue,dataItem) => {
+  updateMemberData = (data, isTrue, dataItem) => {
     this.setState({ memberData: data });
     this.setState({ ismemPin: isTrue });
     this.setState({ searchText: dataItem });
-    
+
     // console.log(dataItem)
   };
 
   // Callback function to update memberData state
   updateEmployerData = (data) => {
     this.setState({ employerData: data });
-    console.log(this.state.employerData)
-    
+    console.log(this.state.employerData);
+
     if (data === null) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         itemCf: {
           ...prevState.itemCf,
-          pEmployerName: '',
-          pAddress: ''
-        }
+          pEmployerName: "",
+          pAddress: "",
+        },
       }));
     }
-
   };
 
   handleChangeSelectEmp = (event) => {
-    const selectedValue = event.target.value === null ? null : event.target.value;
-    const selectedOption = this.state.employerData.find(option => option.epmlist.pPEN === selectedValue );
-  
-    this.setState({ selectedObject: selectedOption }); 
+    const selectedValue =
+      event.target.value === null ? null : event.target.value;
+    const selectedOption = this.state.employerData.find(
+      (option) => option.epmlist.pPEN === selectedValue
+    );
+
+    this.setState({ selectedObject: selectedOption });
     this.setState({ selectedEmployerOption: event.target.value });
   };
-
-
-
 
   render() {
     var start = this.state.itemcf2.pAdmissionDate;
@@ -671,72 +720,6 @@ class mainForms extends React.Component {
     dateAdmitedCounts = countAdmidatedDate;
     startDayAdmits = satrtDay;
 
-    // console.log(
-    //   JsonToXml(
-    //     {
-    //       eCLAIMS: {
-    //         eTRANSMITTAL: {
-    //           CLAIM: [
-    //             { CF1: "", attr: this.state.itemcf1 },
-    //             {
-    //               CF2: [
-    //                 {
-    //                   DIAGNOSIS: [
-    //                     {
-    //                       DISCHARGE: [
-    //                         { ICDCODE: "wqwqw" },
-    //                         // {
-    //                         //     ICDCODE: "", attr: { pICDCode:  "K31.9"},
-
-    //                         // },
-    //                         // {
-    //                         //   ICDCODE: "", attr: { pICDCode:  "K31.9"},
-    //                         // }
-    //                       ],
-    //                     },
-
-    //                     // [ { DISCHARGE: [{ICDCODE: "da"},{ICDCODE: "ssf"}] , attr: { pDischargeDiagnosis: 2 } } ]
-    //                   ],
-    //                   attr: { pAdmissionDiagnosis: 2 },
-    //                 },
-
-    //                 { SPECIAL: [{ a: 1 }] },
-    //                 {
-    //                   PROFESSIONALS: [{ a: "s", attr: { pICDCode: "K31.9" } }],
-    //                 },
-    //                 {
-    //                   CONSUMPTION: [
-    //                     { BENEFITS: "s", attr: { pTotalHCIFees: "sa" } },
-    //                   ],
-    //                   attr: { pEnoughBenefits: "Y" },
-    //                 },
-    //               ],
-    //               attr: this.state.itemcf2,
-    //             },
-
-    //             {
-    //               ALLCASERATE: { CASERATE: "", attr: { pCaseRateCode: "sa" } },
-    //             },
-
-    //             { PARTICULARS: { DRGMED: "", attr: { pCaseRateCode: "sa" } } },
-
-    //             { RECEIPTS: { RECEIPT: "", attr: { pCaseRateCode: "sa" } } },
-
-    //             { DOCUMENTS: { DOCUMENT: "", attr: { pCaseRateCode: "sa" } } },
-    //           ],
-    //           attr: this.state.claim,
-    //         },
-    //         attr: this.state.eTRANSMITTAL,
-    //       },
-    //       attr: this.state.eCLAIMS,
-    //     },
-    //     { attributes_key: "attr" }
-    //   )
-    // );
-    //  console.log(process.env.REACT_APP_API_KEY);
-
-
-
     return (
       <>
         <Typography variant="h5" component="h5">
@@ -745,7 +728,7 @@ class mainForms extends React.Component {
         </Typography>
 
         <div>
-          {this.state.memberData === null  ? (
+          {this.state.memberData === null ? (
             <MemberValidation
               ismemPin={this.state.isMemberPin}
               searchText={this.state.searchText}
@@ -755,7 +738,8 @@ class mainForms extends React.Component {
             ""
           )}
 
-          {this.state.memberData && !this.state.memberData.includes('NO RECORDS FOUND') ? (
+          {this.state.memberData &&
+          !this.state.memberData.includes("NO RECORDS FOUND") ? (
             <>
               <Tabs
                 value={this.state.value}
@@ -800,8 +784,6 @@ class mainForms extends React.Component {
                   selectedOption={this.state.selectedEmployerOption}
                   updateEmployerData={this.updateEmployerData}
                   handleChangeSelectEmp={this.handleChangeSelectEmp}
-
-
                 />
               </CustomTabPanel>
               <CustomTabPanel value={this.state.value} index={1}>

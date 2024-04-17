@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 // import Button from "@mui/material/Button";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
-import {  parseString } from "xml2js";
+import { parseString } from "xml2js";
 // import Xml2js from "xml2js";
 import { Button } from "@mui/material";
 import moment from "moment";
@@ -36,9 +36,9 @@ class memberValidation extends Component {
     } else {
       // Define the SOAP request body
       const soapRequest = `
-    <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Envelope xmlns="https://schemas.xmlsoap.org/soap/envelope/">
     <Body>
-        <GetMemberPIN xmlns="http://philhealth.gov.ph">
+        <GetMemberPIN xmlns="https://philhealth.gov.ph">
              <pUserName>${process.env.REACT_APP_USERNAME}</pUserName>
             <pUserPassword></pUserPassword>
             <pHospitalCode>${process.env.REACT_APP_HOSPITALCODE}</pHospitalCode>
@@ -46,24 +46,28 @@ class memberValidation extends Component {
             <pMemberFirstName>${item.firstname}</pMemberFirstName>
             <pMemberMiddleName>${item.middlename}</pMemberMiddleName>
             <pMemberSuffix>${item.suffix}</pMemberSuffix>
-            <pMemberBirthDate>${moment(new Date(item.bday)).format("MM-DD-YYYY")}</pMemberBirthDate>
+            <pMemberBirthDate>${moment(new Date(item.bday)).format(
+              "MM-DD-YYYY"
+            )}</pMemberBirthDate>
         </GetMemberPIN>
     </Body>
     </Envelope>
     `;
       // Define the URL of the SOAP service
-      const url =process.env.REACT_APP_PHIC_URL;
+      const url = process.env.REACT_APP_PHIC_URL;
 
       // Define headers for the request
-      const headers = {
+      const header = {
         "Content-Type": "text/xml",
+        // "Access-Control-Allow-Origin": "*", // Allow requests from any origin (you may adjust this based on your security requirements)
+        // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS", // Define allowed methods
         // 'SOAPAction': 'YourSOAPAction' // SOAP action if required
       };
 
       axios
         .post(url, soapRequest, {
           headers: {
-            headers,
+            header,
           },
         })
         .then((response) => {
@@ -159,7 +163,7 @@ class memberValidation extends Component {
               onChange={(e) => this.handleInputChange(e)}
             />
           </Grid>
-          <Grid item xs={2} >
+          <Grid item xs={2}>
             <TextField
               id="outlined-multiline-flexible"
               label="Date of Birth"
@@ -173,8 +177,10 @@ class memberValidation extends Component {
               onChange={(e) => this.handleInputChange(e)}
             />
           </Grid>
-          <Grid item xs={12} style={{textAlign: "end"}}>
-            <Button variant="contained" onClick={this.handleSubmit}>Validate</Button>
+          <Grid item xs={12} style={{ textAlign: "end" }}>
+            <Button variant="contained" onClick={this.handleSubmit}>
+              Validate
+            </Button>
           </Grid>
         </Grid>
       </div>
