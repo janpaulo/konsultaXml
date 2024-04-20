@@ -1,7 +1,6 @@
-## This rule redirects to an external API, signing requests with a secret
+
 [[redirects]]
-  from = "/*"
-  to = "https://dark-pink-macaw-tie.cyclic.app"
+  from = "/api/*"
+  to = "https://dark-pink-macaw-tie.cyclic.app/:splat"
   status = 200
-  force = true # COMMENT: ensure that we always redirect
-  headers = {X-From = "Netlify"}
+  
