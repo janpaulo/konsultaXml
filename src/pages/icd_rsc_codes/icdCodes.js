@@ -31,7 +31,7 @@ class icdCodes extends React.Component {
   handleGetICDcodes = (e) => {
     axios({
       method: "GET",
-      url:  process.env.REACT_APP_API_CLAIMS+"icdsCodes",
+      url:  "icdsCodes",
       headers: { "Content-Type": "application/json" },
       // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
     })

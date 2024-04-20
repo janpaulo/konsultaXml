@@ -22,18 +22,16 @@ class tableList extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  
-
   componentDidMount() {
     this.handleGetClaims();
   }
 
   handleGetClaims = (e) => {
+    console.log("claims")
     axios({
       method: "GET",
-      url: process.env.REACT_APP_API_CLAIMS + "claims",
+      url: "claims",
       headers: { "Content-Type": "application/json" },
-      // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
     })
       .then((resp) => {
         this.setState({ items: resp.data.data });
