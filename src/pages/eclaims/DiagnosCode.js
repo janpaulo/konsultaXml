@@ -8,7 +8,9 @@ class DiagnosCode extends React.Component {
     super(props);
     this.state = {
       data: this.props.diagnosCodeData,
-      autocompleteOptions: [],
+      data2: [],
+      autocompleteICDOptions: [],
+      autocompleteRVSOptions: [],
     };
   }
   handleChange = (e, i) => {
@@ -20,11 +22,16 @@ class DiagnosCode extends React.Component {
     this.props.onDataChange(updatedData);
   };
 
-  handleAutocompleteChange = (e, newValue, i) => {
+  handleAutocompleteChange = (e, newValue, i,icd2) => {
     const newData = [...this.state.data];
+if (icd2 !== undefined) {
     newData[i].selecttedICD = newValue;
+} else{
+        newData[i].selecttedRVS = newValue;
+      }
     this.setState({ data: newData });
     this.props.onDataChange(newData);
+
   };
 
   handleCheckboxChange = (e, i) => {
@@ -65,17 +72,25 @@ class DiagnosCode extends React.Component {
   };
 
   
-
   // Function to fetch data from the API
-  fetchData = async (searchTerm) => {
+  // fetchRVSData = async (searchTerm) => {
+fetchData = async (searchTerm, urlSearch) => {
     try {
       this.setState({ loading: true });
-      const response = await axios.get(`${process.env.REACT_APP_API_CLAIMS}codes/serchICDAutocomplete?term=${searchTerm}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_CLAIMS}codes/${urlSearch}?term=${searchTerm}`);
       const data = response.data;
+if(urlSearch === "serchICDAutocomplete"){
       if (Array.isArray(data)) {
-        this.setState({ autocompleteOptions: data });
+        this.setState({ autocompleteICDOptions: data });
       } else {
-        this.setState({ autocompleteOptions: [] });
+        this.setState({ autocompleteICDOptions: [] });
+        }
+      }else{
+        if (Array.isArray(data)) {
+          this.setState({ autocompleteRVSOptions: data });
+        } else {
+          this.setState({ autocompleteRVSOptions: [] });
+}
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -85,7 +100,7 @@ class DiagnosCode extends React.Component {
   };
 
   render() {
-    const { data, autocompleteOptions } = this.state;
+    const { data, autocompleteICDOptions, autocompleteRVSOptions } = this.state;
     return (
       <div>
          <TableContainer component={Paper}>
@@ -127,13 +142,14 @@ class DiagnosCode extends React.Component {
                     style={{ width: "350px" }}
                     size="small"
                     
-                    options={autocompleteOptions}
+                    options={autocompleteICDOptions}
                     getOptionLabel={(option) => option.icd_10_code  + ' - ' + option.description}
                     value={val.selecttedICD} // Provide a value prop to control the component
-                    onChange={(e, newValue) => this.handleAutocompleteChange(e, newValue, i)}
+                    onChange={(e, newValue) => this.handleAutocompleteChange(e, newValue, i, "icd2")}
                     renderInput={(params) => <TextField {...params}  label="Search ICD Codes" />}
                     onInputChange={(e, newInputValue) => {
-                      this.fetchData(newInputValue);
+                      this.fetchData(newInputValue, "serchICDAutocomplete");
+
                     }}
                   />
                       <input
@@ -159,6 +175,32 @@ class DiagnosCode extends React.Component {
                     />
                   </TableCell>
                   <TableCell align="center">
+
+                    <Autocomplete
+                      style={{ width: "350px" }}
+                      size="small"
+                      
+                      options={autocompleteRVSOptions}
+                      getOptionLabel={(option) => option.rvs_code + " - " + option.description}
+                      value={val.selecttedRVS} // Provide a value prop to control the component
+                      onChange={(e, newValue) => this.handleAutocompleteChange(e, newValue, i)}
+                      renderInput={(params) => <TextField {...params}  label="Search RVS Codes" />}
+                      onInputChange={(e, newInputValue) => {
+                        this.fetchData(newInputValue, "serchRVSAutocomplete");
+                      }}
+                    />
+
+                      <input
+                        hidden
+                        
+                        id={`pICDCode-${i}`}
+                        fullWidth
+                        name="pICDCode"
+                        size="small"
+                        value={val.pICDCode === null ? val.pICDCode : val.selecttedRVS === undefined || val.selecttedRVS === null  ?  val.pICDCode : val.pICDCode = val.selecttedRVS.rvs_code}
+                      />
+
+{/*                     
                     <TextField
                       id={`pRVSCode-${i}`}
                       fullWidth
@@ -166,7 +208,7 @@ class DiagnosCode extends React.Component {
                       size="small"
                       value={val.pRVSCode}
                       onChange={(e) => this.handleChange(e, i)}
-                    />
+                    /> */}
                   </TableCell>
                   <TableCell align="center">
                     <TextField
@@ -219,7 +261,7 @@ class DiagnosCode extends React.Component {
           </TableBody>
         </Table>
         </TableContainer>
-         {/* <p>{JSON.stringify(this.state.data)}</p> */}
+         <p>{JSON.stringify(this.state.data)}</p>
       </div>
     );
   }

@@ -59,16 +59,17 @@ class memberValidation extends Component {
       // Define headers for the request
       const header = {
         "Content-Type": "text/xml",
-        // "Access-Control-Allow-Origin": "*", // Allow requests from any origin (you may adjust this based on your security requirements)
-        // "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS", // Define allowed methods
+        "Access-Control-Allow-Origin": "*", // Allow requests from any origin (you may adjust this based on your security requirements)
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS", // Define allowed methods
         // 'SOAPAction': 'YourSOAPAction' // SOAP action if required
       };
 
       axios
-        .post(url, soapRequest, {
+        .post(url+"soap?service=PhilhealthService", soapRequest, {
           headers: {
             header,
           },
+          crossdomain: true ,
         })
         .then((response) => {
           // console.log(response.data); // Handle response data as needed

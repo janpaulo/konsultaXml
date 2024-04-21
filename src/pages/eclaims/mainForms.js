@@ -58,17 +58,17 @@ class mainForms extends React.Component {
       selectedEmployerOption: "",
       searchEmployer: { pPen: "", employerName: "" },
       searchText: {
-        lastname: "RAMIREZ",
-        firstname: "DANTE",
-        middlename: "GALLARDO",
-        suffix: "",
-        bday: moment(new Date("11-18-1953")).format("YYYY-MM-DD"), //"11-18-1953",
-
-        // lastname: "",
-        // firstname: "",
-        // middlename: "",
+        // lastname: "RAMIREZ",
+        // firstname: "DANTE",
+        // middlename: "GALLARDO",
         // suffix: "",
-        // bday: "",  //"11-18-1953",
+        // bday: moment(new Date("11-18-1953")).format("YYYY-MM-DD"), //"11-18-1953",
+
+        lastname: "",
+        firstname: "",
+        middlename: "",
+        suffix: "",
+        bday: "",  //"11-18-1953",
       },
       specialConsideration: {
         isHemodialysis: false,
