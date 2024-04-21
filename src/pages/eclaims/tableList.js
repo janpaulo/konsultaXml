@@ -30,7 +30,7 @@ class tableList extends React.Component {
     console.log("claims")
     axios({
       method: "GET",
-      url: "claims",
+      url: process.env.REACT_APP_API_CLAIMS+"claims",
       headers: { "Content-Type": "application/json" },
     })
       .then((resp) => {

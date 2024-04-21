@@ -35,7 +35,7 @@ class tableList extends React.Component {
   handleGetEsoa = (e) => {
     axios({
       method: "GET",
-      url: "esoas",
+      url: process.env.REACT_APP_API_CLAIMS+"esoas",
       headers: { "Content-Type": "application/json" },
       // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
     })
