@@ -54,7 +54,7 @@ class memberValidation extends Component {
     </Envelope>
     `;
       // Define the URL of the SOAP service
-      const url = process.env.REACT_APP_PHIC_URL;
+      // const url = process.env.REACT_APP_PHIC_URL;
 
       // Define headers for the request
       const header = {
@@ -65,7 +65,7 @@ class memberValidation extends Component {
       };
 
       axios
-        .post(url+"soap?service=PhilhealthService", soapRequest, {
+        .post("/soap?service=PhilhealthService", soapRequest, {
           headers: {
             header,
           },

@@ -1,6 +1,11 @@
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://dark-pink-macaw-tie.cyclic.app/:splat"
+  from = "/soap?service=PhilhealthService"
+  to = "https://eclaimstest2.philhealth.gov.ph:8077/soap?service=PhilhealthService"
   status = 200
-  
+  force = true
+  headers = {X-From = "Netlify"}
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
