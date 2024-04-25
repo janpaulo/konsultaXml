@@ -1,11 +1,6 @@
-
-[[redirects]]
-  from = "/soap?service=PhilhealthService"
-  to = "https://eclaimstest2.philhealth.gov.ph:8077/soap?service=PhilhealthService"
-  status = 200
-  force = true
-  headers = {X-From = "Netlify"}
 [[headers]]
-  for = "/*"
+  for = "*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
