@@ -261,7 +261,7 @@ if(urlSearch === "serchICDAutocomplete"){
           </TableBody>
         </Table>
         </TableContainer>
-         <p>{JSON.stringify(this.state.data)}</p>
+         {/* <p>{JSON.stringify(this.state.data)}</p> */}
       </div>
     );
   }
