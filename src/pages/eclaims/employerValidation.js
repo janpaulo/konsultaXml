@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { parseString } from "xml2js";
+// import { parseString } from "xml2js";
 // import Xml2js from "xml2js";
 import { Button } from "@mui/material";
 // import moment from "moment";
@@ -28,82 +28,30 @@ class employerValidation extends Component {
   }
 
   handleSubmit = () => {
-    const item = this.state.searchText;
-    console.log(item);
-    
     this.setState({isData:  false});
 
     this.setState({loading:  true});
-    // if (
-    //   item.pPen === ""
-    //   // item.employerName === ""
-    // ) {
-    //   // alert("Please fill out all fields");
-    //   // console.log(this.state.searchText);
-    // } else {
-    // Define the SOAP request body
-    const soapRequest = `
-    <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-    <Body>
-        <SearchEmployer xmlns="http://philhealth.gov.ph">
-             <pUserName>${process.env.REACT_APP_USERNAME}</pUserName>
-            <pUserPassword></pUserPassword>
-            <pHospitalCode>${process.env.REACT_APP_HOSPITALCODE}</pHospitalCode>
-            <pPEN>${item.pPen}</pPEN>
-            <pEmployerName>${item.employerName}</pEmployerName>
-        </SearchEmployer>
-    </Body>
-    </Envelope>
-    `;
+    const item = this.state.searchText;
+    item.pUserName = process.env.REACT_APP_USERNAME;
+    item.pUserPassword = "";
+    item.pHospitalCode = process.env.REACT_APP_HOSPITALCODE;
 
-    // <pEmployerName>PHILIPPINE HEALTH INSURANCE%</pEmployerName>
-    // Define the URL of the SOAP service
-    const url = process.env.REACT_APP_PHIC_URL;
+    axios({
+      method: "POST",
+      // url:' http://localhost:3000/soapPhic/employerSearch',
+      url:  process.env.REACT_APP_API_CLAIMS+"soapPhic/employerSearch",
+      data: (item), 
+      headers: { 'Content-Type': 'application/json' }
+    }).then(resp => {
 
-    // Define headers for the request
-    const headers = {
-      "Content-Type": "text/xml",
-      // 'SOAPAction': 'YourSOAPAction' // SOAP action if required
-    };
+      this.handleDecrypt(resp.data);
 
-    axios
-      .post(url, soapRequest, {
-        headers: {
-          headers,
-        },
-      })
-      .then((response) => {
-        // console.log(response.data); // Handle response data as needed
-        parseString(response.data, (err, result) => {
-          if (err) {
-            console.error("Error parsing XML:", err);
-            return;
-          }
-          const responseData =
-            result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0][
-              "NS1:SearchEmployerResponse"
-            ][0]["Result"][0];
-          // Rename key '_' to 'value'
-          responseData.resultData = responseData._;
-          delete responseData._;
-
-          // if (!responseData.memPin.includes("NO RECORDS FOUND")) {
-          //   this.props.updateDataItem(responseData.memPin, true, item);
-          // } else {
-          //   this.props.updateDataItem(responseData.memPin, false, item);
-          // }
-          
-            this.handleDecrypt(responseData.resultData);
-          // console.log("Response Data:", responseData.memPin.includes('NO RECORDS FOUND'));
-          // console.log(responseData.resultData); // Store parsed JSON in state
-        });
-      })
-      .catch((error) => {
-        this.setState({loading:  false});
-        this.setState({isData:  true});
-        console.error("Error:", error);
-      });
-    // }
+    }).catch((error) => {
+      this.setState({loading:  false});
+      this.setState({isData:  true});
+      console.error("Error:", error);
+    });
+    
   };
 
   handleDecrypt = async (resultdata) => {
@@ -230,8 +178,6 @@ class employerValidation extends Component {
   }
 
   render() {
-    // const { searchText } = this.state;
-    console.log(this.state.searchText)
     return (
       <div>
         <h5>Make sure member details are correct before proceeding</h5>

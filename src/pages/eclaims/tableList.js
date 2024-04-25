@@ -27,7 +27,6 @@ class tableList extends React.Component {
   }
 
   handleGetClaims = (e) => {
-    console.log("claims")
     axios({
       method: "GET",
       url: process.env.REACT_APP_API_CLAIMS+"claims",

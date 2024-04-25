@@ -664,8 +664,14 @@ class mainForms extends React.Component {
 
   // Callback function to update memberData state
   updateMemberData = (data, isTrue, dataItem) => {
-    this.setState({ memberData: data });
-    this.setState({ ismemPin: isTrue });
+    var newData = ''
+    if(data.success){
+      newData = data.data
+    }else{
+      newData = ''
+    }
+    this.setState({ memberData: newData });
+    this.setState({ ismemPin: data.success });
     this.setState({ searchText: dataItem });
 
     // console.log(dataItem)
@@ -735,11 +741,10 @@ class mainForms extends React.Component {
               updateDataItem={this.updateMemberData}
             />
           ) : (
-            ""
+            this.state.memberData === '' ? "No  Data Found!" : ""
           )}
 
-          {this.state.memberData &&
-          !this.state.memberData.includes("NO RECORDS FOUND") ? (
+          {this.state.memberData ? (
             <>
               <Tabs
                 value={this.state.value}
@@ -889,7 +894,7 @@ class mainForms extends React.Component {
               </CustomTabPanel>
             </>
           ) : (
-            this.state.memberData
+           ''
           )}
 
           <SimplePopUp

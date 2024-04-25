@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 // import { parseString } from "xml2js";
 // import Xml2js from "xml2js";
 import { Button } from "@mui/material";
-import moment from "moment";
+// import moment from "moment";
 
 class memberValidation extends Component {
   constructor(props) {
@@ -20,130 +20,23 @@ class memberValidation extends Component {
     };
   }
 
-  // handleSubmit = () => {
-  //   const item = this.state.searchText;
-
-  //   // console.log(moment(new Date(item.bday)).format("MM-DD-YYYY") )
-
-  //   if (
-  //     item.lastname === "" ||
-  //     item.firstname === "" ||
-  //     item.middlename === "" ||
-  //     item.bday === ""
-  //   ) {
-  //     // alert("Please fill out all fields");
-  //     // console.log(this.state.searchText);
-  //   } else {
-  //     // Define the SOAP request body
-  //     const soapRequest = `
-  //   <Envelope xmlns="https://schemas.xmlsoap.org/soap/envelope/">
-  //   <Body>
-  //       <GetMemberPIN xmlns="https://philhealth.gov.ph">
-  //            <pUserName>${process.env.REACT_APP_USERNAME}</pUserName>
-  //           <pUserPassword></pUserPassword>
-  //           <pHospitalCode>${process.env.REACT_APP_HOSPITALCODE}</pHospitalCode>
-  //           <pMemberLastName>${item.lastname}</pMemberLastName>
-  //           <pMemberFirstName>${item.firstname}</pMemberFirstName>
-  //           <pMemberMiddleName>${item.middlename}</pMemberMiddleName>
-  //           <pMemberSuffix>${item.suffix}</pMemberSuffix>
-  //           <pMemberBirthDate>${moment(new Date(item.bday)).format(
-  //             "MM-DD-YYYY"
-  //           )}</pMemberBirthDate>
-  //       </GetMemberPIN>
-  //   </Body>
-  //   </Envelope>
-  //   `;
-  //     // Define the URL of the SOAP service
-  //     // const url = process.env.REACT_APP_PHIC_URL;
-
-  //     // Define headers for the request
-  //     const header = {
-  //       "Content-Type": "text/xml",
-  //       "Access-Control-Allow-Origin": "*", // Allow requests from any origin (you may adjust this based on your security requirements)
-  //       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS", // Define allowed methods
-  //       // 'SOAPAction': 'YourSOAPAction' // SOAP action if required
-  //     };
-
-  //     axios
-  //       .post("/soap?service=PhilhealthService", soapRequest, {
-  //         headers: {
-  //           header,
-  //         },
-  //         crossdomain: true ,
-  //       })
-  //       .then((response) => {
-  //         // console.log(response.data); // Handle response data as needed
-  //         parseString(response.data, (err, result) => {
-  //           if (err) {
-  //             console.error("Error parsing XML:", err);
-  //             return;
-  //           }
-  //           const responseData =
-  //             result["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0][
-  //               "NS1:GetMemberPINResponse"
-  //             ][0]["Result"][0];
-  //           // Rename key '_' to 'value'
-  //           responseData.memPin = responseData._;
-  //           delete responseData._;
-
-  //           if (!responseData.memPin.includes("NO RECORDS FOUND")) {
-  //             this.props.updateDataItem(responseData.memPin, true, item);
-  //           } else {
-  //             this.props.updateDataItem(responseData.memPin, false, item);
-  //           }
-  //           // console.log("Response Data:", responseData);
-  //           // console.log("Response Data:", responseData.memPin.includes('NO RECORDS FOUND'));
-  //           // setResponse(result); // Store parsed JSON in state
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error:", error);
-  //       });
-  //   }
-  // };
-
-
-  handleSubmit = () => { 
+  handleSubmit = () => {
     const item = this.state.searchText;
-    let data =  `
-        <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-        <Body>
-            <GetMemberPIN xmlns="http://philhealth.gov.ph">
-                <pUserName>${process.env.REACT_APP_USERNAME}</pUserName>
-                <pUserPassword></pUserPassword>
-                <pHospitalCode>${process.env.REACT_APP_HOSPITALCODE}</pHospitalCode>
-                <pMemberLastName>${item.lastname}</pMemberLastName>
-                <pMemberFirstName>${item.firstname}</pMemberFirstName>
-                <pMemberMiddleName>${item.middlename}</pMemberMiddleName>
-                <pMemberSuffix>${item.suffix}</pMemberSuffix>
-                <pMemberBirthDate>${moment(new Date(item.bday)).format(
-                  "MM-DD-YYYY"
-                )}</pMemberBirthDate>
-            </GetMemberPIN>
-        </Body>
-        </Envelope>
-        `;
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://eclaimstest2.philhealth.gov.ph:8077/soap?service=PhilhealthService',
-      headers: {
-        'Content-Type': 'application/xml',
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type",
-        "Access-Control-Allow-Methods": "GET, POST, OPTION",
-      },
-      data: data
-    };
-    
-    axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    item.pUserName = process.env.REACT_APP_USERNAME;
+    item.pUserPassword = "";
+    item.pHospitalCode = process.env.REACT_APP_HOSPITALCODE;
+
+    axios({
+      method: "POST",
+      // url:' http://localhost:3000/soapPhic/memberSearch',
+      url:  process.env.REACT_APP_API_CLAIMS+"soapPhic/memberSearch",
+      data: (item), 
+      headers: { 'Content-Type': 'application/json' }
+    }).then(resp => {
+      this.props.updateDataItem(resp.data, true, item);
+    })
+
+  };
 
   handleInputChange(e) {
     this.setState({
@@ -169,7 +62,7 @@ class memberValidation extends Component {
               value={searchText.lastname}
               name="lastname"
               size="small"
-              onChange={(e) => this.handleInputChange(e)} 
+              onChange={(e) => this.handleInputChange(e)}
               inputProps={{ style: { textTransform: "uppercase" } }}
             />
           </Grid>
