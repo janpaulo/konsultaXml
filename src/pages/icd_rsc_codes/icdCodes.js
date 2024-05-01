@@ -1,13 +1,10 @@
 import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import SharedAppBar from "../../shared/SharedAppBar"
+import ICDCodesTable from "./icdCodesTable";
+import SimplePopUp from "../../shared/SimplePopUp/SimplePopUp";
+import SimpleDeletePopUp from "../../shared/SimpleDeletePopUp/SimpleDeletePopUp";
+import AlertMessage from "../../shared/alerts/PositionedSnackbar";
 import axios from "axios";
+import Form from "./icdForm";
 // import moment from "moment";
 
 class icdCodes extends React.Component {
@@ -15,14 +12,30 @@ class icdCodes extends React.Component {
     super();
     this.state = {
       title: "ICD CODES",
-      item: {},
+      item: {
+        id: "",
+        icd_10_code: "",
+        description: "",
+        group: "",
+        case_rate: "",
+        professional_fee: "",
+        hci_fee: "",
+      },
+      // item: {},
+      notify: {},
       items: [],
+      openPopup: false,
+      showpopup: false,
+      isOpen:false,
+      openDeletePopup: false,
       value: 0,
+      error: "",
+      message: "",
+      type: "",
     };
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  
 
   componentDidMount() {
     this.handleGetICDcodes();
@@ -31,7 +44,7 @@ class icdCodes extends React.Component {
   handleGetICDcodes = (e) => {
     axios({
       method: "GET",
-      url:  process.env.REACT_APP_API_CLAIMS+"icdsCodes",
+      url: process.env.REACT_APP_API_CLAIMS + "icdsCodes",
       headers: { "Content-Type": "application/json" },
       // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
     })
@@ -45,51 +58,162 @@ class icdCodes extends React.Component {
       });
   };
 
-
-  handleSubmit(params) {
-    console.log("here me");
+  handleSubmit() {
+    const { item } = this.state;
+    console.log(item)
+    let method = "";
+    let url = "";
+  
+    if (item.id === "") {
+      method = "post";
+      url = `${process.env.REACT_APP_API_CLAIMS}icdsCodes`;
+    } else {
+      method = "put";
+      url = `${process.env.REACT_APP_API_CLAIMS}icdsCodes/${item.id}`;
+    }
+  
+    axios({
+      method: method,
+      url: url,
+      data: item,
+      // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
+    })
+    .then((resp) => {
+      const newData = resp.data;
+      const { items } = this.state;
+      const updatedItems = item.id === "" ? [...items, newData] : items.map(i => i.id === newData.id ? newData : i);
+  
+      this.setState({
+        items: updatedItems,
+        openPopup: false,
+        isOpen: true,
+        message: "Submitted Successfully",
+        type: "success",
+      });
+    })
+    .catch(error => {
+      console.error("Error submitting data:", error);
+      this.setState({
+        isOpen: true,
+        message: "An error occurred while submitting data.",
+        type: "error",
+      });
+    });
   }
+  
+
+  handleCreateorUpdateItem = (item, isAdd, model) => {
+    var textTitle = "";
+    if (isAdd) {
+      textTitle = "Create " + model;
+    } else {
+      textTitle = "Edit " + model;
+    }
+    // this.setState({updateAccount: item.account})
+    this.setState({ openPopup: true });
+    this.setState({ item: item });
+    this.setState({ title: textTitle });
+  };
+
+  handleShowPopUp = (e) => {
+    this.setState({ openPopup: true });
+  };
+
+  handleClose = (e) => {
+    this.setState({ item: {} });
+    this.setState({ openPopup: false });
+    this.setState({ openDeletePopup: false });
+  };
+
+  handleInputChange = (e) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+
+  handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({isOpen: false})
+  }
+  handleOpenDeletePopup = (item, model) => {
+    this.setState({ model: "ICD Codes" });
+    this.setState({ item: item });
+    this.setState({ openDeletePopup: true });
+  };
+
+  handleDeleteItem = () => {
+    const DeleteItemId = this.state.item.id;
+    axios({
+      method: "delete",
+      url: process.env.REACT_APP_API_CLAIMS + "icdsCodes/" + DeleteItemId,
+      // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
+    })
+      .then(() => {
+        this.setState({
+          items: this.state.items.filter((item) => item.id !== DeleteItemId),
+        });
+        this.setState({ openDeletePopup: false });
+        this.setState({
+          isOpen: true,
+          message: "Deleted Successfully",
+          type: "error",
+        });
+      })
+      .catch((error) => console.log(error.response));
+  };
 
   render() {
     const { items, error } = this.state;
     // console.log(start);
     return (
       <>
-       <SharedAppBar titleName={this.state.title} esoaLink="/claims_registration"/>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">ICD CODES</TableCell>
-                <TableCell align="center">DESCRIPTION</TableCell>
-                <TableCell align="center">GROUP</TableCell>
-                <TableCell align="center">Case Rate</TableCell>
-                <TableCell align="center">Professional Fee</TableCell>
-                <TableCell align="center">Health Care Institution Fee</TableCell>
-              </TableRow>
-            </TableHead>
-            
-            <TableBody>
-            {error && <div>Error: {error}</div>}
-              {items.length > 0 ? (
-                <>
-                  {items.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell align="center">{item.icd_10_code}</TableCell>
-                      <TableCell align="">{item.description}</TableCell>
-                      <TableCell align="">{item.group}</TableCell>
-                      <TableCell align="">{item.hci_fee}</TableCell>
-                      <TableCell align="center">{item.icd_10_code}</TableCell>
-                      <TableCell align="center">{item.professional_fee}</TableCell>
-                    </TableRow>
-                  ))}
-                </>
-              ) : (
-                <div>No data available</div>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <ICDCodesTable
+          handleClick={this.handleCreateorUpdateItem}
+          handleGetICDcodes={this.handleGetICDcodes}
+          handleShowPopUp={this.handleShowPopUp}
+          handleOpenDeletePopup={this.handleOpenDeletePopup}
+          items={items}
+          item={this.state.item}
+          error={error}
+        />
+
+        <SimplePopUp
+          openPopup={this.state.openPopup}
+          title={this.state.title}
+          handleClose={this.handleClose}
+          maxWidth={this.state.maxWidth}
+        >
+          <Form
+            error={this.state.error_messages}
+            item={this.state.item}
+            submit={this.handleSubmit}
+            // handleSwitch={this.handleSwitch}
+            onchange={this.handleInputChange}
+            // isEdit={this.state.isEdit}
+            // allowedParams={this.state.allowedParams}
+          />
+        </SimplePopUp>
+
+        <SimpleDeletePopUp
+          openDeletePopup={this.state.openDeletePopup}
+          item={this.state.item}
+          delete={this.handleDeleteItem}
+          handleDeleteClose={this.handleClose}
+          model={this.state.title}
+        />
+        <AlertMessage
+          notify={this.state.notify}
+          handleCloseAlert={this.handleCloseAlert}
+          isOpen={this.state.isOpen}
+          type={this.state.type}
+          message={this.state.message}
+        />
       </>
     );
   }
