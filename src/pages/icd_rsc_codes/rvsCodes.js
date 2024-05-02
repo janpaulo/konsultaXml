@@ -1,12 +1,9 @@
 import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import SharedAppBar from "../../shared/SharedAppBar"
+import SimplePopUp from "../../shared/SimplePopUp/SimplePopUp";
+import SimpleDeletePopUp from "../../shared/SimpleDeletePopUp/SimpleDeletePopUp";
+import AlertMessage from "../../shared/alerts/PositionedSnackbar";
+import RVSCodesTable from "./rvsCodeTable";
+import Form from "./rvsForm";
 import axios from "axios";
 // import moment from "moment";
 
@@ -15,20 +12,37 @@ class rvsCodes extends React.Component {
     super();
     this.state = {
       title: "RVS CODES",
-      item: {},
-      items: [],
       value: 0,
+      item: {
+        id: "",
+        rvs_code: "",
+        description: "",
+        case_rate: "",
+        professional_fee: "",
+        hci_fee: "",
+      },
+      // item: {},
+      notify: {},
+      items: [],
+      openPopup: false,
+      showpopup: false,
+      isOpen:false,
+      openDeletePopup: false,
+      error: "",
+      message: "",
+      type: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCreateorUpdateItem = this.handleCreateorUpdateItem.bind(this);
   }
 
   
 
   componentDidMount() {
-    this.handleGetClaims();
+    this.handleGetRVScodes();
   }
 
-  handleGetClaims = (e) => {
+  handleGetRVScodes = (e) => {
     axios({
       method: "GET",
       url:  process.env.REACT_APP_API_CLAIMS+"rvsCodes",
@@ -45,49 +59,149 @@ class rvsCodes extends React.Component {
       });
   };
 
-
-  handleSubmit(params) {
-    console.log("here me");
+  handleSubmit() {
+    const { item } = this.state;
+    const method = item.id === undefined ? "post" : "put";
+    const url = item.id ===undefined ? `${process.env.REACT_APP_API_CLAIMS}rvsCodes` : `${process.env.REACT_APP_API_CLAIMS}rvsCodes/${item.id}`;
+  
+    axios({
+      method: method,
+      url: url,
+      data: item,
+    })
+    .then((resp) => {
+      const newData = resp.data;
+      const updatedItems = item.id === "" ? [...this.state.items, newData] : this.state.items.map(i => i.id === newData.id ? newData : i);
+      this.setState({
+        items: updatedItems,
+        openPopup: false,
+        isOpen: true,
+        message: "Submitted Successfully",
+        type: "success",
+      });
+    })
+    .catch(error => {
+      console.error("Error submitting data:", error);
+      this.setState({
+        isOpen: true,
+        message: "An error occurred while submitting data.",
+        type: "error",
+      });
+    });
   }
+  
+  handleCreateorUpdateItem(item, isAdd, model) {
+    const textTitle = isAdd ? `Create ${model}` : `Edit ${model}`;
+    this.setState({ openPopup: true,item: item,
+      title: textTitle
+    });
+  }
+
+  handleShowPopUp = (e) => {
+    this.setState({ openPopup: true });
+  };
+
+  handleClose = (e) => {
+    this.setState({ item: {} });
+    this.setState({ openPopup: false });
+    this.setState({ openDeletePopup: false });
+  };
+
+  handleInputChange = (e) => {
+    this.setState({
+      item: {
+        ...this.state.item,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+
+  handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    this.setState({isOpen: false})
+  }
+  handleOpenDeletePopup = (item, model) => {
+    this.setState({ model: "ICD Codes" });
+    this.setState({ item: item });
+    this.setState({ openDeletePopup: true });
+  };
+
+  handleDeleteItem = () => {
+    const DeleteItemId = this.state.item.id;
+    axios({
+      method: "delete",
+      url: process.env.REACT_APP_API_CLAIMS + "rvsCodes/" + DeleteItemId,
+      // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
+    })
+      .then(() => {
+        this.setState({
+          items: this.state.items.filter((item) => item.id !== DeleteItemId),
+        });
+        this.setState({ openDeletePopup: false });
+        this.setState({
+          isOpen: true,
+          message: "Deleted Successfully",
+          type: "error",
+        });
+      })
+      .catch((error) => console.log(error.response));
+  };
 
   render() {
     const { items, error } = this.state;
     // console.log(start);
     return (
       <>
-       <SharedAppBar titleName={this.state.title} esoaLink="/claims_registration"/>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">RVS CODE </TableCell>
-                <TableCell align="center">DESCRIPTION</TableCell>
-                <TableCell align="center">Case Rate</TableCell>
-                <TableCell align="center">Professional Fee</TableCell>
-                <TableCell align="center">Health Care Institution Fee</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-            {error && <div>Error: {error}</div>}
-              {items.length > 0 ? (
-                <>
-                  {items.map((item) => (
-                    <TableRow key={item.id}>
-                      <TableCell align="center">{item.rvs_code}</TableCell>
-                      <TableCell align="">{item.description}</TableCell>
-                      <TableCell align="center">{item.case_rate}</TableCell>
-                      <TableCell align="center">{item.professional_fee}</TableCell>
-                      <TableCell align="center">{item.hci_fee}</TableCell>
-                      {/* <TableCell align="center">{ moment(new Date(item.date_created)).format("MM/DD/YYYY")}</TableCell> */}
-                    </TableRow>
-                  ))}
-                </>
-              ) : (
-                <div>No data available</div>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+       
+
+       <RVSCodesTable
+          handleClick={this.handleCreateorUpdateItem}
+          handleGetICDcodes={this.handleGetICDcodes}
+          handleShowPopUp={this.handleShowPopUp}
+          handleOpenDeletePopup={this.handleOpenDeletePopup}
+          items={items}
+          item={this.state.item}
+          title={this.state.title}
+          error={error}
+        />
+
+        <SimplePopUp
+          openPopup={this.state.openPopup}
+          title={this.state.title}
+          handleClose={this.handleClose}
+          maxWidth={this.state.maxWidth}
+        >
+          <Form
+            error={this.state.error_messages}
+            item={this.state.item}
+            submit={this.handleSubmit}
+            // handleSwitch={this.handleSwitch}
+            onchange={this.handleInputChange}
+            // isEdit={this.state.isEdit}
+            // allowedParams={this.state.allowedParams}
+          />
+        </SimplePopUp>
+
+        <SimpleDeletePopUp
+          openDeletePopup={this.state.openDeletePopup}
+          item={this.state.item}
+          delete={this.handleDeleteItem}
+          handleDeleteClose={this.handleClose}
+          model={this.state.title}
+        />
+        <AlertMessage
+          notify={this.state.notify}
+          handleCloseAlert={this.handleCloseAlert}
+          isOpen={this.state.isOpen}
+          type={this.state.type}
+          message={this.state.message}
+        />
+
+
+
       </>
     );
   }
