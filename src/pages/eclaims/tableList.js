@@ -33,8 +33,8 @@ class tableList extends React.Component {
       headers: { "Content-Type": "application/json" },
     })
       .then((resp) => {
-        this.setState({ items: resp.data.data });
-        console.log(resp.data.data);
+        this.setState({ items: resp.data.result });
+        console.log(resp.data.result);
       })
       .catch((error) => {
         // Handle error

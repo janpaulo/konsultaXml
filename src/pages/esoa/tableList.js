@@ -40,7 +40,7 @@ class tableList extends React.Component {
       // headers: {'X-API-ACCESS-TOKEN': localStorage.getItem('api_key')}
     })
       .then((resp) => {
-        this.setState({ items: resp.data.response });
+        this.setState({ items: resp.data.result });
         // console.log(resp.data.response);
       })
       .catch((error) => {
