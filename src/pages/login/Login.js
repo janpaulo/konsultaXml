@@ -16,6 +16,7 @@ import axios from "axios";
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import ImageBG from '../../images/image1.jpg'
 
 const defaultTheme = createTheme();
 
@@ -75,7 +76,8 @@ export default function Login() {
             sm={4}
             md={7}
             sx={{
-              backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+              backgroundImage: `url(${ImageBG})`,  
+              // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
               backgroundRepeat: 'no-repeat',
               backgroundColor: (t) =>
                 t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
